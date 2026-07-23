@@ -3,7 +3,7 @@ extends CSGBox
 # MIGRATED FROM part1/scripts/ScreemerBox.gd  (file -> P1_ScreemerBox.gd).
 
 var triggered: bool = false
-const SPEED: float = 10.0
+const SPEED: float = 20.0
 
 # WEB-SAFE: converted from Thread/OS.delay_msec.
 # The original launched a worker Thread (Thread.new()/thread.start(self,"do_stuff"))
