@@ -1,0 +1,160 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Spatial",
+"class": "Arm",
+"language": "GDScript",
+"path": "res://scripts/Arm.gd"
+}, {
+"base": "CollisionShape",
+"class": "Capsule",
+"language": "GDScript",
+"path": "res://scripts/Capsule.gd"
+}, {
+"base": "WeaponBase",
+"class": "FryingPan",
+"language": "GDScript",
+"path": "res://scripts/weapons/FryingPan.gd"
+}, {
+"base": "Spatial",
+"class": "HittableBase",
+"language": "GDScript",
+"path": "res://scripts/hitables/HitableBase.gd"
+}, {
+"base": "Control",
+"class": "Inventory",
+"language": "GDScript",
+"path": "res://scripts/ui/Inventory.gd"
+}, {
+"base": "GridContainer",
+"class": "InventoryGrid",
+"language": "GDScript",
+"path": "res://scripts/ui/InventoryGrid.gd"
+}, {
+"base": "Panel",
+"class": "InventorySlot",
+"language": "GDScript",
+"path": "res://scripts/ui/InventorySlot.gd"
+}, {
+"base": "Area",
+"class": "P1_StaticBodyDirection",
+"language": "GDScript",
+"path": "res://imported_from_part1/scripts/P1_StaticBodyDirection.gd"
+}, {
+"base": "Spatial",
+"class": "PickupBase",
+"language": "GDScript",
+"path": "res://scripts/pickups/PickupBase.gd"
+}, {
+"base": "Reference",
+"class": "PickupClass",
+"language": "GDScript",
+"path": "res://scripts/models/PickupClass.gd"
+}, {
+"base": "Reference",
+"class": "PickupId",
+"language": "GDScript",
+"path": "res://scripts/models/PickupId.gd"
+}, {
+"base": "Object",
+"class": "PickupObj",
+"language": "GDScript",
+"path": "res://scripts/models/PickupObj.gd"
+}, {
+"base": "Object",
+"class": "Utils",
+"language": "GDScript",
+"path": "res://scripts/utils.gd"
+}, {
+"base": "Spatial",
+"class": "WeaponBase",
+"language": "GDScript",
+"path": "res://scripts/weapons/WeaponBase.gd"
+}, {
+"base": "Object",
+"class": "WeaponObj",
+"language": "GDScript",
+"path": "res://scripts/models/WeaponObj.gd"
+} ]
+_global_script_class_icons={
+"Arm": "",
+"Capsule": "",
+"FryingPan": "",
+"HittableBase": "",
+"Inventory": "",
+"InventoryGrid": "",
+"InventorySlot": "",
+"P1_StaticBodyDirection": "",
+"PickupBase": "",
+"PickupClass": "",
+"PickupId": "",
+"PickupObj": "",
+"Utils": "",
+"WeaponBase": "",
+"WeaponObj": ""
+}
+
+[application]
+
+config/name="Fetidity"
+run/main_scene="res://scenes/test.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+PickupData="*res://scripts/singletons/PickupData.gd"
+
+[input]
+
+movement_forward={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+movement_backward={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"physical_scancode":0,"unicode":115,"echo":false,"script":null)
+ ]
+}
+movement_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"physical_scancode":0,"unicode":97,"echo":false,"script":null)
+ ]
+}
+movement_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"physical_scancode":0,"unicode":100,"echo":false,"script":null)
+ ]
+}
+movement_jump={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":32,"echo":false,"script":null)
+ ]
+}
+movement_crawl={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":4194326,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+interaction={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"physical_scancode":0,"unicode":101,"echo":false,"script":null)
+ ]
+}
+
+[mono]
+
+project/assembly_name="Fetidity"
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+quality/driver/fallback_to_gles2=true

@@ -1,0 +1,5 @@
+[gd_scene load_steps=1 format=2]
+
+[ext_resource type="PackedScene" path="res://assets/meshes/box_broken.gltf" id=1]
+
+[node name="box_broken" instance=ExtResource( 1 )]

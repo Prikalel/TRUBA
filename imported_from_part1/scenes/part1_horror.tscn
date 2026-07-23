@@ -1,0 +1,243 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://imported_from_part1/models/cilinder.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://imported_from_part1/models/Material_001.tres" type="Material" id=2]
+[ext_resource path="res://imported_from_part1/models/cilinder2.dae" type="PackedScene" id=3]
+[ext_resource path="res://imported_from_part1/scripts/P1_Player.gd" type="Script" id=4]
+[ext_resource path="res://imported_from_part1/env/default_env.tres" type="Environment" id=5]
+[ext_resource path="res://imported_from_part1/music/steps.mp3" type="AudioStream" id=6]
+[ext_resource path="res://imported_from_part1/scripts/P1_StaticBodyDirection.gd" type="Script" id=7]
+[ext_resource path="res://imported_from_part1/scripts/P1_BoxWall.gd" type="Script" id=8]
+[ext_resource path="res://imported_from_part1/scripts/P1_cilinderT.gd" type="Script" id=9]
+[ext_resource path="res://imported_from_part1/music/clothes.mp3" type="AudioStream" id=10]
+[ext_resource path="res://imported_from_part1/models/images/screemer.webp" type="Texture" id=11]
+[ext_resource path="res://imported_from_part1/music/sreemer.mp3" type="AudioStream" id=12]
+[ext_resource path="res://imported_from_part1/scripts/P1_ScreemerBox.gd" type="Script" id=13]
+[ext_resource path="res://imported_from_part1/fonts/DuskDemon/DuskDemon.ttf" type="DynamicFontData" id=14]
+[ext_resource path="res://imported_from_part1/models/images/ventilyatsiya.jpg" type="Texture" id=15]
+[ext_resource path="res://imported_from_part1/scripts/P1_Exit.gd" type="Script" id=16]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1.28033, 0.15107, 2.09576 )
+
+[sub_resource type="BoxShape" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_texture = ExtResource( 11 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_texture = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 142
+font_data = ExtResource( 14 )
+
+[node name="Spatial" type="Spatial"]
+transform = Transform( -4.37114e-08, 1, 0, -0.476458, -2.08266e-08, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="SimpleCylinder" type="MeshInstance" parent="."]
+transform = Transform( 7.16173e-08, 2.05715, 0, -1, 1.64403e-07, 0, 0, 0, 1, 0, 0, 0 )
+cast_shadow = 0
+generate_lightmap = false
+lightmap_scale = 3
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="SimpleCylinder2" type="MeshInstance" parent="."]
+transform = Transform( 2.7571e-08, 2.05715, 4.37101e-08, 0.00766191, 8.93501e-08, -0.999971, -0.999971, 7.44805e-08, -0.00766191, 1.31888e-06, -7.27691, 4.90188 )
+cast_shadow = 0
+generate_lightmap = false
+lightmap_scale = 3
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="SimpleCylinder3" type="MeshInstance" parent="."]
+transform = Transform( 2.7571e-08, 2.05715, 4.37101e-08, 0.00766191, 8.93501e-08, -0.999971, -0.999971, 7.44805e-08, -0.00766191, 1.31759e-06, -7.24731, -4.89446 )
+cast_shadow = 0
+generate_lightmap = false
+lightmap_scale = 3
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="cilinder-T" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.08224e-07, -2.05715, 0, 1, -7.69807e-08, 0, 0, 0, 1, -0.000133704, -4.91233, 0 )
+script = ExtResource( 9 )
+
+[node name="StaticBody" type="Area" parent="cilinder-T"]
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="cilinder-T/StaticBody"]
+transform = Transform( 0.432818, -7.33941e-09, -0.516833, -4.18906e-08, 1, -3.8172e-08, 0.452049, 5.84957e-09, 0.494846, -2.4647, -0.0403321, 0 )
+shape = SubResource( 1 )
+
+[node name="Point" type="Spatial" parent="cilinder-T/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35395, -1.73859e-07, 0 )
+
+[node name="cilinder-T2" parent="." instance=ExtResource( 3 )]
+transform = Transform( -4.37114e-08, -2.05715, 4.37114e-08, -4.23516e-22, -8.99208e-08, -1, 1, -8.99208e-08, 1.91069e-15, -0.000133602, -7.23364, -9.77125 )
+script = ExtResource( 9 )
+
+[node name="StaticBody" type="Area" parent="cilinder-T2"]
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="cilinder-T2/StaticBody"]
+transform = Transform( 0.432818, -7.33941e-09, -0.516833, -4.18906e-08, 1, -3.8172e-08, 0.452049, 5.84957e-09, 0.494846, -2.4647, -0.0403321, 0 )
+shape = SubResource( 1 )
+
+[node name="Point" type="Spatial" parent="cilinder-T2/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35395, -1.73859e-07, 0 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -4.37114e-08, -2.09882, 3.41391e-07, 3.82137e-15, 9.17424e-08, 1, -1, 2.08266e-08, 1.91069e-15, -5.57953e-08, 1.27645, 0 )
+environment = ExtResource( 5 )
+current = true
+near = 0.01
+script = ExtResource( 4 )
+
+[node name="OmniLight" type="OmniLight" parent="Camera"]
+transform = Transform( -2.08266e-08, 6.11753e-16, -1, -1, -6.23688e-08, 2.08266e-08, -6.23688e-08, 1, 1.91069e-15, 0, 0, 0 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Camera"]
+stream = ExtResource( 6 )
+volume_db = -80.0
+autoplay = true
+
+[node name="ClothesPlayer" type="AudioStreamPlayer" parent="Camera"]
+stream = ExtResource( 10 )
+volume_db = -80.0
+autoplay = true
+
+[node name="StaticBody" type="Area" parent="Camera"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Camera/StaticBody"]
+transform = Transform( 0.239985, -3.35927e-10, 3.22532e-16, -3.35926e-10, 0.223855, 1.13108e-08, 3.22532e-16, 1.13109e-08, 0.2855, 0, 0, 0 )
+shape = SubResource( 2 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 7.54979e-08, 2.05715, 0, -1, 1.5531e-07, 0, 0, 0, 1, -1.55378e-07, 3.55464, 0 )
+material = ExtResource( 2 )
+script = ExtResource( 8 )
+
+[node name="StaticBody" type="Area" parent="CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.55464, -4.82198e-08, 0 )
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGBox/StaticBody"]
+transform = Transform( 0.0547308, 6.99973e-09, -0.712793, -3.67617e-08, 1, -3.55137e-08, 0.623446, -4.66382e-08, 0.0625744, -2.4647, -0.0403321, 0 )
+shape = SubResource( 1 )
+
+[node name="Point" type="Spatial" parent="CSGBox/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.10296, -1.77264e-07, 0 )
+
+[node name="SimpleCylinder4" type="MeshInstance" parent="."]
+transform = Transform( 7.16173e-08, 2.05715, 0, -1, 1.64403e-07, 0, 0, 0, 1, 1.10277e-06, -2.3329, -12.1145 )
+cast_shadow = 0
+generate_lightmap = false
+lightmap_scale = 3
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="SimpleCylinder5" type="MeshInstance" parent="."]
+transform = Transform( 7.16173e-08, 2.05715, 0, -1, 1.64403e-07, 0, 0, 0, 1, 1.53108e-06, -12.1316, -12.1211 )
+cast_shadow = 0
+generate_lightmap = false
+lightmap_scale = 3
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="SimpleCylinder6" type="MeshInstance" parent="."]
+transform = Transform( 7.16173e-08, 2.05715, 0, -1, 1.64403e-07, 0, 0, 0, 1, 1.75549e-06, -17.2655, -12.1211 )
+cast_shadow = 0
+generate_lightmap = false
+lightmap_scale = 3
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="SimpleCylinder7" type="MeshInstance" parent="."]
+transform = Transform( 7.16173e-08, 2.05715, 0, -1, 1.64403e-07, 0, 0, 0, 1, 1.97952e-06, -22.3907, -12.1211 )
+cast_shadow = 0
+generate_lightmap = false
+lightmap_scale = 3
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="CSGBox3" type="CSGBox" parent="."]
+transform = Transform( 7.54979e-08, 2.05715, 0, -1, 1.5531e-07, 0, 0, 0, 1, 9.47392e-07, 1.22174, -12.1145 )
+material = ExtResource( 2 )
+script = ExtResource( 8 )
+
+[node name="StaticBody" type="Area" parent="CSGBox3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.55464, -4.82198e-08, 0 )
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGBox3/StaticBody"]
+transform = Transform( 0.0547308, 6.99973e-09, -0.712793, -3.67617e-08, 1, -3.55137e-08, 0.623446, -4.66382e-08, 0.0625744, -2.4647, -0.0403321, 0 )
+shape = SubResource( 1 )
+
+[node name="Point" type="Spatial" parent="CSGBox3/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.10296, -1.77264e-07, 0 )
+
+[node name="CSGBox2" type="CSGBox" parent="."]
+transform = Transform( 3.30165e-08, 2.05715, 7.54227e-08, -0.00521343, 1.55508e-07, -0.999986, -0.999986, 6.71097e-08, 0.00521343, -1.68286e-06, -7.29177, 8.36191 )
+material = ExtResource( 2 )
+script = ExtResource( 8 )
+
+[node name="StaticBody" type="Area" parent="CSGBox2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.55464, -4.82198e-08, 0 )
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGBox2/StaticBody"]
+transform = Transform( 0.0547308, 6.99973e-09, -0.712793, -3.67617e-08, 1, -3.55137e-08, 0.623446, -4.66382e-08, 0.0625744, -2.4647, -0.0403321, 0 )
+shape = SubResource( 1 )
+
+[node name="Point" type="Spatial" parent="CSGBox2/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.10296, -1.77264e-07, 0 )
+
+[node name="Screemer" type="CSGBox" parent="."]
+transform = Transform( -0.999909, 0, -8.74578e-08, 0, 1, 0, 8.74148e-08, 0, -1.0004, 0.0414772, -25.1144, -12.1346 )
+width = 2.40653
+height = 0.453562
+depth = 1.32514
+material = SubResource( 3 )
+script = ExtResource( 13 )
+
+[node name="StaticBody" type="Area" parent="Screemer"]
+transform = Transform( 1, -1.85216e-28, 4.9738e-14, 0, 1, -2.5411e-21, -4.26326e-14, 2.5411e-21, 0.999999, 3.55464, -0.468536, -0.176433 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Screemer/StaticBody"]
+transform = Transform( 0.0547308, 6.99972e-09, -0.712793, -3.67617e-08, 1, -3.55137e-08, 0.623446, -4.66382e-08, 0.0625744, -3.62395, 6.85163, 0.00401974 )
+shape = SubResource( 1 )
+
+[node name="Point" type="Spatial" parent="Screemer/StaticBody"]
+transform = Transform( 1, -2.59302e-28, 7.10543e-14, 0, 1, -3.38813e-21, -5.68434e-14, 3.38813e-21, 0.999999, -3.66803, 9.39257, -0.0654621 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer" parent="Screemer"]
+stream = ExtResource( 12 )
+volume_db = 3.0
+
+[node name="CSGBox4" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 4.61853e-14, 1, 0, 0, 0, 1, 0.00857141, -25.1068, -12.1232 )
+width = 4.39747
+height = 0.445687
+depth = 2.16204
+material = SubResource( 4 )
+script = ExtResource( 16 )
+
+[node name="StaticBody" type="Area" parent="CSGBox4"]
+transform = Transform( 1, -1.85216e-28, 4.9738e-14, 0, 1, -2.5411e-21, -4.26326e-14, 2.5411e-21, 0.999999, 3.55464, -0.468536, -0.176433 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGBox4/StaticBody"]
+transform = Transform( 0.0547308, 6.99972e-09, -0.712793, -3.67617e-08, 1, -3.55137e-08, 0.623446, -4.66381e-08, 0.0625744, -3.62395, 1.24534, 0.00401974 )
+shape = SubResource( 1 )
+
+[node name="Label" type="Label" parent="CSGBox4"]
+visible = false
+margin_left = 327.0
+margin_top = 219.0
+margin_right = 674.0
+margin_bottom = 364.0
+custom_fonts/font = SubResource( 5 )
+text = "Конец"
+
+[connection signal="area_shape_entered" from="Screemer/StaticBody" to="Screemer" method="_on_StaticBody_area_shape_entered"]
+[connection signal="area_shape_entered" from="CSGBox4/StaticBody" to="CSGBox4" method="_on_StaticBody_area_shape_entered"]

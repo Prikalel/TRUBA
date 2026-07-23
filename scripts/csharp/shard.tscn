@@ -1,0 +1,6 @@
+[gd_scene load_steps=1 format=2]
+
+[ext_resource type="Script" path="res://scripts/csharp/Shard.cs" id=1]
+
+[node name="Shard" type="RigidBody"]
+script = ExtResource( 1 )

@@ -1,0 +1,24 @@
+[gd_resource type="Theme" load_steps=6 format=2]
+
+[ext_resource type="Texture" path="res://assets/textures/ui/button-broken.png" id=1]
+[ext_resource type="Texture" path="res://assets/textures/ui/button.png" id=2]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 1 )
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 2 )
+
+[sub_resource type="StyleBoxTexture" id=3]
+texture = ExtResource( 1 )
+modulate_color = Color(0.729412, 0.729412, 0.729412, 1)
+
+[resource]
+Button/font_sizes/font_size = 25
+Button/styles/hover = SubResource( 1 )
+Button/styles/normal = SubResource( 2 )
+Button/styles/pressed = SubResource( 3 )
+MarginContainer/constants/margin_bottom = 20
+MarginContainer/constants/margin_left = 30
+MarginContainer/constants/margin_right = 30
+MarginContainer/constants/margin_top = 20

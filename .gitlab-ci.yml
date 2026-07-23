@@ -1,0 +1,29 @@
+
+stages:
+  - linter
+  - builds
+
+lint:
+  stage: linter
+  image: velikiyprikalel/gdlint:4.0
+  tags:
+  - docker
+  script:
+    - FILES=`find scripts/ -type f -name "*.gd"`
+    - echo "Will check files - " && ls $FILES
+    - gdlint $FILES
+
+build_windows:
+  image: velikiyprikalel/godot_engine:4.2-beta3
+  stage: builds
+  tags:
+  - docker
+  script:
+    - mkdir builds
+    - mkdir -p /builds/windows/
+    - godot --path `pwd` --headless --verbose --export-debug "Windows Desktop" /builds/windows/fetidity.exe
+    - mv /builds/windows/ builds/windows/
+  artifacts:
+    paths:
+      - builds/windows/
+    expire_in: 1 week

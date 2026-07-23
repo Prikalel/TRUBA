@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource type="Script" path="res://scripts/weapons/FryingPan.gd" id=1]
+[ext_resource type="PackedScene" path="res://assets/meshes/frying_pan.gltf" id=2]
+
+[sub_resource type="Curve3D" id=1]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.00435418, 0.00427377, 0.00219709, -0.135244, -0.0243454, -0.0628805, 0.135244, 0.0243454, 0.0628805, 0.209594, -0.0267035, 0.150348, -0.182472, -0.0161713, 0.188761, 0.182472, 0.0161713, -0.188761, 0.659791, -0.0616546, -0.0703011),
+"tilts": PackedFloat32Array(-0.00179676, 1.83875, -0.0408896)
+}
+point_count = 3
+
+[sub_resource type="SphereShape" id=2]
+radius = 0.429677
+
+[node name="Weapon" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="FryingPan" type="Spatial" parent="."]
+transform = Transform(0.747914, 0.663796, 2.90154e-08, 0, -4.37114e-08, 1, 0.663796, -0.747914, -3.26924e-08, 0, 0, 0)
+
+[node name="pan" parent="FryingPan" instance=ExtResource( 2 )]
+
+[node name="Path" type="Path" parent="."]
+curve = SubResource( 1 )
+
+[node name="HitArea" type="Area" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape" parent="HitArea"]
+transform = Transform(0.0159342, -0.999873, 0, 0.999873, 0.0159342, 0, 0, 0, 1, 0.229128, 0, 0.313828)
+shape = SubResource( 2 )

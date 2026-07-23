@@ -1,0 +1,22 @@
+<Project Sdk="Godot.NET.Sdk/3.3.0">
+  <!--
+    DOWNGRADE NOTE (Godot 4.2 -> 3.6.2 Mono):
+    - SDK: Godot.NET.Sdk/4.2.0-beta.3 -> Godot.NET.Sdk/3.3.0 (Godot 3.x Mono SDK), which auto-references
+      GodotSharp / GodotSharpEditor (kept intact, no explicit <Reference> entries needed).
+    - TargetFramework: net6.0 -> net472 (Godot 3.6 Mono requires .NET Framework 4.7.2).
+    - Removed <EnableDynamicLoading> (Godot-4-only).
+    - Removed any reference to the DestructiblesCSharp plugin assembly (the addon is deleted; the runtime
+      C# classes now live directly in this main project assembly, so they are always compiled in and available
+      — including in HTML5 web exports, where addons/plugins are not packaged).
+    - Default .cs globbing is disabled in favor of explicit <Compile> includes for the three runtime classes.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="scripts/csharp/Destructible.cs" />
+    <Compile Include="scripts/csharp/Shard.cs" />
+    <Compile Include="scripts/csharp/DestructibleUtils.cs" />
+  </ItemGroup>
+</Project>

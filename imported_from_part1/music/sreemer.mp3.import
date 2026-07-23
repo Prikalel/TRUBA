@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/sreemer.mp3-ce3758af32033c27943549cdb4fbbb73.mp3str"
+
+[deps]
+
+source_file="res://imported_from_part1/music/sreemer.mp3"
+dest_files=[ "res://.import/sreemer.mp3-ce3758af32033c27943549cdb4fbbb73.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id=1]
+[ext_resource type="Script" path="res://scripts/Capsule.gd" id=2]
+[ext_resource type="Script" path="res://scripts/Arm.gd" id=3]
+[ext_resource type="PackedScene" path="res://scenes/ui/inventory.tscn" id=4]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.4
+
+[sub_resource type="SphereShape" id=2]
+radius = 0.4
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3(0.288185, 0.5, 0.5)
+
+[node name="Player" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="Body_CollisionShape" type="CollisionShape" parent="."]
+transform = Transform(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Rotation_Helper" type="Spatial" parent="Body_CollisionShape"]
+transform = Transform(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="Camera" type="Camera" parent="Body_CollisionShape/Rotation_Helper"]
+transform = Transform(-1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, 0, 0, 0)
+current = true
+fov = 90.0
+far = 180.0
+
+[node name="SpotLight3D" type="SpotLight" parent="Body_CollisionShape/Rotation_Helper/Camera"]
+transform = Transform(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.87514e-07, 0, 0.324523)
+light_energy = 7.661
+light_indirect_energy = 4.429
+light_specular = 1.025
+light_cull_mask = 4294967293
+shadow_enabled = true
+shadow_bias = 6.455
+spot_range = 17.0321
+spot_angle = 23.3002
+spot_angle_attenuation = 0.277392
+
+[node name="Arm" type="Spatial" parent="Body_CollisionShape/Rotation_Helper"]
+transform = Transform(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.283326, -0.124825, 0.295055)
+script = ExtResource( 3 )
+
+[node name="HeadArea" type="Area" parent="Body_CollisionShape"]
+transform = Transform(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="CollisionShape3D" type="CollisionShape" parent="Body_CollisionShape/HeadArea"]
+shape = SubResource( 2 )
+
+[node name="DragArea" type="Area" parent="Body_CollisionShape"]
+
+[node name="CollisionShape3D" type="CollisionShape" parent="Body_CollisionShape/DragArea"]
+transform = Transform(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.463112, 0.811878)
+shape = SubResource( 3 )
+
+[node name="Inventory" parent="." instance=ExtResource( 4 )]
+
+[connection signal="body_entered" from="Body_CollisionShape/DragArea" to="." method="new_item_in_interact_area"]
+[connection signal="body_exited" from="Body_CollisionShape/DragArea" to="." method="item_exited_from_interact_area"]
