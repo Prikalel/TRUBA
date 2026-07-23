@@ -10,6 +10,8 @@ const DEACCEL = 16
 const MAX_SLOPE_ANGLE = 40
 const MAX_FALLING_SPEED = 7
 const HTARGET_WHILE_FALLING_DEACCEL = 3
+# Maximum look-up / look-down angle (in degrees) away from the neutral horizon.
+const PITCH_LIMIT = 70
 
 # DOWNGRADE NOTE: Godot 3.x KinematicBody has no built-in velocity member and
 # move_and_slide() requires velocity as an argument, so it is stored here.
@@ -21,6 +23,14 @@ var floor_max_angle: float = deg2rad(MAX_SLOPE_ANGLE)
 var dir: Vector3 = Vector3()
 var last_htarget: Vector3 = Vector3()
 var is_dragging: bool = false
+# Current pitch offset (degrees) from the helper's neutral rotation.
+# 0 == looking straight at the horizon; clamped to +/- PITCH_LIMIT.
+var pitch: float = 0.0
+# Rotation_Helper has a -90deg X rotation baked into the scene so it stays
+# upright in world space (parent Body_CollisionShape has a compensating +90deg).
+# We cache that baked neutral and drive pitch on top of it, instead of clamping
+# the node's raw rotation_degrees (which is offset by ~-90 at the horizon).
+var _base_pitch_deg: float = 0.0
 
 var camera: Camera
 var rotation_helper: Spatial
@@ -36,6 +46,7 @@ var mouse_sensitivity: float = 0.05
 func _ready():
 	camera = $Body_CollisionShape/Rotation_Helper/Camera
 	rotation_helper = $Body_CollisionShape/Rotation_Helper
+	_base_pitch_deg = rotation_helper.rotation_degrees.x
 	player_capsule = $Body_CollisionShape as Capsule
 	arm = $Body_CollisionShape/Rotation_Helper/Arm as Arm
 	drag_area = $Body_CollisionShape/DragArea as Area
@@ -162,12 +173,19 @@ func _input(event):
 	if _player_not_in_inventory():
 		if not is_dragging:
 			if event is InputEventMouseMotion:
-				rotation_helper.rotate_x(deg2rad(event.relative.y * mouse_sensitivity))
 				self.rotate_y(deg2rad(event.relative.x * mouse_sensitivity * -1))
 
-				var camera_rot = rotation_helper.rotation_degrees
-				camera_rot.x = clamp(camera_rot.x, -70, 70)
-				rotation_helper.rotation_degrees = camera_rot
+				# Drive vertical look (pitch) from a dedicated accumulator clamped to
+				# +/- PITCH_LIMIT around the helper's neutral rotation. The previous
+				# code read rotation_degrees.x back, clamped it to [-70, 70] and added
+				# 90 every frame; because the helper's neutral X is ~-90, that snapped
+				# and then pinned the value, so the view got stuck looking up/back and
+				# could never look below the horizon.
+				pitch += event.relative.y * mouse_sensitivity
+				pitch = clamp(pitch, -PITCH_LIMIT, PITCH_LIMIT)
+				var helper_rot = rotation_helper.rotation_degrees
+				helper_rot.x = _base_pitch_deg + pitch
+				rotation_helper.rotation_degrees = helper_rot
 			if event is InputEventMouseButton:
 				if event.is_pressed() and event.get_button_index() == BUTTON_LEFT:
 					arm.use_weapon()

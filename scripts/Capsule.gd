@@ -55,7 +55,12 @@ func _set_capsule_height(new_height: float) -> float:
 	if new_height < capsule.height or not _is_under_something(global_transform.origin):
 		capsule.height = new_height
 		var new_camera_y_pos: float = float(capsule.height / 2) - capsule.radius
-		rotation_helper.transform.origin.y = new_camera_y_pos
+		# Rotation_Helper's parent (Body_CollisionShape) carries a 90deg X rotation, so
+		# the helper's LOCAL +Z maps to WORLD +Y (and local +Y maps to world +Z). To
+		# raise/lower the camera vertically when crouching we must therefore drive the
+		# helper's local origin.z, not origin.y (the latter slid the camera forward/back,
+		# which is why crouching appeared to do nothing).
+		rotation_helper.transform.origin.z = new_camera_y_pos
 	return capsule.height
 
 func _physics_process(delta):

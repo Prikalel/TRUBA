@@ -6,6 +6,13 @@ var destroyed: bool = false
 onready var destruction = $Destruction
 onready var my_collision = $CollisionShape
 
+func _ready():
+	# Mark this box as grabbable by the player's drag system (Player.get_is_dragging
+	# looks for the "draggable" meta). The Godot-4 scene carried this as node
+	# metadata on test.tscn; it was dropped during the 3.x scene rebuild, which is
+	# why holding E no longer picked anything up. Setting it here is version-safe.
+	set_meta("draggable", true)
+
 func get_hit() -> void:
 	if not destroyed:
 		destruction.Destroy(0, Vector3.ZERO)

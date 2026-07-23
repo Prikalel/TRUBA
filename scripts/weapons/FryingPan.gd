@@ -46,7 +46,8 @@ func _stop_moving() -> void:
 
 func _process(delta):
 	if is_moving:
-		var current_pos = pan_path.get_curve().sample_baked(path_offset)
+		# DOWNGRADE NOTE: Godot 3.x Curve3D has interpolate_baked(), not sample_baked().
+		var current_pos = pan_path.get_curve().interpolate_baked(path_offset)
 		pan.translation = current_pos
 		path_offset += delta * pan_speed
 		var alpha = path_offset / pan_path.get_curve().get_baked_length()
