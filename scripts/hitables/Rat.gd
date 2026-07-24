@@ -6,6 +6,8 @@ var current_offset: float = 0
 var rat_speed = 2
 var is_killed: bool = false
 
+onready var particles = get_node("rat/StaticBody/Spartial/Particles") 
+
 func get_hit() -> void:
 	if not is_killed:
 		# DOWNGRADE NOTE: Godot 3 Spatial has no global_rotation (Godot-4-only); set the global basis from Euler.
@@ -14,17 +16,18 @@ func get_hit() -> void:
 		rat.global_transform = _gt
 		is_killed = true
 		# DOWNGRADE NOTE: scene nodes renamed StaticBody3D->StaticBody, GPUParticles3D->Particles.
-		$rat/StaticBody/Particles.visible = true
+		particles.visible = true
 		# DOWNGRADE NOTE: Godot 3 Spatial has no global_rotation (Godot-4-only); set the global basis from Euler.
-		var _pgt = $rat/StaticBody/Particles.global_transform
-		_pgt.basis = Basis(Vector3(0, 0, deg2rad(90)))
-		$rat/StaticBody/Particles.global_transform = _pgt
+		#var _pgt = particles.global_transform
+		#_pgt.basis = Basis(Vector3(0, 0, 0))
+		#particles.global_transform = _pgt
 
 func _ready():
 	rat = $rat
 	# DOWNGRADE NOTE: scene node renamed Path3D -> Path.
 	path = $Path
-	$rat/StaticBody/Particles.visible = false
+	particles = get_node("rat/StaticBody/Spatial/Particles") 
+	particles.visible = false
 
 func _process(delta):
 	if not is_killed:
