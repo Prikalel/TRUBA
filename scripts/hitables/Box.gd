@@ -10,6 +10,10 @@ func _ready():
 	# Mark this box as grabbable by the player's drag system (Player.get_is_dragging
 	# looks for the "draggable" meta).
 	set_meta("draggable", true)
+	# Proximity feedback: a distance-based outline, visible through walls.
+	var outline = preload("res://scripts/HighlightOutline.gd").new()
+	outline.name = "HighlightOutline"
+	add_child(outline)
 
 func get_hit() -> void:
 	if destroyed:

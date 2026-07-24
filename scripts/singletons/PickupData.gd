@@ -2,6 +2,22 @@
 
 extends Node
 
+# Pickup registry.
+#
+# Previously loaded at runtime from res://csv/*.csv via File.open()/get_csv_line().
+# Synchronous File reads on res:// are not reliable for non-resource text files in
+# the HTML5 export, so the (tiny) table is embedded directly here instead -- there is
+# now zero file I/O. The .csv files are kept only as a human-readable source.
+#
+# pickups_registry columns: id | class | icon | world_scene
+const _PICKUP_ROWS := [
+	["0", "0", "res://assets/textures/ui/slot_icons/frying_pan.png", "scene_path"],
+]
+# pickups_weapons columns: id | hand_scene
+const _WEAPON_ROWS := [
+	["0", "res://scenes/weapons/pan.tscn"],
+]
+
 # DOWNGRADE NOTE: Godot 3.x has no typed arrays; use plain Array.
 var _pickups: Array = []
 var _weapons: Array = []
@@ -12,33 +28,23 @@ func _ready():
 
 func _load_pickups() -> void:
 	_pickups = []
-	# DOWNGRADE NOTE: Godot 3.x uses File (not FileAccess): File.new() + open(path, File.READ).
-	var file = File.new()
-	file.open("res://csv/pickups_registry.csv", File.READ)
-	while !file.eof_reached():
-		# DOWNGRADE NOTE: PackedStringArray -> PoolStringArray.
-		var csv: PoolStringArray = file.get_csv_line()
-		if csv.size() == 4:
+	for row in _PICKUP_ROWS:
+		if row.size() == 4:
 			# id | класс | иконка | сцена для внешнего мира при выкидывании
-			var pickup: PickupObj = PickupObj.new(csv[0], csv[1], csv[2], csv[3])
+			var pickup: PickupObj = PickupObj.new(row[0], row[1], row[2], row[3])
 			_pickups.push_back(pickup)
 		else:
-			push_error("Incorrect number of columns in pickups_registry.csv: " + str(csv.size()))
-	file.close()
+			push_error("Incorrect number of columns in pickup row: " + str(row.size()))
 
 func _load_weapons() -> void:
 	_weapons = []
-	var file = File.new()
-	file.open("res://csv/pickups_weapons.csv", File.READ)
-	while !file.eof_reached():
-		var csv: PoolStringArray = file.get_csv_line()
-		if csv.size() == 2:
+	for row in _WEAPON_ROWS:
+		if row.size() == 2:
 			# id | сцена для руки
-			var weapon: WeaponObj = WeaponObj.new(csv[0], csv[1])
+			var weapon: WeaponObj = WeaponObj.new(row[0], row[1])
 			_weapons.push_back(weapon)
 		else:
-			push_error("Incorrect number of columns in pickups_weapons.csv: " + str(csv.size()))
-	file.close()
+			push_error("Incorrect number of columns in weapon row: " + str(row.size()))
 
 ## Возвращает основную информацию о поднимаемом предмете по его id
 func get_by_id(id: int) -> PickupObj:

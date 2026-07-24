@@ -61,6 +61,9 @@ func _ready():
 	drag_area = $Body_CollisionShape/DragArea as Area
 	inventory = $Inventory as Inventory
 	arm.listen_weapon_change(inventory)
+	# So HighlightOutline (and other scripts) can find the player without a hard-coded
+	# node path (which varies between scenes) and without any file I/O.
+	add_to_group("player")
 
 func _player_not_in_inventory() -> bool:
 	return not inventory.visible
