@@ -6,7 +6,7 @@ var current_offset: float = 0
 var rat_speed = 2
 var is_killed: bool = false
 
-onready var particles = get_node("rat/StaticBody/Spartial/Particles") 
+onready var particles = get_node("rat/StaticBody/Spatial/Particles") 
 
 func get_hit() -> void:
 	if not is_killed:

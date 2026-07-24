@@ -32,14 +32,13 @@ fov = 90.0
 far = 180.0
 
 [node name="SpotLight3D" type="SpotLight" parent="Body_CollisionShape/Rotation_Helper/Camera"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.87514e-07, 0, 0.324523 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.87514e-07, 0, -0.375477 )
 light_color = Color( 0.909804, 0.917647, 0.0196078, 1 )
 light_energy = 4.725
-light_indirect_energy = 4.429
 light_specular = 1.025
-light_cull_mask = 4294967293
+light_bake_mode = 0
 shadow_enabled = true
-shadow_bias = 6.455
+shadow_reverse_cull_face = true
 spot_range = 17.0321
 spot_angle = 62.93
 spot_angle_attenuation = 0.277392

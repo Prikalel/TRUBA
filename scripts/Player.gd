@@ -3,7 +3,7 @@ extends KinematicBody
 const GRAVITY = -12
 const MAX_SPEED = 6
 const MAX_SPEED_CRAWLING = 3
-const JUMP_SPEED = 5
+const JUMP_SPEED = 15
 const CRAWL_ACCEL_MULTIPLIER = 3
 const ACCEL = 4.5
 const DEACCEL = 16
@@ -40,6 +40,15 @@ var drag_area: Area
 var inventory: Inventory
 
 var current_dragging_object: CollisionObject = null
+# Saved collision layer/mask (and RigidBody mode) of the object currently being
+# carried, restored when it is dropped (see _disable/_restore_drag_collision).
+var _drag_original_layer: int = 1
+var _drag_original_mask: int = 1
+var _drag_original_mode: int = -1
+# Prompt owners (pickups / draggable props) for which the floating "E" is currently
+# shown. Tracked here because Area.body_entered does not reliably fire for a
+# StaticBody (the draggable cube), so prompts are driven by polling instead.
+var _prompted: Dictionary = {}
 
 var mouse_sensitivity: float = 0.05
 
@@ -59,6 +68,7 @@ func _player_not_in_inventory() -> bool:
 func _physics_process(delta):
 	if _player_not_in_inventory():
 		process_input()
+		_update_prompts()
 	process_movement(delta)
 	arm.shake(velocity)
 
@@ -134,6 +144,7 @@ func get_is_dragging() -> bool:
 	if not Input.is_action_pressed("interaction") or player_capsule.get_crawling():
 		if (current_dragging_object != null):
 			_reparent_keep_global(current_dragging_object, owner)
+			_restore_drag_collision(current_dragging_object)
 			current_dragging_object = null
 		return false
 	if (current_dragging_object == null):
@@ -144,9 +155,61 @@ func get_is_dragging() -> bool:
 				var is_draggable_object: bool = collision_node.get_meta("draggable")
 				if is_draggable_object:
 					current_dragging_object = collision_node
+					# Disable collision BEFORE reparenting so the carried object can't
+					# block the player (otherwise walking into it gets you stuck).
+					_disable_drag_collision(current_dragging_object)
 					_reparent_keep_global(current_dragging_object, self)
 					break
 	return current_dragging_object != null
+
+# While an object is carried it is parented to the player; if it kept its collision
+# the player would collide with the very thing they are holding and get stuck. So we
+# zero its collision layer/mask while carried and restore the originals on drop. A
+# carried RigidBody is also switched to MODE_STATIC so it stops simulating (it would
+# otherwise fall through the now-collisionless world instead of following the player).
+func _disable_drag_collision(body: CollisionObject) -> void:
+	_drag_original_layer = body.collision_layer
+	_drag_original_mask = body.collision_mask
+	body.collision_layer = 0
+	body.collision_mask = 0
+	if body is RigidBody:
+		var rb = body as RigidBody
+		_drag_original_mode = rb.mode
+		rb.mode = RigidBody.MODE_STATIC
+
+func _restore_drag_collision(body: CollisionObject) -> void:
+	body.collision_layer = _drag_original_layer
+	body.collision_mask = _drag_original_mask
+	if body is RigidBody and _drag_original_mode >= 0:
+		var rb = body as RigidBody
+		rb.mode = _drag_original_mode
+	_drag_original_mode = -1
+
+# Drives the floating "E" prompt by polling the DragArea every physics frame instead
+# of relying solely on Area.body_entered (which does not reliably fire for a
+# StaticBody such as the draggable cube). Shows the prompt for every interactable
+# currently overlapping the area and hides it for those that left.
+func _update_prompts() -> void:
+	if is_dragging:
+		for owner in _prompted.keys():
+			if is_instance_valid(owner):
+				owner.hide_text()
+		_prompted.clear()
+		return
+	var still_overlapping: Dictionary = {}
+	for body in drag_area.get_overlapping_bodies():
+		var owner = _get_prompt_owner(body)
+		if owner == null:
+			continue
+		still_overlapping[owner] = true
+		if not _prompted.has(owner):
+			owner.show_text(self)
+			_prompted[owner] = true
+	for owner in _prompted.keys():
+		if not still_overlapping.has(owner):
+			if is_instance_valid(owner):
+				owner.hide_text()
+			_prompted.erase(owner)
 
 # DOWNGRADE NOTE: Godot 3.x has no Node.reparent(); replicate it while keeping
 # the global transform (matches the Godot 4 reparent default).
@@ -159,14 +222,28 @@ func _reparent_keep_global(node: Spatial, new_parent: Node) -> void:
 	node.global_transform = keep_transform
 
 func item_exited_from_interact_area(thing: Spatial):
-	var pickup: PickupBase = Utils.get_suitable_parent(thing, PickupBase) as PickupBase
-	if pickup != null:
-		pickup.hide_text()
+	var prompt_owner = _get_prompt_owner(thing)
+	if prompt_owner != null:
+		prompt_owner.hide_text()
 
 func new_item_in_interact_area(thing: Spatial):
-	var pickup: PickupBase = Utils.get_suitable_parent(thing, PickupBase) as PickupBase
-	if pickup != null:
-		pickup.show_text(self)
+	var prompt_owner = _get_prompt_owner(thing)
+	if prompt_owner != null:
+		prompt_owner.show_text(self)
+
+# Returns the nearest ancestor of `thing` that can show an interaction prompt:
+# a PickupBase (inventory pickups such as the frying pan) OR any other node exposing
+# show_text()/hide_text() (e.g. a Draggable prop like the StaticWorld cube). This is
+# what makes the floating "E" appear for both pickups and draggable props.
+func _get_prompt_owner(thing) -> Node:
+	var node = thing
+	while node != null:
+		if node is PickupBase:
+			return node
+		if node.has_method("show_text") and node.has_method("hide_text"):
+			return node
+		node = node.get_parent()
+	return null
 
 func _input(event):
 	if _player_not_in_inventory():

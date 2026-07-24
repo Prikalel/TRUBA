@@ -11,7 +11,9 @@ _data = {
 point_count = 3
 
 [sub_resource type="SphereShape" id=2]
-radius = 0.429677
+# Enlarged from 0.43: the pan's hit sphere was too small to reach a standing-height
+# box (you had to crouch to connect). ~0.9 gives a comfortable standing melee reach.
+radius = 0.9
 
 [node name="Weapon" type="Spatial"]
 script = ExtResource( 1 )
