@@ -8,11 +8,11 @@
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.4
 
-[sub_resource type="SphereShape" id=2]
-radius = 0.4
-
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.288185, 0.5, 0.5 )
+
+[sub_resource type="SphereShape" id=2]
+radius = 0.4
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -33,25 +33,20 @@ far = 180.0
 
 [node name="SpotLight3D" type="SpotLight" parent="Body_CollisionShape/Rotation_Helper/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.87514e-07, 0, 0.324523 )
-light_energy = 7.661
+light_color = Color( 0.909804, 0.917647, 0.0196078, 1 )
+light_energy = 4.725
 light_indirect_energy = 4.429
 light_specular = 1.025
 light_cull_mask = 4294967293
 shadow_enabled = true
 shadow_bias = 6.455
 spot_range = 17.0321
-spot_angle = 23.3002
+spot_angle = 62.93
 spot_angle_attenuation = 0.277392
 
 [node name="Arm" type="Spatial" parent="Body_CollisionShape/Rotation_Helper"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.283326, -0.124825, 0.295055 )
 script = ExtResource( 3 )
-
-[node name="HeadArea" type="Area" parent="Body_CollisionShape"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -2.18557e-08, 0.5 )
-
-[node name="CollisionShape3D" type="CollisionShape" parent="Body_CollisionShape/HeadArea"]
-shape = SubResource( 2 )
 
 [node name="DragArea" type="Area" parent="Body_CollisionShape"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
@@ -61,6 +56,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85, 0.811878 )
 shape = SubResource( 3 )
 
 [node name="Inventory" parent="." instance=ExtResource( 4 )]
+
+[node name="HeadArea" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57075, -4.37114e-08 )
+
+[node name="CollisionShape3D" type="CollisionShape" parent="HeadArea"]
+shape = SubResource( 2 )
 
 [connection signal="body_entered" from="Body_CollisionShape/DragArea" to="." method="new_item_in_interact_area"]
 [connection signal="body_exited" from="Body_CollisionShape/DragArea" to="." method="item_exited_from_interact_area"]

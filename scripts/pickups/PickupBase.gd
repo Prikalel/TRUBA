@@ -14,17 +14,25 @@ var _floating_viewport: Viewport
 
 ## Показать подсказку
 func show_text(player_node):
+	var SIZE_X = 128
+	var SIZE_Y = 128
 	if (floating_text == null):
 		camera = player_node
 		_floating_viewport = Viewport.new()
-		_floating_viewport.size = Vector2(64, 64)
+		_floating_viewport.size = Vector2(SIZE_X, SIZE_Y)
 		_floating_viewport.transparent_bg = true
 		_floating_viewport.render_target_update_mode = Viewport.UPDATE_ALWAYS
 		var label = Label.new()
 		label.text = "E"
 		label.align = Label.ALIGN_CENTER
 		label.valign = Label.VALIGN_CENTER
-		label.rect_min_size = Vector2(64, 64)
+		label.rect_min_size = Vector2(SIZE_X, SIZE_Y)
+		var dynamic_font = DynamicFont.new()
+		dynamic_font.font_data = load("res://assets/Titillium-Regular.otf") 
+		# 3. Устанавливаем нужный размер (например, 32 пикселя)
+		dynamic_font.size = 64 
+		# 4. Применяем измененный шрифт к элементу Label
+		label.set("custom_fonts/font", dynamic_font)
 		_floating_viewport.add_child(label)
 		add_child(_floating_viewport)
 		floating_text = Sprite3D.new()

@@ -1,7 +1,7 @@
 extends Object
 class_name Utils
 
-const FLOAT_EPSILON = 0.0001
+const FLOAT_EPSILON = 0.001
 
 # Сравнивает float-ы.
 static func floats_equal(a: float, b: float, epsilon = FLOAT_EPSILON) -> bool:

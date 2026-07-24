@@ -92,7 +92,6 @@ func process_input() -> void:
 		dir = dir.normalized()
 	else:
 		is_dragging = false
-		player_capsule.disable_crawling()
 
 	if not is_dragging and Input.is_action_just_pressed("interaction"):
 		inventory.find_pickup_in_area(drag_area)
