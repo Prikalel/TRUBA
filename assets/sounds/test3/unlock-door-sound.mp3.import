@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/unlock-door-sound.mp3-31355e7140adcca9aae931cf32742614.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/test3/unlock-door-sound.mp3"
+dest_files=[ "res://.import/unlock-door-sound.mp3-31355e7140adcca9aae931cf32742614.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

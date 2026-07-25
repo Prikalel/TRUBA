@@ -1,9 +1,9 @@
 extends KinematicBody
 
 const GRAVITY = -12
-const MAX_SPEED = 6
-const MAX_SPEED_CRAWLING = 3
-const JUMP_SPEED = 15
+const MAX_SPEED = 3
+const MAX_SPEED_CRAWLING = 1.5
+export var JUMP_SPEED = 3
 const CRAWL_ACCEL_MULTIPLIER = 3
 const ACCEL = 4.5
 const DEACCEL = 16
@@ -38,6 +38,9 @@ var player_capsule: Capsule
 var arm: Arm
 var drag_area: Area
 var inventory: Inventory
+# Center-screen interaction cursor for drag-able props (see InteractionCursor.gd).
+# Shown when a draggable is in range ("you can grab") or while it is carried.
+var interaction_cursor: Control = null
 
 var current_dragging_object: CollisionObject = null
 # Saved collision layer/mask (and RigidBody mode) of the object currently being
@@ -49,6 +52,12 @@ var _drag_original_mode: int = -1
 # shown. Tracked here because Area.body_entered does not reliably fire for a
 # StaticBody (the draggable cube), so prompts are driven by polling instead.
 var _prompted: Dictionary = {}
+# One-frame bridge: when E is released while carrying, the carried object's
+# collision is restored this same frame, but Area.get_overlapping_bodies() only
+# reports it on the next physics tick. Without this flag the center cursor would
+# blink hidden for one frame on release before showing the open-hand "you can
+# grab" icon again.
+var _drag_just_released: bool = false
 
 var mouse_sensitivity: float = 0.05
 
@@ -60,6 +69,7 @@ func _ready():
 	arm = $Body_CollisionShape/Rotation_Helper/Arm as Arm
 	drag_area = $Body_CollisionShape/DragArea as Area
 	inventory = $Inventory as Inventory
+	interaction_cursor = $InteractionCursor as Control
 	arm.listen_weapon_change(inventory)
 	# So HighlightOutline (and other scripts) can find the player without a hard-coded
 	# node path (which varies between scenes) and without any file I/O.
@@ -72,6 +82,9 @@ func _physics_process(delta):
 	if _player_not_in_inventory():
 		process_input()
 		_update_prompts()
+	# Runs every frame (even with the inventory open) so the cursor is removed the
+	# instant the menu appears instead of lingering on screen.
+	_update_cursor()
 	process_movement(delta)
 	arm.shake(velocity)
 
@@ -103,11 +116,13 @@ func process_input() -> void:
 		dir += cam_xform.basis.x * input_movement_vector.x
 		dir.y = 0
 		dir = dir.normalized()
+		$AudioStreamPlayer2D.stream_paused = not is_on_floor() or Utils.floats_equal(dir.length(), 0)
 	else:
 		is_dragging = false
 
 	if not is_dragging and Input.is_action_just_pressed("interaction"):
-		inventory.find_pickup_in_area(drag_area)
+		if inventory.find_pickup_in_area(drag_area):
+			$PlayPickupTaken.play()
 
 func process_movement(delta):
 	var hvel = _get_horisontal_velocity(delta)
@@ -148,6 +163,11 @@ func get_is_dragging() -> bool:
 		if (current_dragging_object != null):
 			_reparent_keep_global(current_dragging_object, owner)
 			_restore_drag_collision(current_dragging_object)
+			# Signal a one-frame "just dropped" bridge so the interaction cursor
+			# keeps showing the open-hand icon instead of blinking out on key
+			# release (crawling still forbids dragging, so don't prompt then).
+			if not player_capsule.get_crawling():
+				_drag_just_released = true
 			current_dragging_object = null
 		return false
 	if (current_dragging_object == null):
@@ -213,6 +233,49 @@ func _update_prompts() -> void:
 			if is_instance_valid(owner):
 				owner.hide_text()
 			_prompted.erase(owner)
+
+# Returns true when ANY body currently overlapping the DragArea is flagged as
+# drag-able (meta "draggable" == true). This is the "player is looking at
+# something they can grab" condition, independent of whether E is held. While an
+# object is carried its collision layer/mask is zeroed (see
+# _disable_drag_collision), so it stops overlapping the area - that is why
+# _update_cursor checks current_dragging_object (carried) before this (in range).
+func _has_draggable_in_range() -> bool:
+	for body in drag_area.get_overlapping_bodies():
+		if body is CollisionObject and body.has_meta("draggable") and body.get_meta("draggable"):
+			return true
+	return false
+
+# Drives the center-screen interaction cursor for drag-able props:
+#   - carrying an object          -> clenched-hand  (T_hold_interaction)
+#   - drag-able object in range   -> open-hand      (T_start_hold_interaction)
+#   - otherwise (incl. menu open) -> cursor hidden
+#
+# "Carrying" keys off current_dragging_object rather than is_dragging so the
+# clenched hand stays up while airborne: is_dragging is forced false in the air,
+# but the object is still parented to the player and visibly carried.
+func _update_cursor() -> void:
+	if interaction_cursor == null:
+		return
+	if not _player_not_in_inventory():
+		interaction_cursor.hide_cursor()
+		return
+	var in_range: bool = _has_draggable_in_range()
+	# Consume the release-bridge: pretend the just-dropped object is still in
+	# range for this single frame so the open-hand prompt does not blink out the
+	# moment E is released.
+	if _drag_just_released:
+		_drag_just_released = false
+		in_range = true
+		$StoneSound.playing = false
+	if current_dragging_object != null:
+		interaction_cursor.show_hold()
+		if not $StoneSound.playing:
+			$StoneSound.play()
+	elif in_range:
+		interaction_cursor.show_start()
+	else:
+		interaction_cursor.hide_cursor()
 
 # DOWNGRADE NOTE: Godot 3.x has no Node.reparent(); replicate it while keeping
 # the global transform (matches the Godot 4 reparent default).

@@ -56,4 +56,5 @@ func _process(delta):
 func use_weapon() -> void:
 	var weapon: WeaponBase = hands[current_hand] as WeaponBase
 	if (weapon != null and not weapon_preparing):
-		weapon.do_hit()
+		if weapon.do_hit():
+			$WoodHit.play()

@@ -40,10 +40,17 @@ func _ready():
 	hide()
 
 func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			hide()
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			show()
+	if event is InputEventKey and event.pressed and not event.echo:
+		if (event.scancode != KEY_W
+			and event.scancode != KEY_A
+			and event.scancode != KEY_S
+			and event.scancode != KEY_D
+			and event.scancode != KEY_E
+			and event.scancode != KEY_SPACE
+			and event.scancode != KEY_CONTROL):
+			if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+				hide()
+			else:
+				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+				show()

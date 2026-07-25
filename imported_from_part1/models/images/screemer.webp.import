@@ -2,17 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/screemer.webp-f5f0b798e7c6ea237c2598fa110c6fa6.s3tc.stex"
-path.etc2="res://.import/screemer.webp-f5f0b798e7c6ea237c2598fa110c6fa6.etc2.stex"
+path="res://.import/screemer.webp-f5f0b798e7c6ea237c2598fa110c6fa6.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://imported_from_part1/models/images/screemer.webp"
-dest_files=[ "res://.import/screemer.webp-f5f0b798e7c6ea237c2598fa110c6fa6.s3tc.stex", "res://.import/screemer.webp-f5f0b798e7c6ea237c2598fa110c6fa6.etc2.stex" ]
+dest_files=[ "res://.import/screemer.webp-f5f0b798e7c6ea237c2598fa110c6fa6.stex" ]
 
 [params]
 

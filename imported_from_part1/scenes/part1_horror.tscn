@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://imported_from_part1/models/cilinder.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://imported_from_part1/models/Material_001.tres" type="Material" id=2]
+[ext_resource path="res://imported_from_part1/scripts/HorrorArea.gd" type="Script" id=3]
 [ext_resource path="res://imported_from_part1/scripts/P1_Player.gd" type="Script" id=4]
 [ext_resource path="res://imported_from_part1/env/default_env.tres" type="Environment" id=5]
 [ext_resource path="res://imported_from_part1/music/steps.mp3" type="AudioStream" id=6]
@@ -12,9 +13,9 @@
 [ext_resource path="res://imported_from_part1/models/images/screemer.webp" type="Texture" id=11]
 [ext_resource path="res://imported_from_part1/music/sreemer.mp3" type="AudioStream" id=12]
 [ext_resource path="res://imported_from_part1/scripts/P1_ScreemerBox.gd" type="Script" id=13]
-[ext_resource path="res://imported_from_part1/fonts/DuskDemon/DuskDemon.ttf" type="DynamicFontData" id=14]
 [ext_resource path="res://imported_from_part1/models/images/ventilyatsiya.jpg" type="Texture" id=15]
-[ext_resource path="res://imported_from_part1/scripts/P1_Exit.gd" type="Script" id=16]
+[ext_resource path="res://scripts/SceneTransitionArea.gd" type="Script" id=16]
+[ext_resource path="res://assets/sounds/horror_sound.tres" type="AudioStream" id=17]
 
 [sub_resource type="ArrayMesh" id=2]
 resource_name = "Cylinder"
@@ -43,16 +44,15 @@ albedo_texture = ExtResource( 11 )
 [sub_resource type="SpatialMaterial" id=4]
 albedo_texture = ExtResource( 15 )
 
-[sub_resource type="DynamicFont" id=5]
-size = 142
-font_data = ExtResource( 14 )
-
 [sub_resource type="Environment" id=7]
 fog_enabled = true
 fog_color = Color( 0, 0, 0, 1 )
 fog_sun_color = Color( 1, 0.901961, 0.701961, 1 )
 fog_depth_begin = 1.0
 fog_depth_end = 2.0
+
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 1.43084, 0.804657, 1.30544 )
 
 [node name="Spatial" type="Spatial"]
 transform = Transform( -4.37114e-08, 1, 0, -0.476458, -2.08266e-08, 0, 0, 0, 1, 0, 0, 0 )
@@ -145,6 +145,12 @@ autoplay = true
 [node name="StaticBody" type="Area" parent="Camera"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Camera/StaticBody"]
+transform = Transform( 0.239985, -3.35927e-10, 3.22532e-16, -3.35926e-10, 0.223855, 1.13108e-08, 3.22532e-16, 1.13109e-08, 0.2855, 0, 0, 0 )
+shape = SubResource( 6 )
+
+[node name="PlayerTrigger" type="StaticBody" parent="Camera" groups=["player"]]
+
+[node name="CollisionShape" type="CollisionShape" parent="Camera/PlayerTrigger"]
 transform = Transform( 0.239985, -3.35927e-10, 3.22532e-16, -3.35926e-10, 0.223855, 1.13108e-08, 3.22532e-16, 1.13109e-08, 0.2855, 0, 0, 0 )
 shape = SubResource( 6 )
 
@@ -252,26 +258,29 @@ width = 4.39747
 height = 0.445687
 depth = 2.16204
 material = SubResource( 4 )
-script = ExtResource( 16 )
-
-[node name="StaticBody" type="Area" parent="CSGBox4"]
-transform = Transform( 1, -1.85216e-28, 4.9738e-14, 0, 1, -2.5411e-21, -4.26326e-14, 2.5411e-21, 0.999999, 3.55464, -0.468536, -0.176433 )
-
-[node name="CollisionShape" type="CollisionShape" parent="CSGBox4/StaticBody"]
-transform = Transform( 0.0547308, 6.99972e-09, -0.712793, -3.67617e-08, 1, -3.55137e-08, 0.623446, -4.66381e-08, 0.0625744, -3.62395, 1.24534, 0.00401974 )
-shape = SubResource( 1 )
-
-[node name="Label" type="Label" parent="CSGBox4"]
-visible = false
-margin_left = 327.0
-margin_top = 219.0
-margin_right = 674.0
-margin_bottom = 364.0
-custom_fonts/font = SubResource( 5 )
-text = "Конец"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 7 )
 
+[node name="Area" type="Area" parent="."]
+transform = Transform( 0.0547308, 5.0711e-08, -0.712793, -0.623446, 2.92681e-09, -0.0625744, -6.64057e-08, 1, -7.09174e-09, 0.156028, -6.82791, -6.11715 )
+script = ExtResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 1, 0, 7.45058e-09, 3.55271e-15, 1, 0, 7.45058e-09, 4.44089e-16, 1, 5.96046e-08, 0, -4.76837e-07 )
+shape = SubResource( 1 )
+
+[node name="SOUND" type="AudioStreamPlayer3D" parent="Area"]
+stream = ExtResource( 17 )
+
+[node name="SewerTransitionArea" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 6.39488e-14, 1, 0, 0, 0, 1, -0.77887, -23.8659, -11.8709 )
+script = ExtResource( 16 )
+target_scene = "res://scenes/test3.tscn"
+
+[node name="CollisionShape" type="CollisionShape" parent="SewerTransitionArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.808786, -1.53824, 0 )
+shape = SubResource( 8 )
+
 [connection signal="area_shape_entered" from="Screemer/StaticBody" to="Screemer" method="_on_StaticBody_area_shape_entered"]
-[connection signal="area_shape_entered" from="CSGBox4/StaticBody" to="CSGBox4" method="_on_StaticBody_area_shape_entered"]
+[connection signal="area_entered" from="Area" to="Area" method="_on_Area_area_entered"]

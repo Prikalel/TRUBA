@@ -2,17 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/T_rat.png-07a444188cd533f54d8af9b074b847a2.s3tc.stex"
-path.etc2="res://.import/T_rat.png-07a444188cd533f54d8af9b074b847a2.etc2.stex"
+path="res://.import/T_rat.png-07a444188cd533f54d8af9b074b847a2.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/T_rat.png"
-dest_files=[ "res://.import/T_rat.png-07a444188cd533f54d8af9b074b847a2.s3tc.stex", "res://.import/T_rat.png-07a444188cd533f54d8af9b074b847a2.etc2.stex" ]
+dest_files=[ "res://.import/T_rat.png-07a444188cd533f54d8af9b074b847a2.stex" ]
 
 [params]
 

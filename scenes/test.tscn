@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/textures/T_cursed_metal.jpg" type="Texture" id=2]
@@ -10,6 +10,16 @@
 [ext_resource path="res://scripts/hitables/Box.gd" type="Script" id=8]
 [ext_resource path="res://scripts/Draggable.gd" type="Script" id=9]
 [ext_resource path="res://scripts/HighlightOutline.gd" type="Script" id=10]
+[ext_resource path="res://assets/meshes/weapons/axe.glb" type="PackedScene" id=11]
+[ext_resource path="res://scenes/maze/CylinderFullMesh.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/maze/FloorMaterial.material" type="Material" id=13]
+[ext_resource path="res://scenes/maze/WallMaterial.material" type="Material" id=14]
+[ext_resource path="res://scenes/maze/cailing_material.tres" type="Material" id=15]
+[ext_resource path="res://scenes/imported2/fbxes/door_hr_13.glb" type="PackedScene" id=16]
+[ext_resource path="res://scenes/imported2/танцы с бубном/new_spatialmaterial_stylized.tres" type="Material" id=17]
+[ext_resource path="res://scenes/imported2/fbxes/metal_barrel_hr_1.glb" type="PackedScene" id=18]
+[ext_resource path="res://assets/textures/SERVER_ENTER.png" type="Texture" id=19]
+[ext_resource path="res://scripts/SceneTransitionArea.gd" type="Script" id=20]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 10, 0.05, 10 )
@@ -26,6 +36,32 @@ albedo_texture = ExtResource( 2 )
 [sub_resource type="BoxShape" id=4]
 
 [sub_resource type="CubeMesh" id=5]
+
+[sub_resource type="BoxShape" id=12]
+extents = Vector3( 0.4, 0.4, 0.4 )
+
+[sub_resource type="ArrayMesh" id=13]
+resource_name = "box_Cube"
+surfaces/0 = {
+"aabb": AABB( -1, -1, -1, 2.00001, 2.00001, 2 ),
+"array_data": PoolByteArray( 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 0, 127, 129, 63, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 127, 127, 0, 127, 0, 60, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 127, 0, 0, 127, 0, 60, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 127, 127, 0, 127, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 127, 0, 0, 127, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 0, 129, 127, 63, 0, 60, 0, 60, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 127, 129, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 127, 0, 0, 127, 0, 60, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 127, 0, 60, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 127, 0, 0, 127, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 127, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 0, 129, 127, 63, 0, 60, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 129, 0, 0, 127, 253, 59, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 127, 127, 0, 127, 0, 60, 0, 60, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 0, 127, 129, 63, 0, 60, 0, 60, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 0, 129, 127, 63, 0, 0, 0, 60, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 127, 127, 0, 127, 0, 0, 0, 60, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 129, 0, 0, 127, 27, 20, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 129, 0, 0, 127, 253, 59, 0, 60, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 127, 0, 60, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 0, 127, 129, 63, 0, 60, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 0, 129, 127, 63, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 127, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 129, 0, 0, 127, 27, 20, 0, 60 ),
+"array_index_data": PoolByteArray( 0, 0, 20, 0, 14, 0, 0, 0, 6, 0, 20, 0, 10, 0, 19, 0, 8, 0, 10, 0, 22, 0, 19, 0, 23, 0, 12, 0, 18, 0, 23, 0, 17, 0, 12, 0, 15, 0, 11, 0, 5, 0, 15, 0, 21, 0, 11, 0, 4, 0, 7, 0, 2, 0, 4, 0, 9, 0, 7, 0, 16, 0, 1, 0, 13, 0, 16, 0, 3, 0, 1, 0 ),
+"blend_shape_data": [  ],
+"format": 6389015,
+"index_count": 36,
+"material": ExtResource( 5 ),
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 24
+}
+
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 0.128524, 0.079877, 0.213009 )
+
+[sub_resource type="BoxShape" id=17]
+extents = Vector3( 1, 1, 0.984792 )
+
+[sub_resource type="CubeMesh" id=18]
 
 [sub_resource type="ArrayMesh" id=16]
 resource_name = "rat_Cube_rat_0"
@@ -57,33 +93,27 @@ _data = {
 "tilts": PoolRealArray( 0, 0, 0, 0, 0 )
 }
 
-[sub_resource type="BoxShape" id=12]
-extents = Vector3( 0.4, 0.4, 0.4 )
+[sub_resource type="BoxShape" id=19]
+extents = Vector3( 0.318647, 1, 0.321641 )
 
-[sub_resource type="ArrayMesh" id=13]
-resource_name = "box_Cube"
-surfaces/0 = {
-"aabb": AABB( -1, -1, -1, 2.00001, 2.00001, 2 ),
-"array_data": PoolByteArray( 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 0, 127, 129, 63, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 127, 127, 0, 127, 0, 60, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 127, 0, 0, 127, 0, 60, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 127, 127, 0, 127, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 127, 0, 0, 127, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 0, 129, 127, 63, 0, 60, 0, 60, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 127, 129, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 127, 0, 0, 127, 0, 60, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 127, 0, 60, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 127, 0, 0, 127, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 127, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 0, 129, 127, 63, 0, 60, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 129, 0, 0, 127, 253, 59, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 127, 127, 0, 127, 0, 60, 0, 60, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 0, 127, 129, 63, 0, 60, 0, 60, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 0, 129, 127, 63, 0, 0, 0, 60, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 127, 127, 0, 127, 0, 0, 0, 60, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 129, 0, 0, 127, 27, 20, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 129, 0, 0, 127, 253, 59, 0, 60, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 127, 0, 60, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 0, 127, 129, 63, 0, 60, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 0, 129, 127, 63, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 127, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 129, 0, 0, 127, 27, 20, 0, 60 ),
-"array_index_data": PoolByteArray( 0, 0, 20, 0, 14, 0, 0, 0, 6, 0, 20, 0, 10, 0, 19, 0, 8, 0, 10, 0, 22, 0, 19, 0, 23, 0, 12, 0, 18, 0, 23, 0, 17, 0, 12, 0, 15, 0, 11, 0, 5, 0, 15, 0, 21, 0, 11, 0, 4, 0, 7, 0, 2, 0, 4, 0, 9, 0, 7, 0, 16, 0, 1, 0, 13, 0, 16, 0, 3, 0, 1, 0 ),
-"blend_shape_data": [  ],
-"format": 6389015,
-"index_count": 36,
-"material": ExtResource( 5 ),
-"primitive": 4,
-"skeleton_aabb": [  ],
-"vertex_count": 24
-}
+[sub_resource type="QuadMesh" id=20]
 
-[sub_resource type="BoxShape" id=11]
-extents = Vector3( 0.128524, 0.079877, 0.213009 )
+[sub_resource type="ORMSpatialMaterial" id=21]
+flags_transparent = true
+albedo_texture = ExtResource( 19 )
+
+[sub_resource type="BoxShape" id=22]
+extents = Vector3( 1.43084, 0.804657, 1.30544 )
 
 [node name="Test" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00888014, 1.34212, -0.00601196 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.18155, 0.577978, -30.2211 )
+JUMP_SPEED = 6
 
 [node name="StaticWorld" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -55.3825 )
+visible = false
 
 [node name="StaticBody3D" type="StaticBody" parent="StaticWorld"]
 
@@ -91,19 +121,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00888014, 1.34212, -0.00601
 shape = SubResource( 1 )
 
 [node name="CSGMesh3D" type="CSGMesh" parent="StaticWorld/StaticBody3D/CollisionShape3D"]
-generate_lightmap = false
-lightmap_scale = 3
-calculate_tangents = false
-mesh = SubResource( 2 )
-material = SubResource( 3 )
-
-[node name="StaticBody3D5" type="StaticBody" parent="StaticWorld"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.9408, 0, 0 )
-
-[node name="CollisionShape3D" type="CollisionShape" parent="StaticWorld/StaticBody3D5"]
-shape = SubResource( 1 )
-
-[node name="CSGMesh3D" type="CSGMesh" parent="StaticWorld/StaticBody3D5/CollisionShape3D"]
 generate_lightmap = false
 lightmap_scale = 3
 calculate_tangents = false
@@ -194,41 +211,6 @@ calculate_tangents = false
 mesh = SubResource( 5 )
 material = SubResource( 3 )
 
-[node name="RatNode3D" type="Spatial" parent="StaticWorld"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7 )
-script = ExtResource( 4 )
-
-[node name="rat" type="Spatial" parent="StaticWorld/RatNode3D"]
-
-[node name="Cube_rat_0" type="MeshInstance" parent="StaticWorld/RatNode3D/rat"]
-transform = Transform( 1, 0, 0, 0, -3.57628e-07, 1, 0, -1, -3.57628e-07, 0, 0, 0 )
-mesh = SubResource( 16 )
-
-[node name="StaticBody" type="StaticBody" parent="StaticWorld/RatNode3D/rat"]
-
-[node name="CollisionShape3D" type="CollisionShape" parent="StaticWorld/RatNode3D/rat/StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0934753, 0 )
-shape = SubResource( 6 )
-
-[node name="Spatial" type="Spatial" parent="StaticWorld/RatNode3D/rat/StaticBody"]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
-
-[node name="Particles" type="CPUParticles" parent="StaticWorld/RatNode3D/rat/StaticBody/Spatial"]
-transform = Transform( -0.843888, 0.536519, 0, -0.536519, -0.843888, 0, 0, 0, 1, 0, 0.194895, 0 )
-amount = 5
-mesh = SubResource( 14 )
-flag_align_y = true
-direction = Vector3( 0, 5, 0 )
-spread = 48.68
-gravity = Vector3( 0, -7, 0 )
-initial_velocity = 2.71
-angular_velocity = 83.81
-scale_amount = 0.05
-color = Color( 0.894118, 0.0666667, 0.0666667, 1 )
-
-[node name="Path" type="Path" parent="StaticWorld/RatNode3D"]
-curve = SubResource( 10 )
-
 [node name="RigidBody3D" type="StaticBody" parent="StaticWorld"]
 transform = Transform( 0.783, 0, 0, 0, 0.783, 0, 0, 0, 0.783, -4.20284, 0.544882, -8.16782 )
 script = ExtResource( 9 )
@@ -260,14 +242,156 @@ shape = SubResource( 12 )
 transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
 mesh = SubResource( 13 )
 
-[node name="RigidBody3D2" type="RigidBody" parent="StaticWorld"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.11434, 2.40028, 0 )
+[node name="RigidBodyAxe" type="RigidBody" parent="StaticWorld"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.11434, 2.40028, 3.45561 )
+script = ExtResource( 6 )
+pickup_id = 1
+
+[node name="axe2" parent="StaticWorld/RigidBodyAxe" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.184279 )
+script = ExtResource( 10 )
+
+[node name="CollisionShape3D" type="CollisionShape" parent="StaticWorld/RigidBodyAxe"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00200891, 0.0211167, 0.0250062 )
+shape = SubResource( 11 )
+
+[node name="Cylinder" parent="." instance=ExtResource( 12 )]
+transform = Transform( 175.633, 0, 0, 0, -5.07293e-05, 141.849, 0, -175.633, -6.28112e-05, 0, 0, 0 )
+material/0 = ExtResource( 14 )
+material/1 = ExtResource( 13 )
+
+[node name="StaticBody3D5" type="StaticBody" parent="."]
+transform = Transform( 3.41998, 0, 0, 0, -1, 2.38419e-07, 0, -8.9407e-08, -3.41998, 0.0576363, 4.22661, -1.18037 )
+
+[node name="CollisionShape3D" type="CollisionShape" parent="StaticBody3D5"]
+shape = SubResource( 1 )
+
+[node name="CSGMesh3D" type="CSGMesh" parent="StaticBody3D5/CollisionShape3D"]
+generate_lightmap = false
+lightmap_scale = 3
+calculate_tangents = false
+mesh = SubResource( 2 )
+material = ExtResource( 15 )
+
+[node name="StaticBody11" type="StaticBody" parent="."]
+transform = Transform( -1.45605e-07, 0.0140318, -4.7936, 4.80562, -8.67592e-09, -1.60858e-07, -2.20907e-07, -0.197986, -0.339744, 2.49103, 0.729409, -31.1519 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody11"]
+shape = SubResource( 17 )
+
+[node name="CSGMesh" type="CSGMesh" parent="StaticBody11"]
+transform = Transform( 1, 2.77556e-17, -3.10862e-15, 1.42109e-14, 1, 0, 8.88178e-16, -1.86265e-09, 1, 0.00500001, -0.499985, 2.38419e-07 )
+mesh = SubResource( 18 )
+material = ExtResource( 17 )
+
+[node name="StaticBody12" type="StaticBody" parent="."]
+transform = Transform( -1.45605e-07, 0.0140318, -4.7936, 4.80562, -8.67592e-09, -1.60858e-07, -2.20907e-07, -0.197986, -0.339744, -2.82862, 0.729409, 30.6023 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody12"]
+shape = SubResource( 17 )
+
+[node name="CSGMesh" type="CSGMesh" parent="StaticBody12"]
+transform = Transform( 1, 2.77556e-17, -3.10862e-15, 1.42109e-14, 1, 0, 8.88178e-16, -1.86265e-09, 1, 0.00500001, -0.499985, 2.38419e-07 )
+mesh = SubResource( 18 )
+material = ExtResource( 17 )
+
+[node name="StaticBody13" type="StaticBody" parent="."]
+transform = Transform( -2.1006e-07, 0.198482, 0, -4.80562, -8.67594e-09, 0, 0, 0, 4.80562, -30.6748, 0.729408, -3.61359 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody13"]
+shape = SubResource( 17 )
+
+[node name="CSGMesh" type="CSGMesh" parent="StaticBody13"]
+transform = Transform( 1, 2.77556e-17, -3.10862e-15, 1.42109e-14, 1, 0, 8.88178e-16, -1.86265e-09, 1, 0.00500001, -0.499985, 2.38419e-07 )
+mesh = SubResource( 18 )
+material = ExtResource( 17 )
+
+[node name="StaticBody14" type="StaticBody" parent="."]
+transform = Transform( -2.1006e-07, 0.198482, 0, -4.80562, -8.67594e-09, 0, 0, 0, 4.80562, 30.9336, 0.729408, 4.40361 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody14"]
+shape = SubResource( 17 )
+
+[node name="CSGMesh" type="CSGMesh" parent="StaticBody14"]
+transform = Transform( 1, 2.77556e-17, -3.10862e-15, 1.42109e-14, 1, 0, 8.88178e-16, -1.86265e-09, 1, 0.00500001, -0.499985, 2.38419e-07 )
+mesh = SubResource( 18 )
+material = ExtResource( 17 )
+
+[node name="door_hr_13" parent="." instance=ExtResource( 16 )]
+transform = Transform( -1.283, 0, 0.126382, 0, 1.28942, 0, -0.112769, 0, -0.993898, 2.82795, 0.420225, -30.8284 )
+
+[node name="RatNode3D" type="Spatial" parent="."]
+transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0.248983, 0.389927, 0.500128 )
+script = ExtResource( 4 )
+
+[node name="rat" type="Spatial" parent="RatNode3D"]
+
+[node name="Cube_rat_0" type="MeshInstance" parent="RatNode3D/rat"]
+transform = Transform( 1, 0, 0, 0, -3.57628e-07, 1, 0, -1, -3.57628e-07, 0, 0, 0 )
+mesh = SubResource( 16 )
+
+[node name="StaticBody" type="StaticBody" parent="RatNode3D/rat"]
+
+[node name="CollisionShape3D" type="CollisionShape" parent="RatNode3D/rat/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0934753, 0 )
+shape = SubResource( 6 )
+
+[node name="Spatial" type="Spatial" parent="RatNode3D/rat/StaticBody"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Particles" type="CPUParticles" parent="RatNode3D/rat/StaticBody/Spatial"]
+transform = Transform( -0.843888, 0.536519, 0, -0.536519, -0.843888, 0, 0, 0, 1, 0, 0.194895, 0 )
+amount = 5
+mesh = SubResource( 14 )
+flag_align_y = true
+direction = Vector3( 0, 5, 0 )
+spread = 48.68
+gravity = Vector3( 0, -7, 0 )
+initial_velocity = 2.71
+angular_velocity = 83.81
+scale_amount = 0.05
+color = Color( 0.894118, 0.0666667, 0.0666667, 1 )
+
+[node name="Path" type="Path" parent="RatNode3D"]
+curve = SubResource( 10 )
+
+[node name="pan" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29.9087, 0.599913, -3.74805 )
 script = ExtResource( 6 )
 pickup_id = 0
 
-[node name="frying_pan" parent="StaticWorld/RigidBody3D2" instance=ExtResource( 7 )]
+[node name="frying_pan" parent="pan" instance=ExtResource( 7 )]
 script = ExtResource( 10 )
 
-[node name="CollisionShape3D" type="CollisionShape" parent="StaticWorld/RigidBody3D2"]
+[node name="CollisionShape3D" type="CollisionShape" parent="pan"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00200891, 0.0211167, 0.0250062 )
 shape = SubResource( 11 )
+
+[node name="metal_barrel_hr_1" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29.9225, 0.397177, -2.29067 )
+
+[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_1/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_2" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29.4948, 0.397177, -1.56976 )
+
+[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_2/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="SEWER ENTER" type="CSGMesh" parent="."]
+transform = Transform( 0.997529, 0, 0.0702614, 0, -1, 0, 0.0702614, 0, -0.997529, -3.4293, 1.1335, 30.4586 )
+mesh = SubResource( 20 )
+material = SubResource( 21 )
+
+[node name="SewerTransitionArea" type="Area" parent="SEWER ENTER"]
+script = ExtResource( 20 )
+target_scene = "res://scenes/test2.tscn"
+
+[node name="CollisionShape" type="CollisionShape" parent="SEWER ENTER/SewerTransitionArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.808786, -1.53824, 0 )
+shape = SubResource( 22 )

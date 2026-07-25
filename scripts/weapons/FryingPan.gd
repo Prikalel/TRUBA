@@ -20,13 +20,16 @@ func _ready():
 	pan_path = $Path
 	hit_area = $HitArea
 
-func do_hit() -> void:
+func do_hit() -> bool:
+	var at_least_one_hit = false
 	if _start_hit():
 		var list = hit_area.get_overlapping_bodies()
 		for i in range(len(list)):
 			var collision_node: HittableBase = Utils.get_suitable_parent(list[i] as Node, HittableBase)
 			if collision_node != null:
 				collision_node.get_hit()
+				at_least_one_hit = true
+	return at_least_one_hit
 
 func _start_hit() -> bool:
 	if not is_moving:

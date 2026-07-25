@@ -1,0 +1,289 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://themes/common_ui.tres" type="Theme" id=3]
+[ext_resource path="res://imported_from_part1/fonts/DuskDemon/DuskDemon.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/sounds/main-menu.mp3" type="AudioStream" id=5]
+[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=6]
+[ext_resource path="res://bookxel.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://scripts/pickups/PickupBase.gd" type="Script" id=8]
+[ext_resource path="res://assets/meshes/frying_pan.gltf" type="PackedScene" id=9]
+[ext_resource path="res://scripts/HighlightOutline.gd" type="Script" id=10]
+[ext_resource path="res://assets/textures/new_mat.tres" type="Material" id=11]
+[ext_resource path="res://scripts/hitables/Box.gd" type="Script" id=12]
+[ext_resource path="res://assets/textures/SERVER_ENTER.png" type="Texture" id=13]
+[ext_resource path="res://scripts/SceneTransitionArea.gd" type="Script" id=14]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 0.347462, 1 )
+
+[sub_resource type="BoxShape" id=2]
+
+[sub_resource type="BoxShape" id=3]
+
+[sub_resource type="DynamicFont" id=4]
+size = 200
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 28
+font_data = ExtResource( 7 )
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 0.128524, 0.079877, 0.213009 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 0.4, 0.4, 0.4 )
+
+[sub_resource type="ArrayMesh" id=8]
+resource_name = "box_Cube"
+surfaces/0 = {
+"aabb": AABB( -1, -1, -1, 2.00001, 2.00001, 2 ),
+"array_data": PoolByteArray( 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 0, 127, 129, 63, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 127, 127, 0, 127, 0, 60, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 127, 0, 0, 127, 0, 60, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 127, 127, 0, 127, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 127, 0, 0, 127, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 0, 129, 127, 63, 0, 60, 0, 60, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 127, 129, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 127, 0, 0, 127, 0, 60, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 127, 0, 60, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 127, 0, 0, 127, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 127, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 0, 129, 127, 63, 0, 60, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 129, 0, 0, 127, 253, 59, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 127, 127, 0, 127, 0, 60, 0, 60, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 0, 127, 129, 63, 0, 60, 0, 60, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 0, 129, 127, 63, 0, 0, 0, 60, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 127, 127, 0, 127, 0, 0, 0, 60, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 129, 0, 0, 127, 27, 20, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 129, 0, 0, 127, 253, 59, 0, 60, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 127, 0, 60, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 0, 127, 129, 63, 0, 60, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 0, 129, 127, 63, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 127, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 129, 0, 0, 127, 27, 20, 0, 60 ),
+"array_index_data": PoolByteArray( 0, 0, 20, 0, 14, 0, 0, 0, 6, 0, 20, 0, 10, 0, 19, 0, 8, 0, 10, 0, 22, 0, 19, 0, 23, 0, 12, 0, 18, 0, 23, 0, 17, 0, 12, 0, 15, 0, 11, 0, 5, 0, 15, 0, 21, 0, 11, 0, 4, 0, 7, 0, 2, 0, 4, 0, 9, 0, 7, 0, 16, 0, 1, 0, 13, 0, 16, 0, 3, 0, 1, 0 ),
+"blend_shape_data": [  ],
+"format": 6389015,
+"index_count": 36,
+"material": ExtResource( 11 ),
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 24
+}
+
+[sub_resource type="QuadMesh" id=9]
+
+[sub_resource type="ORMSpatialMaterial" id=10]
+flags_transparent = true
+albedo_texture = ExtResource( 13 )
+
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 1.43084, 0.804657, 1.30544 )
+
+[node name="Test" type="Spatial"]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1486, -1.87711, -8.45025 )
+JUMP_SPEED = 4
+
+[node name="Spatial" type="Spatial" parent="."]
+
+[node name="StaticBody" type="StaticBody" parent="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.038406, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/StaticBody"]
+transform = Transform( 29.5998, 0, 0, 0, 1, 0, 0, 0, 29.5998, 11.3743, -3.33924, 0 )
+shape = SubResource( 1 )
+
+[node name="StaticBody2" type="StaticBody" parent="Spatial"]
+transform = Transform( 6.92636, 0, 0, 0, 4.40933, 0, 0, 0, 1, 10.7799, 0, -10.2877 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/StaticBody2"]
+shape = SubResource( 2 )
+
+[node name="StaticBody3" type="StaticBody" parent="Spatial"]
+transform = Transform( -3.02761e-07, 0, 1, 0, 4.40933, 0, -25.4945, 0, -1.60893e-07, 5.97324, 0, -5.02544 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/StaticBody3"]
+shape = SubResource( 2 )
+
+[node name="StaticBody4" type="StaticBody" parent="Spatial"]
+transform = Transform( -3.02761e-07, 0, 1, 0, 4.40933, 0, -18.0752, 0, -1.1407e-07, 13.5434, 0, -5.02544 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/StaticBody4"]
+shape = SubResource( 2 )
+
+[node name="StaticBody6" type="StaticBody" parent="Spatial"]
+transform = Transform( -18.0752, 0, -1.57781e-07, 0, 4.40933, 0, 1.09285e-06, 0, -1, 30.7209, 0, 12.6705 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/StaticBody6"]
+shape = SubResource( 2 )
+
+[node name="StaticBody7" type="StaticBody" parent="Spatial"]
+transform = Transform( -18.0752, 0, -1.57781e-07, 0, 4.40933, 0, 1.09285e-06, 0, -1, 23.1633, 0, 19.0639 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/StaticBody7"]
+shape = SubResource( 2 )
+
+[node name="StaticBody8" type="StaticBody" parent="Spatial"]
+transform = Transform( 1.88294e-06, 0, -1, 0, 4.40933, 0, 18.0752, 0, 2.01493e-07, 20.9912, -3.8147e-06, 16.6062 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/StaticBody8"]
+shape = SubResource( 2 )
+
+[node name="StaticBody5" type="StaticBody" parent="Spatial"]
+transform = Transform( -10.3411, 0, 0.820172, 0, 4.40933, 0, -14.8247, 0, -0.572117, 8.70358, -1.90735e-06, 15.9882 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/StaticBody5"]
+shape = SubResource( 2 )
+
+[node name="StaticBody9" type="StaticBody" parent="Spatial"]
+transform = Transform( 0.252992, 0, 0, 0, 1, 0, 0, 0, 1.73263, 11.5068, -2.90914, -8.40855 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/StaticBody9"]
+shape = SubResource( 3 )
+
+[node name="StaticBody10" type="StaticBody" parent="Spatial"]
+transform = Transform( 0.658355, 0, 0, 0, -4.37114e-08, 1.73263, 0, -0.453884, -3.43753e-08, 12.6888, -2.6475, 7.14009 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/StaticBody10"]
+shape = SubResource( 3 )
+
+[node name="StaticBody11" type="StaticBody" parent="Spatial"]
+transform = Transform( 0.658355, 0, 0, 0, -4.37114e-08, 1.73263, 0, -0.453884, -3.43753e-08, 7.27762, -2.6475, -2.22654 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/StaticBody11"]
+shape = SubResource( 3 )
+
+[node name="StaticBody12" type="StaticBody" parent="Spatial"]
+transform = Transform( -2.87776e-08, 0.453884, 3.43753e-08, 0, -4.37114e-08, 1.73263, 0.760013, 2.29034e-08, 1.73461e-15, 17.5699, -1.67813, 13.9495 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/StaticBody12"]
+shape = SubResource( 3 )
+
+[node name="StaticBody13" type="StaticBody" parent="Spatial"]
+transform = Transform( -2.87776e-08, 0.453884, 3.43753e-08, 0, -4.37114e-08, 1.73263, 0.917669, 2.76545e-08, 2.09443e-15, 17.5699, -1.67813, 17.7372 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/StaticBody13"]
+shape = SubResource( 3 )
+
+[node name="MainMenu" type="CanvasLayer" parent="."]
+pause_mode = 2
+layer = 10
+script = ExtResource( 6 )
+
+[node name="MenuControl" type="Control" parent="MainMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Background" type="ColorRect" parent="MainMenu/MenuControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.035, 0.035, 0.045, 1 )
+
+[node name="VBox" type="VBoxContainer" parent="MainMenu/MenuControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/separation = 30
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="MainMenu/MenuControl/VBox"]
+margin_top = 143.0
+margin_right = 1024.0
+margin_bottom = 347.0
+custom_colors/font_color = Color( 0.9, 0.88, 0.8, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 4
+custom_constants/shadow_offset_y = 4
+custom_fonts/font = SubResource( 4 )
+text = "TRUBA"
+align = 1
+valign = 1
+
+[node name="StartButton" type="Button" parent="MainMenu/MenuControl/VBox"]
+margin_left = 382.0
+margin_top = 377.0
+margin_right = 642.0
+margin_bottom = 457.0
+rect_min_size = Vector2( 260, 80 )
+size_flags_horizontal = 4
+theme = ExtResource( 3 )
+custom_fonts/font = SubResource( 5 )
+text = "Начать"
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="MainMenu"]
+stream = ExtResource( 5 )
+
+[node name="RigidBody3D2" type="RigidBody" parent="."]
+transform = Transform( 0.660657, 0, -0.750688, 0, 1, 0, 0.750688, 0, 0.660657, 12.5336, -2.5415, -8.4696 )
+script = ExtResource( 8 )
+pickup_id = 0
+
+[node name="frying_pan" parent="RigidBody3D2" instance=ExtResource( 9 )]
+script = ExtResource( 10 )
+
+[node name="CollisionShape3D" type="CollisionShape" parent="RigidBody3D2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00200891, 0.0211167, 0.0250062 )
+shape = SubResource( 6 )
+
+[node name="box" type="StaticBody" parent="."]
+transform = Transform( 0.724677, 0, -0.689089, 0, 1, 0, 0.689089, 0, 0.724677, 17.3669, -2.51948, 15.2251 )
+script = ExtResource( 12 )
+draggable = false
+
+[node name="Broken" type="Spatial" parent="box"]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape" parent="box"]
+shape = SubResource( 7 )
+
+[node name="box" type="Spatial" parent="box"]
+
+[node name="Cube" type="MeshInstance" parent="box/box"]
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
+mesh = SubResource( 8 )
+
+[node name="box2" type="StaticBody" parent="."]
+transform = Transform( 0.98694, 0, -0.161087, 0, 1, 0, 0.161087, 0, 0.98694, 17.3669, -2.51948, 16.3357 )
+script = ExtResource( 12 )
+draggable = false
+
+[node name="Broken" type="Spatial" parent="box2"]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape" parent="box2"]
+shape = SubResource( 7 )
+
+[node name="box" type="Spatial" parent="box2"]
+
+[node name="Cube" type="MeshInstance" parent="box2/box"]
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
+mesh = SubResource( 8 )
+
+[node name="box3" type="StaticBody" parent="."]
+transform = Transform( 0.724677, 0, -0.689089, 0, 1, 0, 0.689089, 0, 0.724677, 17.3669, -1.65146, 15.2251 )
+script = ExtResource( 12 )
+draggable = false
+
+[node name="Broken" type="Spatial" parent="box3"]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape" parent="box3"]
+shape = SubResource( 7 )
+
+[node name="box" type="Spatial" parent="box3"]
+
+[node name="Cube" type="MeshInstance" parent="box3/box"]
+transform = Transform( 0.389853, 0, -0.0895246, 0, 0.4, 0, 0.0895246, 0, 0.389853, -0.0644531, -0.0599262, -0.0719929 )
+mesh = SubResource( 8 )
+
+[node name="box4" type="StaticBody" parent="."]
+transform = Transform( 0.98694, 0, -0.161087, 0, 1, 0, 0.161087, 0, 0.98694, 17.3669, -1.65146, 16.3357 )
+script = ExtResource( 12 )
+draggable = false
+
+[node name="Broken" type="Spatial" parent="box4"]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape" parent="box4"]
+shape = SubResource( 7 )
+
+[node name="box" type="Spatial" parent="box4"]
+
+[node name="Cube" type="MeshInstance" parent="box4/box"]
+transform = Transform( 0.373752, 0, 0.142513, 0, 0.4, 0, -0.142513, 0, 0.373752, 0.0167732, -0.0672684, 0.102776 )
+mesh = SubResource( 8 )
+
+[node name="SEWER ENTER" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 19.5813, -2.91431, 15.8385 )
+mesh = SubResource( 9 )
+material = SubResource( 10 )
+
+[node name="SewerTransitionArea" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5813, -1, 15.8385 )
+script = ExtResource( 14 )
+
+[node name="CollisionShape" type="CollisionShape" parent="SewerTransitionArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.808786, -1.53824, 0 )
+shape = SubResource( 11 )

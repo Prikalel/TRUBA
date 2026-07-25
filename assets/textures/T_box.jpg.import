@@ -2,17 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/T_box.jpg-11fbcc384b6fcdd73a3da3c45298057b.s3tc.stex"
-path.etc2="res://.import/T_box.jpg-11fbcc384b6fcdd73a3da3c45298057b.etc2.stex"
+path="res://.import/T_box.jpg-11fbcc384b6fcdd73a3da3c45298057b.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/T_box.jpg"
-dest_files=[ "res://.import/T_box.jpg-11fbcc384b6fcdd73a3da3c45298057b.s3tc.stex", "res://.import/T_box.jpg-11fbcc384b6fcdd73a3da3c45298057b.etc2.stex" ]
+dest_files=[ "res://.import/T_box.jpg-11fbcc384b6fcdd73a3da3c45298057b.stex" ]
 
 [params]
 

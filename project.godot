@@ -104,8 +104,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Fetidity"
-run/main_scene="res://scenes/test.tscn"
+config/name="Truba"
+run/main_scene="res://scenes/test2.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -152,9 +152,12 @@ interaction={
 
 [mono]
 
-project/assembly_name="Fetidity"
+project/assembly_name="Truba"
 
 [rendering]
 
 quality/driver/driver_name="GLES2"
 quality/driver/fallback_to_gles2=true
+vram_compression/import_s3tc=false
+vram_compression/import_etc2=false
+quality/depth/hdr=false

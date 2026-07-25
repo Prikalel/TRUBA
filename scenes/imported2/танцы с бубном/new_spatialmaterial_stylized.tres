@@ -1,0 +1,4 @@
+[gd_resource type="SpatialMaterial" format=2]
+
+[resource]
+uv1_scale = Vector3( 8.639, 8.639, 8.639 )

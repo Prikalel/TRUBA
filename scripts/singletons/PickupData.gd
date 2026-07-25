@@ -4,18 +4,19 @@ extends Node
 
 # Pickup registry.
 #
-# Previously loaded at runtime from res://csv/*.csv via File.open()/get_csv_line().
-# Synchronous File reads on res:// are not reliable for non-resource text files in
-# the HTML5 export, so the (tiny) table is embedded directly here instead -- there is
-# now zero file I/O. The .csv files are kept only as a human-readable source.
+# The (tiny) tables are embedded directly here so there is zero file I/O (synchronous
+# File reads on res:// are not reliable for non-resource text files in the HTML5 export).
 #
-# pickups_registry columns: id | class | icon | world_scene
+# pickups columns: id | class | icon | world_scene
 const _PICKUP_ROWS := [
 	["0", "0", "res://assets/textures/ui/slot_icons/frying_pan.png", "scene_path"],
+	["1", "0", "res://assets/textures/T_axe_icon.png", "scene_path"],
+	["2", "4", "res://assets/textures/ui/slot_icons/key_icon.png", "scene_path"],
 ]
-# pickups_weapons columns: id | hand_scene
+# weapons columns: id | hand_scene
 const _WEAPON_ROWS := [
 	["0", "res://scenes/weapons/pan.tscn"],
+	["1", "res://scenes/weapons/axe.tscn"],
 ]
 
 # DOWNGRADE NOTE: Godot 3.x has no typed arrays; use plain Array.

@@ -2,17 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/ventilyatsiya.jpg-dc9ed820505536d2aba226c356e5fce6.s3tc.stex"
-path.etc2="res://.import/ventilyatsiya.jpg-dc9ed820505536d2aba226c356e5fce6.etc2.stex"
+path="res://.import/ventilyatsiya.jpg-dc9ed820505536d2aba226c356e5fce6.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://imported_from_part1/models/images/ventilyatsiya.jpg"
-dest_files=[ "res://.import/ventilyatsiya.jpg-dc9ed820505536d2aba226c356e5fce6.s3tc.stex", "res://.import/ventilyatsiya.jpg-dc9ed820505536d2aba226c356e5fce6.etc2.stex" ]
+dest_files=[ "res://.import/ventilyatsiya.jpg-dc9ed820505536d2aba226c356e5fce6.stex" ]
 
 [params]
 

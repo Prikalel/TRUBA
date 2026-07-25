@@ -2,17 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/T_cursed_metal.jpg-4f4f0b4d40d21c343f70c4a8195225a7.s3tc.stex"
-path.etc2="res://.import/T_cursed_metal.jpg-4f4f0b4d40d21c343f70c4a8195225a7.etc2.stex"
+path="res://.import/T_cursed_metal.jpg-4f4f0b4d40d21c343f70c4a8195225a7.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/T_cursed_metal.jpg"
-dest_files=[ "res://.import/T_cursed_metal.jpg-4f4f0b4d40d21c343f70c4a8195225a7.s3tc.stex", "res://.import/T_cursed_metal.jpg-4f4f0b4d40d21c343f70c4a8195225a7.etc2.stex" ]
+dest_files=[ "res://.import/T_cursed_metal.jpg-4f4f0b4d40d21c343f70c4a8195225a7.stex" ]
 
 [params]
 

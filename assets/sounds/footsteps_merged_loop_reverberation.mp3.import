@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/footsteps_merged_loop_reverberation.mp3-c2bd10c32185b91a023343caa4947fd3.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/footsteps_merged_loop_reverberation.mp3"
+dest_files=[ "res://.import/footsteps_merged_loop_reverberation.mp3-c2bd10c32185b91a023343caa4947fd3.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

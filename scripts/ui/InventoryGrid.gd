@@ -11,7 +11,7 @@ var slot = preload("res://scenes/ui/inventory_slot.tscn")
 # DOWNGRADE NOTE: Godot 3.x has no typed arrays; use a plain Array.
 var slots: Array = []
 
-var available_slots_cnt: int = 3
+var available_slots_cnt: int = 5
 
 var _flash_texture = load("res://assets/textures/ui/slot_icons/flash.png")
 var _transmitter_texture = load("res://assets/textures/ui/slot_icons/transmitter.png")

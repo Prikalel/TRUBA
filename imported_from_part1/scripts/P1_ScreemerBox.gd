@@ -61,6 +61,6 @@ func _on_StaticBody_area_shape_entered(area_rid, area, area_shape_index, local_s
 	if self.triggered:
 		return
 	self.triggered = true
-	$StaticBody.monitoring = false
+	$StaticBody.set_deferred("monitoring", false)
 	start_moving()
 	$AudioStreamPlayer3D.play()
