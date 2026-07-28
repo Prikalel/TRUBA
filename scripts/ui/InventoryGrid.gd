@@ -25,7 +25,9 @@ func set_pickup_in_slot(slot_indx: int, pickup_id: int) -> void:
 ## Проверяет что для переданного PickupClass существует свободная ячейка
 func free_slot_exists(for_class: int) -> int:
 	if for_class == PickupClass.WEAPON:
-		return _free_slot_exists([FIRST_HAND_I, SECOND_HAND_I], [])
+		return _free_slot_exists([], [FIRST_HAND_I])
+	if for_class == PickupClass.FIREARM:
+		return _free_slot_exists([], [SECOND_HAND_I])
 	if for_class == PickupClass.FOOD or for_class == PickupClass.OTHER:
 		return _free_slot_exists([], [])
 	if for_class == PickupClass.RADIO:

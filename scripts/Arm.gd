@@ -21,7 +21,10 @@ func listen_weapon_change(inv: Inventory) -> void:
 func _on_weapon_to_hand_assigned(hand_slot_indx: int, pickup_id: int) -> void:
 	var new_weapon: WeaponObj = PickupData.weapon_by_id(pickup_id)
 	if (new_weapon == null):
-		push_error("Error resolving pickup id " + str(pickup_id))
+		# Some hand-slot items have no instantiated weapon scene. The firearm's
+		# view-model is a pre-placed node toggled visible by the Player, so there
+		# is nothing for the Arm to parent here.
+		return
 	if hands[hand_slot_indx] != null:
 		remove_child(hands[hand_slot_indx])
 		hands[hand_slot_indx].queue_free()

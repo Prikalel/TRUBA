@@ -41,6 +41,8 @@ var inventory: Inventory
 # Center-screen interaction cursor for drag-able props (see InteractionCursor.gd).
 # Shown when a draggable is in range ("you can grab") or while it is carried.
 var interaction_cursor: Control = null
+# Pre-placed pistol view-model; hidden until a firearm is picked up.
+var pistol_mesh: Spatial = null
 
 var current_dragging_object: CollisionObject = null
 # Saved collision layer/mask (and RigidBody mode) of the object currently being
@@ -71,9 +73,21 @@ func _ready():
 	inventory = $Inventory as Inventory
 	interaction_cursor = $InteractionCursor as Control
 	arm.listen_weapon_change(inventory)
+	# Firearm view-models are pre-placed nodes (not spawned by the Arm), so the
+	# Player itself reacts to weapon-in-hand changes to show them.
+	pistol_mesh = $Body_CollisionShape/Rotation_Helper/Camera/SM_EdgeLock9TDefender_A1
+	inventory.connect("weapon_in_hand_slot", self, "_on_weapon_in_hand_slot")
 	# So HighlightOutline (and other scripts) can find the player without a hard-coded
 	# node path (which varies between scenes) and without any file I/O.
 	add_to_group("player")
+
+# Reacts to weapon-in-hand changes. The Arm handles spawnable melee weapon scenes;
+# the Player handles pre-placed view-models such as the pistol, shown on pickup.
+func _on_weapon_in_hand_slot(hand_slot_indx: int, pickup_id: int) -> void:
+	var pickup_obj = PickupData.get_by_id(pickup_id)
+	if (pickup_obj != null and pickup_obj.pickup_class == PickupClass.FIREARM):
+		if pistol_mesh != null:
+			pistol_mesh.visible = true
 
 func _player_not_in_inventory() -> bool:
 	return not inventory.visible
@@ -331,3 +345,8 @@ func _input(event):
 			if event is InputEventMouseButton:
 				if event.is_pressed() and event.get_button_index() == BUTTON_LEFT:
 					arm.use_weapon()
+				if event.is_pressed() and event.get_button_index() == BUTTON_RIGHT:
+					if not $Body_CollisionShape/Rotation_Helper/Camera/SM_EdgeLock9TDefender_A1/AnimationPlayer.is_playing():
+						$Body_CollisionShape/Rotation_Helper/Camera/SM_EdgeLock9TDefender_A1/AnimationPlayer.play("pistolshot")
+						if $Body_CollisionShape/Rotation_Helper/Camera/SM_EdgeLock9TDefender_A1.is_visible_in_tree():
+							$PistolSound.play()

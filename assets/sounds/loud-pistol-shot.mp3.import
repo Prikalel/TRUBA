@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/loud-pistol-shot.mp3-003e6ec7b26b249fba23ed18933fdd1e.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/loud-pistol-shot.mp3"
+dest_files=[ "res://.import/loud-pistol-shot.mp3-003e6ec7b26b249fba23ed18933fdd1e.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

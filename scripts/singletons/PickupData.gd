@@ -12,6 +12,7 @@ const _PICKUP_ROWS := [
 	["0", "0", "res://assets/textures/ui/slot_icons/frying_pan.png", "scene_path"],
 	["1", "0", "res://assets/textures/T_axe_icon.png", "scene_path"],
 	["2", "4", "res://assets/textures/ui/slot_icons/key_icon.png", "scene_path"],
+	["3", "5", "res://assets/textures/ui/pistol_icon.png", "scene_path"],
 ]
 # weapons columns: id | hand_scene
 const _WEAPON_ROWS := [

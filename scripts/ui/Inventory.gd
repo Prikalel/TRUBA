@@ -28,7 +28,8 @@ func pick_pickup_if_possible(pickup_node: PickupBase) -> bool:
 		push_warning("Can't pickup item: the inventory is full") # TODO - написать игроку
 		return false
 	grid.set_pickup_in_slot(slot_for_pickup, pickup_node.pickup_id)
-	if (pickup_obj.pickup_class == PickupClass.WEAPON and
+	if ((pickup_obj.pickup_class == PickupClass.WEAPON
+		or pickup_obj.pickup_class == PickupClass.FIREARM) and
 		(slot_for_pickup == InventoryGrid.FIRST_HAND_I or
 		slot_for_pickup == InventoryGrid.SECOND_HAND_I)):
 			# DOWNGRADE NOTE: signal.emit(args) -> emit_signal("signal", args).
