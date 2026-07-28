@@ -14,11 +14,11 @@ dest_files=[ "res://.import/Stylized_TilesDiamond_01_basecolor.jpg-dd4d056ebd28b
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.7
+compress/mode=1
+compress/lossy_quality=0.85
 compress/hdr_mode=0
 compress/bptc_ldr=0
-compress/normal_map=2
+compress/normal_map=0
 flags/repeat=true
 flags/filter=false
 flags/mipmaps=false

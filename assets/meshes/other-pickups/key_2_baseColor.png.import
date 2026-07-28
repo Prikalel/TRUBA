@@ -14,8 +14,8 @@ dest_files=[ "res://.import/key_2_baseColor.png-76492c5836f4e1a892982568d1d5bf95
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.7
+compress/mode=1
+compress/lossy_quality=0.85
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
