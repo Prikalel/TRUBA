@@ -2,15 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SERVER_ENTER.png-41610aa322de12fe62741ffb824af5e1.stex"
+path.s3tc="res://.import/SERVER_ENTER.png-41610aa322de12fe62741ffb824af5e1.s3tc.stex"
+path.etc2="res://.import/SERVER_ENTER.png-41610aa322de12fe62741ffb824af5e1.etc2.stex"
+path.etc="res://.import/SERVER_ENTER.png-41610aa322de12fe62741ffb824af5e1.etc.stex"
+path.pvrtc="res://.import/SERVER_ENTER.png-41610aa322de12fe62741ffb824af5e1.pvrtc.stex"
 metadata={
+"imported_formats": [ "bptc", "s3tc", "etc2", "etc", "pvrtc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/SERVER_ENTER.png"
-dest_files=[ "res://.import/SERVER_ENTER.png-41610aa322de12fe62741ffb824af5e1.stex" ]
+dest_files=[ "res://.import/SERVER_ENTER.png-41610aa322de12fe62741ffb824af5e1.s3tc.stex", "res://.import/SERVER_ENTER.png-41610aa322de12fe62741ffb824af5e1.etc2.stex", "res://.import/SERVER_ENTER.png-41610aa322de12fe62741ffb824af5e1.etc.stex", "res://.import/SERVER_ENTER.png-41610aa322de12fe62741ffb824af5e1.pvrtc.stex" ]
 
 [params]
 

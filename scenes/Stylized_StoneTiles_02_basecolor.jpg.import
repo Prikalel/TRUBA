@@ -2,15 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Stylized_StoneTiles_02_basecolor.jpg-2e8982bff3e2b7b79b730bba0ea4012f.stex"
+path.s3tc="res://.import/Stylized_StoneTiles_02_basecolor.jpg-2e8982bff3e2b7b79b730bba0ea4012f.s3tc.stex"
+path.etc2="res://.import/Stylized_StoneTiles_02_basecolor.jpg-2e8982bff3e2b7b79b730bba0ea4012f.etc2.stex"
+path.etc="res://.import/Stylized_StoneTiles_02_basecolor.jpg-2e8982bff3e2b7b79b730bba0ea4012f.etc.stex"
+path.pvrtc="res://.import/Stylized_StoneTiles_02_basecolor.jpg-2e8982bff3e2b7b79b730bba0ea4012f.pvrtc.stex"
 metadata={
+"imported_formats": [ "bptc", "s3tc", "etc2", "etc", "pvrtc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://scenes/Stylized_StoneTiles_02_basecolor.jpg"
-dest_files=[ "res://.import/Stylized_StoneTiles_02_basecolor.jpg-2e8982bff3e2b7b79b730bba0ea4012f.stex" ]
+dest_files=[ "res://.import/Stylized_StoneTiles_02_basecolor.jpg-2e8982bff3e2b7b79b730bba0ea4012f.s3tc.stex", "res://.import/Stylized_StoneTiles_02_basecolor.jpg-2e8982bff3e2b7b79b730bba0ea4012f.etc2.stex", "res://.import/Stylized_StoneTiles_02_basecolor.jpg-2e8982bff3e2b7b79b730bba0ea4012f.etc.stex", "res://.import/Stylized_StoneTiles_02_basecolor.jpg-2e8982bff3e2b7b79b730bba0ea4012f.pvrtc.stex" ]
 
 [params]
 
