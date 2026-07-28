@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Capsule.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/sounds/2.tres" type="AudioStream" id=7]
 [ext_resource path="res://assets/sounds/wood_broke_2.tres" type="AudioStream" id=8]
 [ext_resource path="res://assets/sounds/stone-sound.mp3" type="AudioStream" id=9]
+[ext_resource path="res://assets/meshes/weapons/SM_EdgeLock9TDefender_A1.glb" type="PackedScene" id=10]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.4
@@ -47,6 +48,10 @@ shadow_reverse_cull_face = true
 spot_range = 17.0321
 spot_angle = 62.93
 spot_angle_attenuation = 0.277392
+
+[node name="SM_EdgeLock9TDefender_A1" parent="Body_CollisionShape/Rotation_Helper/Camera" instance=ExtResource( 10 )]
+transform = Transform( 0.0193185, 0, 0.00517639, 0, 0.02, 0, -0.00517639, 0, 0.0193185, -0.262426, -0.224675, -0.220908 )
+visible = false
 
 [node name="Arm" type="Spatial" parent="Body_CollisionShape/Rotation_Helper"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.283326, -0.124825, 0.295055 )
