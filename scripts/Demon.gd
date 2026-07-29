@@ -45,7 +45,7 @@ export var player_path: NodePath = NodePath("../Player")
 export var nav_node_path: NodePath = NodePath("../Navigation")
 # Animation clip names as imported in Demon.glb (clips are prefixed "Demon|").
 export var walk_anim: String = "Demon|Walk1"
-export var attack_anim: String = "Demon|Punch1"
+export var attack_anim: String = "animsDemon_Punch1_with_method_call"
 # Yaw correction so the model faces its target. The imported Demon model faces
 # +Z (opposite Godot's -Z forward), so 180 keeps its front toward the player.
 export var model_yaw_offset_deg: float = 180.0
@@ -219,6 +219,8 @@ func _path_to_global(point: Vector3) -> Vector3:
 		return _nav.to_global(point)
 	return point
 
+func _process_punch() -> void:
+	$AudioStreamPlayer3D.play()
 
 # --- Helpers -------------------------------------------------------------------
 

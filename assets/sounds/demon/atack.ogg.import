@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/atack.ogg-1c0ab37605698e4f7d2e338b60fab9b5.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/demon/atack.ogg"
+dest_files=[ "res://.import/atack.ogg-1c0ab37605698e4f7d2e338b60fab9b5.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
