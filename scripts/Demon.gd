@@ -53,6 +53,20 @@ export var attack_anim: String = "animsDemon_Punch1_with_method_call"
 # +Z (opposite Godot's -Z forward), so 180 keeps its front toward the player.
 export var model_yaw_offset_deg: float = 180.0
 
+# --- Health & death ------------------------------------------------------------
+# Demon HP (1 by default, so a single raycast shot kills it).
+export var max_health: int = 1
+# Death animation clip name (imported in Demon.glb, prefixed "Demon|").
+export var death_anim: String = "Demon|Death"
+# Seconds the corpse is left on the ground before the whole demon node is freed.
+export var corpse_despawn_delay: float = 15.0
+
+# --- Walking ambience ----------------------------------------------------------
+# Min/max seconds of silence between two random footstep-style growls while the
+# demon is walking.
+export var walk_sound_min_interval: float = 7.0
+export var walk_sound_max_interval: float = 15.0
+
 # --- Internal state ------------------------------------------------------------
 enum State { WALK, ATTACK }
 # -1 = not yet set, so the first _set_state() in _ready actually fires and starts
@@ -65,6 +79,11 @@ var _velocity: Vector3 = Vector3.ZERO
 var _player: KinematicBody = null
 var _nav: Navigation = null
 var _anim_player: AnimationPlayer = null
+# Walk/death audio streams and the capsule, resolved in _ready from named nodes
+# (WalkStream / DeadStream / CollisionShape) added under the Demon node.
+var _walk_stream: AudioStreamPlayer3D = null
+var _dead_stream: AudioStreamPlayer3D = null
+var _collision_shape: CollisionShape = null
 
 var _path: PoolVector3Array = PoolVector3Array()
 var _path_index: int = 0
@@ -73,10 +92,26 @@ var _attack_timer: float = 0.0
 # Spawn height captured in _ready; used to lock vertical position when gravity
 # is disabled.
 var _spawn_y: float = 0.0
+# Current HP (initialised to max_health in _ready).
+var _health: int = 1
+# Latched once killed: the demon freezes, stops making noise and is despawned later.
+var _dead: bool = false
+# Counts down from corpse_despawn_delay after death; frees the node when it hits 0.
+var _death_timer: float = 0.0
+# Walk-growl countdown; when it hits 0 a random demonX.ogg plays and it resets.
+var _walk_sound_timer: float = 0.0
 
 # Distance (XZ) to consider a waypoint reached.
 const _WAYPOINT_REACH = 0.6
 const _UP = Vector3.UP
+# Random pool of growl sounds played periodically while walking (see WalkStream).
+const _WALK_SOUNDS := [
+	preload("res://assets/sounds/demon/walk/demon1.ogg"),
+	preload("res://assets/sounds/demon/walk/demon2.ogg"),
+	preload("res://assets/sounds/demon/walk/demon3.ogg"),
+	preload("res://assets/sounds/demon/walk/demon4.ogg"),
+	preload("res://assets/sounds/demon/walk/demon5.ogg"),
+]
 
 
 func _ready() -> void:
@@ -103,11 +138,30 @@ func _ready() -> void:
 	_ensure_loop(walk_anim)
 	_ensure_loop(attack_anim)
 
+	# Resolve the walk/death audio streams and the capsule (named nodes in test.tscn).
+	_walk_stream = get_node_or_null("WalkStream") as AudioStreamPlayer3D
+	_dead_stream = get_node_or_null("DeadStream") as AudioStreamPlayer3D
+	_collision_shape = get_node_or_null("CollisionShape") as CollisionShape
+
+	# Health & death state: the demon starts at full HP and is shootable.
+	_health = max_health
+	add_to_group("demon")
+	# Stagger the first growl so multiple demons don't all groan on the same frame.
+	_walk_sound_timer = rand_range(walk_sound_min_interval, walk_sound_max_interval)
+
 	# Start walking toward the player.
 	_set_state(State.WALK)
 
 
 func _physics_process(delta: float) -> void:
+	if _dead:
+		# Corpse: hold the death pose and count down to despawn, then free the
+		# whole demon node (model + streams + capsule) from the scene.
+		_death_timer -= delta
+		if _death_timer <= 0.0:
+			queue_free()
+		return
+
 	if not is_instance_valid(_player):
 		return
 
@@ -151,6 +205,13 @@ func _process_walk(delta: float) -> void:
 	if _path_timer <= 0.0:
 		_path_timer = path_recalc_interval
 		_recompute_path()
+
+	# Periodic random growl while walking: after each growl, wait a random
+	# walk_sound_min_interval..walk_sound_max_interval seconds of silence.
+	_walk_sound_timer -= delta
+	if _walk_sound_timer <= 0.0:
+		_play_random_walk_sound()
+		_walk_sound_timer = rand_range(walk_sound_min_interval, walk_sound_max_interval)
 
 	var target := Vector3.ZERO
 	var has_target := false
@@ -223,6 +284,9 @@ func _path_to_global(point: Vector3) -> Vector3:
 	return point
 
 func _process_punch() -> void:
+	# Dead demons never attack (guard against a stray method-call track frame).
+	if _dead:
+		return
 	# Called by method-call tracks on the attack animation timeline at the frames
 	# where the punch connects. Plays the attack sound and, if the player is still
 	# within attack_distance at that exact moment, removes 1 heart.
@@ -230,6 +294,62 @@ func _process_punch() -> void:
 	if is_instance_valid(_player) and _player.has_method("take_damage"):
 		if _horizontal_distance_to(_player) <= attack_distance:
 			_player.take_damage(1)
+
+# --- Damage & death -------------------------------------------------------------
+
+# Public: the player's hitscan ray calls this when a shot connects (see
+# Player.gd _fire_hitscan). With the default 1 HP a single shot kills the demon.
+func take_damage(amount: int = 1) -> void:
+	if _dead or amount <= 0:
+		return
+	_health = max(0, _health - amount)
+	if _health <= 0:
+		_die()
+
+
+# Plays the death growl + one-shot death animation, freezes the demon in place,
+# disables its collision (so the corpse can't be shot again or block the player),
+# and starts the despawn countdown handled in _physics_process.
+func _die() -> void:
+	if _dead:
+		return
+	_dead = true
+	_state = -1
+	# Freeze: stop all horizontal movement immediately.
+	_velocity.x = 0.0
+	_velocity.z = 0.0
+	# Stop any looping walk growl; the death growl replaces it.
+	if _walk_stream != null:
+		_walk_stream.stop()
+	# Remove the capsule so the corpse no longer collides with anything.
+	if _collision_shape != null:
+		_collision_shape.disabled = true
+	# Death growl.
+	if _dead_stream != null:
+		_dead_stream.play()
+	# One-shot death pose (never loops); the model stays on its final frame.
+	_play_death()
+	_death_timer = corpse_despawn_delay
+
+
+func _play_death() -> void:
+	if _anim_player == null or not _anim_player.has_animation(death_anim):
+		# No death clip available: just halt whatever is playing.
+		if _anim_player != null:
+			_anim_player.stop()
+		return
+	var anim := _anim_player.get_animation(death_anim)
+	anim.loop = false
+	_anim_player.stop()
+	_anim_player.play(death_anim)
+
+
+func _play_random_walk_sound() -> void:
+	if _walk_stream == null or _WALK_SOUNDS.empty():
+		return
+	var idx := randi() % _WALK_SOUNDS.size()
+	_walk_stream.stream = _WALK_SOUNDS[idx]
+	_walk_stream.play()
 
 # --- Helpers -------------------------------------------------------------------
 

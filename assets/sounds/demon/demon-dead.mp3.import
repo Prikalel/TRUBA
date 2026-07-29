@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/demon-dead.mp3-4e7a42bf1c1fd797b6d127908e2ea30b.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/demon/demon-dead.mp3"
+dest_files=[ "res://.import/demon-dead.mp3-4e7a42bf1c1fd797b6d127908e2ea30b.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

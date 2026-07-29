@@ -12,6 +12,8 @@ const MAX_FALLING_SPEED = 7
 const HTARGET_WHILE_FALLING_DEACCEL = 3
 # Maximum look-up / look-down angle (in degrees) away from the neutral horizon.
 const PITCH_LIMIT = 70
+# Maximum reach (metres) of the RMB pistol hitscan ray cast from the camera.
+const HITSCAN_RANGE = 100.0
 
 # DOWNGRADE NOTE: Godot 3.x KinematicBody has no built-in velocity member and
 # move_and_slide() requires velocity as an argument, so it is stored here.
@@ -388,6 +390,26 @@ func _input(event):
 						$Body_CollisionShape/Rotation_Helper/Camera/SM_EdgeLock9TDefender_A1/AnimationPlayer.play("pistolshot")
 						if $Body_CollisionShape/Rotation_Helper/Camera/SM_EdgeLock9TDefender_A1.is_visible_in_tree():
 							$PistolSound.play()
+							# Hitscan: damage whatever the crosshair ray hits (infinite ammo).
+							_fire_hitscan()
+
+
+# --- Shooting ------------------------------------------------------------------
+# Fires a hitscan ray straight out of the camera centre (the crosshair) on RMB.
+# Whatever it hits that exposes take_damage() (e.g. the Demon enemy, 1 HP) takes 1
+# damage. The player's own KinematicBody is excluded so the ray, which starts
+# inside the capsule at the camera, never hits the player. Ammo is infinite, so
+# this never fails to fire on lack of bullets.
+func _fire_hitscan() -> void:
+	var space_state := get_world().direct_space_state
+	var origin := camera.global_transform.origin
+	var end := origin + (-camera.global_transform.basis.z.normalized()) * HITSCAN_RANGE
+	var hit = space_state.intersect_ray(origin, end, [self])
+	if hit.empty():
+		return
+	var collider = hit.collider
+	if collider != null and collider.has_method("take_damage"):
+		collider.take_damage(1)
 
 
 # --- Health & death ------------------------------------------------------------

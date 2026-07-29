@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/textures/T_cursed_metal.jpg" type="Texture" id=2]
@@ -25,6 +25,8 @@
 [ext_resource path="res://scripts/Demon.gd" type="Script" id=23]
 [ext_resource path="res://assets/sounds/demon/atack.ogg" type="AudioStream" id=24]
 [ext_resource path="res://assets/anims/animsDemon_Punch1_with_method_call.tres" type="Animation" id=25]
+[ext_resource path="res://assets/sounds/demon/demon-dead.mp3" type="AudioStream" id=26]
+[ext_resource path="res://assets/sounds/demon/walk/demon1.ogg" type="AudioStream" id=27]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 10, 0.05, 10 )
@@ -450,5 +452,13 @@ shape = SubResource( 50 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Demon"]
 stream = ExtResource( 24 )
+
+[node name="WalkStream" type="AudioStreamPlayer3D" parent="Demon"]
+stream = ExtResource( 27 )
+unit_db = 20.0
+
+[node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon"]
+stream = ExtResource( 26 )
+unit_db = 35.315
 
 [editable path="Demon/Model"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/demon1.ogg-81f6baf3d20960f0e01b4d5388e4e2ae.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/demon/walk/demon1.ogg"
+dest_files=[ "res://.import/demon1.ogg-81f6baf3d20960f0e01b4d5388e4e2ae.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
