@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/textures/T_cursed_metal.jpg" type="Texture" id=2]
@@ -21,12 +21,8 @@
 [ext_resource path="res://assets/textures/SERVER_ENTER.png" type="Texture" id=19]
 [ext_resource path="res://scripts/SceneTransitionArea.gd" type="Script" id=20]
 [ext_resource path="res://assets/meshes/weapons/SM_EdgeLock9TDefender_A1.glb" type="PackedScene" id=21]
-[ext_resource path="res://assets/anims/Demon.glb" type="PackedScene" id=22]
-[ext_resource path="res://scripts/Demon.gd" type="Script" id=23]
-[ext_resource path="res://assets/sounds/demon/atack.ogg" type="AudioStream" id=24]
-[ext_resource path="res://assets/anims/animsDemon_Punch1_with_method_call.tres" type="Animation" id=25]
-[ext_resource path="res://assets/sounds/demon/demon-dead.mp3" type="AudioStream" id=26]
-[ext_resource path="res://assets/sounds/demon/walk/demon1.ogg" type="AudioStream" id=27]
+[ext_resource path="res://assets/prefabs/Demon.tscn" type="PackedScene" id=22]
+[ext_resource path="res://scripts/DemonSpawner.gd" type="Script" id=23]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 10, 0.05, 10 )
@@ -118,15 +114,17 @@ albedo_texture = ExtResource( 19 )
 [sub_resource type="BoxShape" id=22]
 extents = Vector3( 1.43084, 0.804657, 1.30544 )
 
-[sub_resource type="CapsuleShape" id=50]
-radius = 0.4
-height = 1.2208
-
 [node name="Test" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.18155, 0.577978, -30.2211 )
 JUMP_SPEED = 6
+max_health = null
+show_health = null
+game_over_delay = null
+heart_size = null
+health_margin = null
+heart_separation = null
 
 [node name="StaticWorld" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -55.3825 )
@@ -345,6 +343,7 @@ transform = Transform( -1.283, 0, 0.126382, 0, 1.28942, 0, -0.112769, 0, -0.9938
 
 [node name="RatNode3D" type="Spatial" parent="."]
 transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0.248983, 0.389927, 0.500128 )
+visible = false
 script = ExtResource( 4 )
 
 [node name="rat" type="Spatial" parent="RatNode3D"]
@@ -376,6 +375,181 @@ scale_amount = 0.05
 color = Color( 0.894118, 0.0666667, 0.0666667, 1 )
 
 [node name="Path" type="Path" parent="RatNode3D"]
+curve = SubResource( 10 )
+
+[node name="Rat2" type="Spatial" parent="."]
+transform = Transform( -0.5, 0, -0.866026, 0, 1, 0, 0.866026, 0, -0.5, -3.80889, 0.389927, -26.4957 )
+script = ExtResource( 4 )
+
+[node name="rat" type="Spatial" parent="Rat2"]
+
+[node name="Cube_rat_0" type="MeshInstance" parent="Rat2/rat"]
+transform = Transform( 1, 0, 0, 0, -3.57628e-07, 1, 0, -1, -3.57628e-07, 0, 0, 0 )
+mesh = SubResource( 16 )
+
+[node name="StaticBody" type="StaticBody" parent="Rat2/rat"]
+
+[node name="CollisionShape3D" type="CollisionShape" parent="Rat2/rat/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0934753, 0 )
+shape = SubResource( 6 )
+
+[node name="Spatial" type="Spatial" parent="Rat2/rat/StaticBody"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Particles" type="CPUParticles" parent="Rat2/rat/StaticBody/Spatial"]
+transform = Transform( -0.843888, 0.536519, 0, -0.536519, -0.843888, 0, 0, 0, 1, 0, 0.194895, 0 )
+amount = 5
+mesh = SubResource( 14 )
+flag_align_y = true
+direction = Vector3( 0, 5, 0 )
+spread = 48.68
+gravity = Vector3( 0, -7, 0 )
+initial_velocity = 2.71
+angular_velocity = 83.81
+scale_amount = 0.05
+color = Color( 0.894118, 0.0666667, 0.0666667, 1 )
+
+[node name="Path" type="Path" parent="Rat2"]
+curve = SubResource( 10 )
+
+[node name="Rat3" type="Spatial" parent="."]
+transform = Transform( -0.5, 0, -0.866026, 0, 1, 0, 0.866026, 0, -0.5, -3.19589, 0.389927, -16.3491 )
+script = ExtResource( 4 )
+
+[node name="rat" type="Spatial" parent="Rat3"]
+
+[node name="Cube_rat_0" type="MeshInstance" parent="Rat3/rat"]
+transform = Transform( 1, 0, 0, 0, -3.57628e-07, 1, 0, -1, -3.57628e-07, 0, 0, 0 )
+mesh = SubResource( 16 )
+
+[node name="StaticBody" type="StaticBody" parent="Rat3/rat"]
+
+[node name="CollisionShape3D" type="CollisionShape" parent="Rat3/rat/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0934753, 0 )
+shape = SubResource( 6 )
+
+[node name="Spatial" type="Spatial" parent="Rat3/rat/StaticBody"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Particles" type="CPUParticles" parent="Rat3/rat/StaticBody/Spatial"]
+transform = Transform( -0.843888, 0.536519, 0, -0.536519, -0.843888, 0, 0, 0, 1, 0, 0.194895, 0 )
+amount = 5
+mesh = SubResource( 14 )
+flag_align_y = true
+direction = Vector3( 0, 5, 0 )
+spread = 48.68
+gravity = Vector3( 0, -7, 0 )
+initial_velocity = 2.71
+angular_velocity = 83.81
+scale_amount = 0.05
+color = Color( 0.894118, 0.0666667, 0.0666667, 1 )
+
+[node name="Path" type="Path" parent="Rat3"]
+curve = SubResource( 10 )
+
+[node name="Rat4" type="Spatial" parent="."]
+transform = Transform( -0.5, 0, -0.866026, 0, 1, 0, 0.866026, 0, -0.5, 16.396, 0.389927, -2.21806 )
+script = ExtResource( 4 )
+
+[node name="rat" type="Spatial" parent="Rat4"]
+
+[node name="Cube_rat_0" type="MeshInstance" parent="Rat4/rat"]
+transform = Transform( 1, 0, 0, 0, -3.57628e-07, 1, 0, -1, -3.57628e-07, 0, 0, 0 )
+mesh = SubResource( 16 )
+
+[node name="StaticBody" type="StaticBody" parent="Rat4/rat"]
+
+[node name="CollisionShape3D" type="CollisionShape" parent="Rat4/rat/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0934753, 0 )
+shape = SubResource( 6 )
+
+[node name="Spatial" type="Spatial" parent="Rat4/rat/StaticBody"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Particles" type="CPUParticles" parent="Rat4/rat/StaticBody/Spatial"]
+transform = Transform( -0.843888, 0.536519, 0, -0.536519, -0.843888, 0, 0, 0, 1, 0, 0.194895, 0 )
+amount = 5
+mesh = SubResource( 14 )
+flag_align_y = true
+direction = Vector3( 0, 5, 0 )
+spread = 48.68
+gravity = Vector3( 0, -7, 0 )
+initial_velocity = 2.71
+angular_velocity = 83.81
+scale_amount = 0.05
+color = Color( 0.894118, 0.0666667, 0.0666667, 1 )
+
+[node name="Path" type="Path" parent="Rat4"]
+curve = SubResource( 10 )
+
+[node name="Rat5" type="Spatial" parent="."]
+transform = Transform( -0.5, 0, -0.866026, 0, 1, 0, 0.866026, 0, -0.5, 24.9992, 0.389925, 13.8167 )
+script = ExtResource( 4 )
+
+[node name="rat" type="Spatial" parent="Rat5"]
+
+[node name="Cube_rat_0" type="MeshInstance" parent="Rat5/rat"]
+transform = Transform( 1, 0, 0, 0, -3.57628e-07, 1, 0, -1, -3.57628e-07, 0, 0, 0 )
+mesh = SubResource( 16 )
+
+[node name="StaticBody" type="StaticBody" parent="Rat5/rat"]
+
+[node name="CollisionShape3D" type="CollisionShape" parent="Rat5/rat/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0934753, 0 )
+shape = SubResource( 6 )
+
+[node name="Spatial" type="Spatial" parent="Rat5/rat/StaticBody"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Particles" type="CPUParticles" parent="Rat5/rat/StaticBody/Spatial"]
+transform = Transform( -0.843888, 0.536519, 0, -0.536519, -0.843888, 0, 0, 0, 1, 0, 0.194895, 0 )
+amount = 5
+mesh = SubResource( 14 )
+flag_align_y = true
+direction = Vector3( 0, 5, 0 )
+spread = 48.68
+gravity = Vector3( 0, -7, 0 )
+initial_velocity = 2.71
+angular_velocity = 83.81
+scale_amount = 0.05
+color = Color( 0.894118, 0.0666667, 0.0666667, 1 )
+
+[node name="Path" type="Path" parent="Rat5"]
+curve = SubResource( 10 )
+
+[node name="Rat6" type="Spatial" parent="."]
+transform = Transform( -0.5, 0, -0.866026, 0, 1, 0, 0.866026, 0, -0.5, -14.425, 0.389925, 12.1382 )
+script = ExtResource( 4 )
+
+[node name="rat" type="Spatial" parent="Rat6"]
+
+[node name="Cube_rat_0" type="MeshInstance" parent="Rat6/rat"]
+transform = Transform( 1, 0, 0, 0, -3.57628e-07, 1, 0, -1, -3.57628e-07, 0, 0, 0 )
+mesh = SubResource( 16 )
+
+[node name="StaticBody" type="StaticBody" parent="Rat6/rat"]
+
+[node name="CollisionShape3D" type="CollisionShape" parent="Rat6/rat/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0934753, 0 )
+shape = SubResource( 6 )
+
+[node name="Spatial" type="Spatial" parent="Rat6/rat/StaticBody"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Particles" type="CPUParticles" parent="Rat6/rat/StaticBody/Spatial"]
+transform = Transform( -0.843888, 0.536519, 0, -0.536519, -0.843888, 0, 0, 0, 1, 0, 0.194895, 0 )
+amount = 5
+mesh = SubResource( 14 )
+flag_align_y = true
+direction = Vector3( 0, 5, 0 )
+spread = 48.68
+gravity = Vector3( 0, -7, 0 )
+initial_velocity = 2.71
+angular_velocity = 83.81
+scale_amount = 0.05
+color = Color( 0.894118, 0.0666667, 0.0666667, 1 )
+
+[node name="Path" type="Path" parent="Rat6"]
 curve = SubResource( 10 )
 
 [node name="pan" type="RigidBody" parent="."]
@@ -419,6 +593,54 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29.4948, 0.397177, -1.56976 )
 [node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_2/StaticBody"]
 shape = SubResource( 19 )
 
+[node name="metal_barrel_hr_3" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.64884, 0.397177, -8.18595 )
+
+[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_3/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_4" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.22114, 0.397177, -7.46504 )
+
+[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_4"]
+
+[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_4/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_5" parent="." instance=ExtResource( 18 )]
+transform = Transform( 0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 11.6921, 0.397177, -9.00157 )
+
+[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_5"]
+
+[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_5/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_6" parent="." instance=ExtResource( 18 )]
+transform = Transform( 0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 12.5302, 0.397177, -9.01152 )
+
+[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_6"]
+
+[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_6/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_7" parent="." instance=ExtResource( 18 )]
+transform = Transform( 0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 22.0847, 0.397177, 3.61808 )
+
+[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_7"]
+
+[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_7/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_8" parent="." instance=ExtResource( 18 )]
+transform = Transform( 0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 22.9229, 0.397177, 3.60814 )
+
+[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_8"]
+
+[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_8/StaticBody"]
+shape = SubResource( 19 )
+
 [node name="SEWER ENTER" type="CSGMesh" parent="."]
 transform = Transform( 0.997529, 0, 0.0702614, 0, -1, 0, 0.0702614, 0, -0.997529, -3.4293, 1.1335, 30.4586 )
 mesh = SubResource( 20 )
@@ -432,33 +654,13 @@ target_scene = "res://scenes/test2.tscn"
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.808786, -1.53824, 0 )
 shape = SubResource( 22 )
 
-[node name="Demon" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.58261, 0.435835, -24.9149 )
+[node name="Demon" parent="." instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.58261, 0.435835, -15.0899 )
+
+[node name="SPAWNPOINT1" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26.499, 0.436, 9.172 )
 script = ExtResource( 23 )
-attack_distance = 2.0
 
-[node name="Model" parent="Demon" instance=ExtResource( 22 )]
-transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
-
-[node name="Demon" parent="Demon/Model" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 1.33158e-07, 0, -1.33158e-07, 1, 0, 0, 0 )
-
-[node name="AnimationPlayer" parent="Demon/Model" index="1"]
-anims/animsDemon_Punch1_with_method_call = ExtResource( 25 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Demon"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
-shape = SubResource( 50 )
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Demon"]
-stream = ExtResource( 24 )
-
-[node name="WalkStream" type="AudioStreamPlayer3D" parent="Demon"]
-stream = ExtResource( 27 )
-unit_db = 20.0
-
-[node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon"]
-stream = ExtResource( 26 )
-unit_db = 35.315
-
-[editable path="Demon/Model"]
+[node name="SPAWNPOINT2" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.4993, 0.436, 3.08275 )
+script = ExtResource( 23 )

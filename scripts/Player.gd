@@ -45,6 +45,9 @@ var inventory: Inventory
 var interaction_cursor: Control = null
 # Pre-placed pistol view-model; hidden until a firearm is picked up.
 var pistol_mesh: Spatial = null
+# Eat sound played when a FOOD item is consumed from the inventory; created in
+# _ready (kept out of the Player scene file to avoid hand-editing .tscn).
+var _food_sound: AudioStreamPlayer2D = null
 
 var current_dragging_object: CollisionObject = null
 # Saved collision layer/mask (and RigidBody mode) of the object currently being
@@ -111,6 +114,8 @@ func _ready():
 	# Player itself reacts to weapon-in-hand changes to show them.
 	pistol_mesh = $Body_CollisionShape/Rotation_Helper/Camera/SM_EdgeLock9TDefender_A1
 	inventory.connect("weapon_in_hand_slot", self, "_on_weapon_in_hand_slot")
+	# FOOD consumed from inventory -> heal 1 HP + play the eat sound.
+	inventory.connect("food_consumed", self, "eat_food")
 	# So HighlightOutline (and other scripts) can find the player without a hard-coded
 	# node path (which varies between scenes) and without any file I/O.
 	add_to_group("player")
@@ -120,6 +125,11 @@ func _ready():
 	if show_health:
 		_build_health_ui()
 		_refresh_hearts()
+	# Eat sound node (non-positional SFX) used when a FOOD item is eaten.
+	_food_sound = AudioStreamPlayer2D.new()
+	_food_sound.name = "FoodSound"
+	_food_sound.stream = load("res://assets/sounds/player/food.mp3")
+	add_child(_food_sound)
 
 # Reacts to weapon-in-hand changes. The Arm handles spawnable melee weapon scenes;
 # the Player handles pre-placed view-models such as the pistol, shown on pickup.
@@ -424,6 +434,26 @@ func take_damage(amount: int = 1) -> void:
 	emit_signal("health_changed", current_health, max_health)
 	if current_health <= 0:
 		_die()
+
+
+# Public: restores `amount` hearts (default 1), clamped to max_health. Used when a
+# FOOD item (e.g. a looted rat) is eaten from the inventory. Clamping means a full
+# health eat still consumes the item (the grid clears it before emitting) without
+# overhealing - exactly the requested behaviour.
+func heal(amount: int = 1) -> void:
+	if amount <= 0:
+		return
+	current_health = min(max_health, current_health + amount)
+	_refresh_hearts()
+	emit_signal("health_changed", current_health, max_health)
+
+
+# Eats a FOOD item from the inventory: plays the eat sound and heals 1 HP (clamped
+# to max_health via heal()).
+func eat_food() -> void:
+	if _food_sound != null:
+		_food_sound.play()
+	heal(1)
 
 
 # Builds the horizontal hearts row in the top-left of the screen. Each slot is a

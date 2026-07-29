@@ -3,6 +3,9 @@ class_name Inventory
 
 # DOWNGRADE NOTE: Godot 3.x signals are untyped.
 signal weapon_in_hand_slot(hand_slot_indx, pickup_id)
+# Emitted when a FOOD item is consumed from the inventory. The Player connects to
+# heal 1 HP and play the eating sound.
+signal food_consumed
 
 # DOWNGRADE NOTE: @onready -> onready.
 onready var grid: InventoryGrid = $HBoxContainer/VBoxContainer/TableMargin/GridContainer
@@ -12,7 +15,9 @@ func find_pickup_in_area(interact_area: Area) -> bool:
 	var list = interact_area.get_overlapping_bodies()
 	for i in range(len(list)):
 		var collision_node = Utils.get_suitable_parent(list[i], PickupBase)
-		if collision_node != null:
+		# can_be_picked_up() gates pickup behind a condition (e.g. the Rat is only
+		# lootable once killed); defaults to true for ordinary world pickups.
+		if collision_node != null and collision_node.can_be_picked_up():
 			if pick_pickup_if_possible(collision_node):
 				collision_node.queue_free()
 				return true
@@ -39,6 +44,8 @@ func pick_pickup_if_possible(pickup_node: PickupBase) -> bool:
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	hide()
+	# Re-broadcast the grid's consumption signal up to the Player.
+	grid.connect("food_consumed", self, "emit_signal", ["food_consumed"])
 
 func _input(event):
 	if event is InputEventKey and event.pressed and not event.echo:

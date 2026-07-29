@@ -1,6 +1,10 @@
 extends GridContainer
 class_name InventoryGrid
 
+# Emitted when a FOOD slot is clicked-and-consumed. The Inventory re-emits it up
+# to the Player, which heals 1 HP and plays the eating sound.
+signal food_consumed
+
 const FIRST_HAND_I = 0
 const SECOND_HAND_I = 1
 const RADIO_I = 3
@@ -21,6 +25,17 @@ var _hand_2_texture = load("res://assets/textures/ui/slot_icons/slot_2.png")
 ## Устанавливает предмет в ячейку
 func set_pickup_in_slot(slot_indx: int, pickup_id: int) -> void:
 	slots[slot_indx].current = PickupData.get_by_id(pickup_id)
+
+## Клик по ячейке: съедобные (FOOD) предметы автоматически съедаются (исчезают из
+## ячейки) и оповещают игрока (восстановление ХП + звук поедания).
+func _on_slot_pressed(slot: InventorySlot) -> void:
+	var item = slot.current
+	if item == null:
+		return
+	if item.pickup_class == PickupClass.FOOD:
+		# current = null очищает иконку (см. InventorySlot._update_foreground_with_item).
+		slot.current = null
+		emit_signal("food_consumed")
 
 ## Проверяет что для переданного PickupClass существует свободная ячейка
 func free_slot_exists(for_class: int) -> int:
@@ -56,6 +71,8 @@ func _ready():
 		var new_slot: InventorySlot = slot.instance() as InventorySlot
 		add_child(new_slot)
 		slots.append(new_slot)
+		# Маршрутизировать клик ЛКМ по ячейке в обработчик потребления (FOOD).
+		new_slot.connect("pressed", self, "_on_slot_pressed", [new_slot])
 		if i == FIRST_HAND_I:
 			new_slot.set_background(_hand_1_texture)
 		elif i == SECOND_HAND_I:

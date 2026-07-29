@@ -1,4 +1,4 @@
-extends HittableBase
+extends PickupBase
 
 var rat: Spatial
 var path: Path
@@ -17,17 +17,43 @@ func get_hit() -> void:
 		is_killed = true
 		# DOWNGRADE NOTE: scene nodes renamed StaticBody3D->StaticBody, GPUParticles3D->Particles.
 		particles.visible = true
+		# Now lootable: surface the floating "E" right away. The player just swung
+		# the pan, so they are standing next to the rat - and Player._update_prompts
+		# caches already-prompted owners, so without this the prompt would only
+		# (re)appear after the player steps out of and back into the drag area.
+		var _player = _get_player()
+		if _player != null:
+			show_text(_player)
 		# DOWNGRADE NOTE: Godot 3 Spatial has no global_rotation (Godot-4-only); set the global basis from Euler.
 		#var _pgt = particles.global_transform
 		#_pgt.basis = Basis(Vector3(0, 0, 0))
 		#particles.global_transform = _pgt
 
+# Only surface the loot prompt once the rat is dead; PickupBase's show_text would
+# otherwise pop a floating "E" over a live, walking rat whenever it enters range.
+func show_text(player_node) -> void:
+	if is_killed:
+		.show_text(player_node)
+
+# Lootable only after being killed.
+func can_be_picked_up() -> bool:
+	return is_killed
+
+func _get_player():
+	var _players = get_tree().get_nodes_in_group("player")
+	if _players.size() > 0:
+		return _players[0]
+	return null
+
 func _ready():
 	rat = $rat
 	# DOWNGRADE NOTE: scene node renamed Path3D -> Path.
 	path = $Path
-	particles = get_node("rat/StaticBody/Spatial/Particles") 
+	particles = get_node("rat/StaticBody/Spatial/Particles")
 	particles.visible = false
+	# PickupBase.pickup_id defaults to -1; bind this rat to the RAT food entry so it
+	# can be looted into the inventory's second row once it has been killed.
+	pickup_id = PickupId.RAT
 
 func _process(delta):
 	if not is_killed:

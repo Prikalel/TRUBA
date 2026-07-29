@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/food.mp3-64042dab3a0f47322c52828eb9edc5b3.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/player/food.mp3"
+dest_files=[ "res://.import/food.mp3-64042dab3a0f47322c52828eb9edc5b3.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
