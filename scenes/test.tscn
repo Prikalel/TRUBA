@@ -116,7 +116,7 @@ extents = Vector3( 1.43084, 0.804657, 1.30544 )
 
 [sub_resource type="CapsuleShape" id=50]
 radius = 0.4
-height = 2.0
+height = 1.2208
 
 [node name="Test" type="Spatial"]
 
@@ -437,5 +437,5 @@ attack_distance = 2.0
 transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Demon"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
 shape = SubResource( 50 )
