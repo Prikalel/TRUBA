@@ -111,6 +111,7 @@ extents = Vector3( 1.43084, 0.804657, 1.30544 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( -0.0564489, 0, -0.998406, 0, 1, 0, 0.998406, 0, -0.0564489, -8.97164, 1.3768, -14.2121 )
+show_health = false
 
 [node name="StaticWorld" type="Spatial" parent="."]
 visible = false

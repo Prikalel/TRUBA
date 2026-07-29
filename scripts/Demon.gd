@@ -2,13 +2,15 @@ extends KinematicBody
 # Demon.gd - Melee enemy AI: navigates toward the player and attacks when close.
 #
 # Scope: path-routing (via a Navigation node), animation playback and a
-# KinematicBody collision body ONLY. It deliberately contains NO HP / damage /
-# "player can shoot the demon" logic.
+# KinematicBody collision body. The ATTACK state damages the player: each punch
+# removes 1 heart via Player.take_damage() when it connects. The Demon itself
+# still has NO HP and cannot be shot yet.
 #
 # Two states:
 #   WALK   - move toward the player along the nav path; play the walk animation.
-#   ATTACK - stop, face the player, play the punch animation, emit `hit` on a
-#            cooldown (signal only - no HP deduction here).
+#   ATTACK - stop, face the player, play the punch animation; the attack
+#            animation's method-call tracks invoke _process_punch() at the frames
+#            where the blow lands, dealing damage if the player is still in range.
 #
 # Vertical handling: by default `use_gravity` is OFF and the demon is locked to
 # its spawn height, moving only on the XZ plane. This is because the level's
@@ -17,8 +19,9 @@ extends KinematicBody
 # the level's floor collision is later fixed to match the visible floor, enable
 # `use_gravity` and the demon will settle on it normally.
 
-# Emitted on each melee hit (every attack_cooldown). Nothing damages anything
-# here; connect this signal wherever real damage is eventually implemented.
+# Informational: emitted on the attack cooldown (see _process_attack). Actual
+# damage is dealt from _process_punch(), driven by the attack animation's
+# method-call tracks, so this signal is currently unused / purely optional.
 signal hit
 
 # --- Inspector parameters ------------------------------------------------------
@@ -220,7 +223,13 @@ func _path_to_global(point: Vector3) -> Vector3:
 	return point
 
 func _process_punch() -> void:
+	# Called by method-call tracks on the attack animation timeline at the frames
+	# where the punch connects. Plays the attack sound and, if the player is still
+	# within attack_distance at that exact moment, removes 1 heart.
 	$AudioStreamPlayer3D.play()
+	if is_instance_valid(_player) and _player.has_method("take_damage"):
+		if _horizontal_distance_to(_player) <= attack_distance:
+			_player.take_damage(1)
 
 # --- Helpers -------------------------------------------------------------------
 

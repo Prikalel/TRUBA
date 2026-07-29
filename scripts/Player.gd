@@ -63,6 +63,38 @@ var _drag_just_released: bool = false
 
 var mouse_sensitivity: float = 0.05
 
+# --- Health (hearts HUD) -------------------------------------------------------
+# Emitted whenever current_health changes (carries current and max). Nothing
+# connects to it yet; it's there for future UI/audio hooks.
+signal health_changed
+
+# Maximum hearts the player starts every level with. Health is reset to this on
+# every (re)load / scene transition because it is (re)initialised in _ready().
+export var max_health: int = 6
+# Whether the hearts HUD row is drawn on screen.
+export var show_health: bool = true
+# Seconds the GAME OVER overlay stays before the current level auto-reloads.
+export var game_over_delay: float = 3.0
+# Pixel size of each heart icon in the HUD.
+export var heart_size: int = 48
+# Pixel inset of the hearts row from the top-left screen corner.
+export var health_margin: int = 16
+# Pixel gap between adjacent hearts.
+export var heart_separation: int = 4
+
+# Heart textures for the top-left HUD row (preloaded as Textures at parse time).
+const _HEART_FULL := preload("res://assets/textures/ui/health/health_icon.png")
+const _HEART_EMPTY := preload("res://assets/textures/ui/health/empty_health_icon.png")
+# GAME OVER title font (same horror font the title screen uses, scenes/test2.tscn).
+const _GAME_OVER_FONT := preload("res://imported_from_part1/fonts/DuskDemon/DuskDemon.ttf")
+
+# Current health (hearts). Set to max_health in _ready().
+var current_health: int = 0
+# HBoxContainer holding the heart TextureRects (null when show_health is false).
+var _health_container: HBoxContainer = null
+# Latched once the player has run out of hearts, so take_damage / _die are idempotent.
+var _is_dead: bool = false
+
 func _ready():
 	camera = $Body_CollisionShape/Rotation_Helper/Camera
 	rotation_helper = $Body_CollisionShape/Rotation_Helper
@@ -80,6 +112,12 @@ func _ready():
 	# So HighlightOutline (and other scripts) can find the player without a hard-coded
 	# node path (which varies between scenes) and without any file I/O.
 	add_to_group("player")
+
+	# Health: start each level at full and build the hearts HUD (top-left row).
+	current_health = max_health
+	if show_health:
+		_build_health_ui()
+		_refresh_hearts()
 
 # Reacts to weapon-in-hand changes. The Arm handles spawnable melee weapon scenes;
 # the Player handles pre-placed view-models such as the pistol, shown on pickup.
@@ -350,3 +388,116 @@ func _input(event):
 						$Body_CollisionShape/Rotation_Helper/Camera/SM_EdgeLock9TDefender_A1/AnimationPlayer.play("pistolshot")
 						if $Body_CollisionShape/Rotation_Helper/Camera/SM_EdgeLock9TDefender_A1.is_visible_in_tree():
 							$PistolSound.play()
+
+
+# --- Health & death ------------------------------------------------------------
+# Public: removes `amount` hearts (default 1). Built so the Demon's punch
+# (_process_punch in Demon.gd) can deal damage without knowing about hearts/HUD.
+# Does nothing once the player is already dead.
+func take_damage(amount: int = 1) -> void:
+	if _is_dead or amount <= 0:
+		return
+	current_health = max(0, current_health - amount)
+	_refresh_hearts()
+	emit_signal("health_changed", current_health, max_health)
+	if current_health <= 0:
+		_die()
+
+
+# Builds the horizontal hearts row in the top-left of the screen. Each slot is a
+# TextureRect sized to heart_size; the container sits on the default canvas (a
+# Control child of this KinematicBody renders on the viewport canvas, exactly like
+# the existing InteractionCursor), so it ignores the 3D/camera transform.
+func _build_health_ui() -> void:
+	_health_container = HBoxContainer.new()
+	_health_container.name = "HealthUI"
+	_health_container.margin_left = health_margin
+	_health_container.margin_top = health_margin
+	_health_container.add_constant_override("separation", heart_separation)
+	for _i in range(max_health):
+		var heart := TextureRect.new()
+		heart.texture = _HEART_FULL
+		heart.expand = true
+		heart.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		heart.rect_min_size = Vector2(heart_size, heart_size)
+		_health_container.add_child(heart)
+	add_child(_health_container)
+
+
+# Flips each heart slot to full/empty depending on current_health.
+func _refresh_hearts() -> void:
+	if _health_container == null:
+		return
+	var index := 0
+	for heart in _health_container.get_children():
+		heart.texture = _HEART_FULL if index < current_health else _HEART_EMPTY
+		index += 1
+
+
+# Out of hearts: lock input by pausing the whole tree and show the GAME OVER
+# overlay. The overlay lives on its own CanvasLayer (above the hearts HUD) with
+# pause_mode PROCESS so its countdown Timer still ticks while paused.
+func _die() -> void:
+	if _is_dead:
+		return
+	_is_dead = true
+	_show_game_over()
+	get_tree().paused = true
+
+
+func _show_game_over() -> void:
+	var layer := CanvasLayer.new()
+	layer.name = "GameOver"
+	layer.layer = 50
+	layer.pause_mode = Node.PAUSE_MODE_PROCESS
+	add_child(layer)
+
+	# Full-screen dark background (matches the title screen colour in test2.tscn).
+	var bg := ColorRect.new()
+	bg.color = Color(0.035, 0.035, 0.045, 1)
+	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	layer.add_child(bg)
+	bg.anchor_right = 1.0
+	bg.anchor_bottom = 1.0
+	bg.margin_left = 0.0
+	bg.margin_top = 0.0
+	bg.margin_right = 0.0
+	bg.margin_bottom = 0.0
+
+	# Centred "GAME OVER" title using the same horror font as the title screen.
+	var label := Label.new()
+	label.text = "GAME OVER"
+	label.align = Label.ALIGN_CENTER
+	label.valign = Label.VALIGN_CENTER
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	layer.add_child(label)
+	label.anchor_right = 1.0
+	label.anchor_bottom = 1.0
+	label.margin_left = 0.0
+	label.margin_top = 0.0
+	label.margin_right = 0.0
+	label.margin_bottom = 0.0
+	var font := DynamicFont.new()
+	font.font_data = _GAME_OVER_FONT
+	font.size = 200
+	label.add_font_override("font", font)
+	label.add_color_override("font_color", Color(0.86, 0.12, 0.12, 1))
+	label.add_color_override("font_color_shadow", Color(0, 0, 0, 1))
+	label.add_constant_override("shadow_offset_x", 4)
+	label.add_constant_override("shadow_offset_y", 4)
+
+	# Auto-reload the current level after game_over_delay seconds. The timer keeps
+	# processing during the pause (pause_mode PROCESS) and its timeout signal fires
+	# regardless of this node's own pause state.
+	var timer := Timer.new()
+	timer.one_shot = true
+	timer.wait_time = game_over_delay
+	timer.pause_mode = Node.PAUSE_MODE_PROCESS
+	timer.connect("timeout", self, "_on_game_over_timeout")
+	layer.add_child(timer)
+	timer.start()
+
+
+func _on_game_over_timeout() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()

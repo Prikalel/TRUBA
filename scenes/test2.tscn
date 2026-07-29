@@ -68,6 +68,7 @@ extents = Vector3( 1.43084, 0.804657, 1.30544 )
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1486, -1.87711, -8.45025 )
 JUMP_SPEED = 4
+show_health = false
 
 [node name="Spatial" type="Spatial" parent="."]
 
