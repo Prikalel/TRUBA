@@ -2,23 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/key_3_baseColor.png-835c2443d826bbae17a987091881d643.s3tc.stex"
-path.etc2="res://.import/key_3_baseColor.png-835c2443d826bbae17a987091881d643.etc2.stex"
-path.etc="res://.import/key_3_baseColor.png-835c2443d826bbae17a987091881d643.etc.stex"
-path.pvrtc="res://.import/key_3_baseColor.png-835c2443d826bbae17a987091881d643.pvrtc.stex"
+path="res://.import/key_3_baseColor.png-835c2443d826bbae17a987091881d643.stex"
 metadata={
-"imported_formats": [ "bptc", "s3tc", "etc2", "etc", "pvrtc" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/meshes/other-pickups/key_3_baseColor.png"
-dest_files=[ "res://.import/key_3_baseColor.png-835c2443d826bbae17a987091881d643.s3tc.stex", "res://.import/key_3_baseColor.png-835c2443d826bbae17a987091881d643.etc2.stex", "res://.import/key_3_baseColor.png-835c2443d826bbae17a987091881d643.etc.stex", "res://.import/key_3_baseColor.png-835c2443d826bbae17a987091881d643.pvrtc.stex" ]
+dest_files=[ "res://.import/key_3_baseColor.png-835c2443d826bbae17a987091881d643.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=1
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0

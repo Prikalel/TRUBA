@@ -37,7 +37,7 @@ const BRICK_TRES_B := "res://scenes/imported2/imported+new_image.tres" # bare Im
 const BRICK_PNG    := "res://scenes/imported2/extracted/t_brick.png"
 
 const MATERIAL_TARGETS := [
-	"res://assets/meshes/weapons/Material_0.material",
+	"res://assets/meshes/weapons/material_0.material",
 	"res://assets/meshes/WoodMaterial.material",
 	"res://assets/meshes/MetalMaterial.material",
 	"res://scenes/imported2/fbxes/wooden_crate_hr_1.material",

@@ -165,6 +165,7 @@ project/assembly_name="Truba"
 quality/driver/driver_name="GLES2"
 quality/driver/fallback_to_gles2=true
 vram_compression/import_bptc=true
+vram_compression/import_s3tc=false
 vram_compression/import_etc=true
 vram_compression/import_pvrtc=true
 quality/depth/hdr=false
