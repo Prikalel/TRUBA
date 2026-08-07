@@ -1,0 +1,272 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/new/levels_merge.fbx" type="PackedScene" id=1]
+[ext_resource path="res://scenes/new/PREVIEW_Floor_Standard.material" type="Material" id=2]
+[ext_resource path="res://scenes/new/PREVIEW_Stair_Standard.material" type="Material" id=3]
+[ext_resource path="res://scenes/new/PREVIEW_Wall_Standard.material" type="Material" id=4]
+
+[node name="levels_merge" instance=ExtResource( 1 )]
+
+[node name="Floor_Object1017_mesh_recycled" parent="RootNode" index="0"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object1035_mesh_recycled" parent="RootNode" index="1"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object1053_mesh_recycled" parent="RootNode" index="2"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object129_mesh_recycled" parent="RootNode" index="3"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object16_mesh_recycled" parent="RootNode" index="4"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object193_mesh_recycled" parent="RootNode" index="5"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object286_mesh_recycled" parent="RootNode" index="6"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object303_mesh_recycled" parent="RootNode" index="7"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object310_mesh_recycled" parent="RootNode" index="8"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object320_mesh_recycled" parent="RootNode" index="9"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object383_mesh_recycled" parent="RootNode" index="10"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object384_mesh_recycled" parent="RootNode" index="11"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object443_mesh" parent="RootNode" index="12"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object517_mesh_recycled" parent="RootNode" index="13"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object535_mesh_recycled" parent="RootNode" index="14"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object581_mesh_recycled" parent="RootNode" index="15"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object637_mesh_recycled" parent="RootNode" index="16"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object69_mesh_recycled" parent="RootNode" index="17"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object714_mesh_recycled" parent="RootNode" index="18"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object78_mesh_recycled" parent="RootNode" index="19"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object810_mesh_recycled" parent="RootNode" index="20"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object866_mesh_recycled" parent="RootNode" index="21"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object96_mesh_recycled" parent="RootNode" index="22"]
+material/0 = ExtResource( 2 )
+
+[node name="Floor_Object999_mesh_recycled" parent="RootNode" index="23"]
+material/0 = ExtResource( 2 )
+
+[node name="Stair150_mesh_recycled" parent="RootNode" index="24"]
+material/0 = ExtResource( 3 )
+
+[node name="Stair217_mesh_recycled" parent="RootNode" index="25"]
+material/0 = ExtResource( 3 )
+
+[node name="Stair427_mesh_recycled" parent="RootNode" index="26"]
+material/0 = ExtResource( 3 )
+
+[node name="Stair658_mesh_recycled" parent="RootNode" index="27"]
+material/0 = ExtResource( 3 )
+
+[node name="Wall103_mesh_recycled" parent="RootNode" index="28"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall110_mesh_recycled" parent="RootNode" index="29"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall117_mesh_recycled" parent="RootNode" index="30"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall125_mesh_recycled" parent="RootNode" index="31"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall132_mesh_recycled" parent="RootNode" index="32"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall139_mesh_recycled" parent="RootNode" index="33"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall146_mesh_recycled" parent="RootNode" index="34"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall191_mesh_recycled" parent="RootNode" index="35"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall198_mesh_recycled" parent="RootNode" index="36"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall205_mesh_recycled" parent="RootNode" index="37"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall23_mesh_recycled" parent="RootNode" index="38"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall244_mesh_recycled" parent="RootNode" index="39"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall251_mesh_recycled" parent="RootNode" index="40"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall258_mesh_recycled" parent="RootNode" index="41"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall30_mesh_recycled" parent="RootNode" index="42"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall318_mesh_recycled" parent="RootNode" index="43"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall324_mesh_recycled" parent="RootNode" index="44"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall330_mesh_recycled" parent="RootNode" index="45"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall330_mesh_recycled001" parent="RootNode" index="46"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall336_mesh_recycled" parent="RootNode" index="47"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall337_mesh_recycled" parent="RootNode" index="48"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall342_mesh_recycled" parent="RootNode" index="49"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall344_mesh_recycled" parent="RootNode" index="50"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall349_mesh_recycled" parent="RootNode" index="51"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall351_mesh_recycled" parent="RootNode" index="52"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall356_mesh_recycled" parent="RootNode" index="53"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall358_mesh_recycled" parent="RootNode" index="54"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall37_mesh_recycled" parent="RootNode" index="55"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall408_mesh_recycled" parent="RootNode" index="56"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall415_mesh_recycled" parent="RootNode" index="57"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall422_mesh_recycled" parent="RootNode" index="58"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall44_mesh_recycled" parent="RootNode" index="59"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall451_mesh_recycled" parent="RootNode" index="60"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall462_mesh_recycled" parent="RootNode" index="61"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall480_mesh_recycled" parent="RootNode" index="62"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall487_mesh_recycled" parent="RootNode" index="63"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall544_mesh_recycled" parent="RootNode" index="64"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall551_mesh_recycled" parent="RootNode" index="65"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall558_mesh_recycled" parent="RootNode" index="66"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall565_mesh_recycled" parent="RootNode" index="67"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall589_mesh_recycled" parent="RootNode" index="68"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall603_mesh_recycled" parent="RootNode" index="69"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall621_mesh_recycled" parent="RootNode" index="70"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall684_mesh_recycled" parent="RootNode" index="71"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall691_mesh_recycled" parent="RootNode" index="72"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall698_mesh_recycled" parent="RootNode" index="73"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall723_mesh_recycled" parent="RootNode" index="74"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall730_mesh_recycled" parent="RootNode" index="75"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall737_mesh_recycled" parent="RootNode" index="76"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall74_mesh_recycled" parent="RootNode" index="77"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall818_mesh_recycled" parent="RootNode" index="78"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall81_mesh_recycled" parent="RootNode" index="79"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall81_mesh_recycled001" parent="RootNode" index="80"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall825_mesh_recycled" parent="RootNode" index="81"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall832_mesh_recycled" parent="RootNode" index="82"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall879_mesh_recycled" parent="RootNode" index="83"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall886_mesh_recycled" parent="RootNode" index="84"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall88_mesh_recycled" parent="RootNode" index="85"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall893_mesh_recycled" parent="RootNode" index="86"]
+material/0 = ExtResource( 4 )
+
+[node name="Wall95_mesh_recycled" parent="RootNode" index="87"]
+material/0 = ExtResource( 4 )

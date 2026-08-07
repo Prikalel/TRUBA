@@ -100,9 +100,17 @@ var _dead: bool = false
 var _death_timer: float = 0.0
 # Walk-growl countdown; when it hits 0 a random demonX.ogg plays and it resets.
 var _walk_sound_timer: float = 0.0
+# Melee-contact latch: once the demon physically reaches the player (its origin
+# cannot get closer because collision keeps the two centres apart), it is treated
+# as "in range" until the player leaves the melee band. See _physics_process.
+var _in_melee_contact: bool = false
 
 # Distance (XZ) to consider a waypoint reached.
 const _WAYPOINT_REACH = 0.6
+# Extra distance (beyond attack_distance) within which a collision-blocked demon
+# still counts as having reached the player (covers the demon + player collision
+# footprints that keep their centres apart).
+const _MELEE_CONTACT_MARGIN: float = 1.5
 const _UP = Vector3.UP
 # Random pool of growl sounds played periodically while walking (see WalkStream).
 const _WALK_SOUNDS := [
@@ -174,10 +182,19 @@ func _physics_process(delta: float) -> void:
 	# Horizontal (XZ) distance drives the state machine so floor-level differences
 	# between the baked navmesh and the real floor don't flip states erratically.
 	var distance := _horizontal_distance_to(_player)
-	if distance <= attack_distance:
+
+	# "In range" = centre within attack_distance OR already in melee contact (latch
+	# below). Centre-to-centre distance alone never triggers when the demon's
+	# (scaled) capsule and the player's capsule physically keep the two origins
+	# farther apart than attack_distance, so without the contact latch the demon
+	# presses against the player and walks in place forever.
+	if distance <= attack_distance or _in_melee_contact:
 		_set_state(State.ATTACK)
 	else:
 		_set_state(State.WALK)
+
+	# XZ position before this tick's movement (used to detect a blocked approach).
+	var pre_move_xz := Vector2(global_transform.origin.x, global_transform.origin.z)
 
 	match _state:
 		State.WALK:
@@ -185,9 +202,31 @@ func _physics_process(delta: float) -> void:
 		State.ATTACK:
 			_process_attack(delta)
 
+	# Horizontal velocity the state handler asked for this tick (pre-collision).
+	var attempted_xz := Vector2(_velocity.x, _velocity.z)
+
 	# DOWNGRADE NOTE: Godot 3.x move_and_slide takes velocity & up direction and
 	# returns the resulting velocity (no parameter-less overload exists).
 	_velocity = move_and_slide(_velocity, _UP)
+
+	# Melee-contact latch. The demon wanted to move toward the player but its body
+	# made essentially no horizontal progress => collision is stopping it from
+	# getting any closer, i.e. it has physically reached the player. Only latch
+	# while pressing TOWARD the player and within the melee band; release once the
+	# player clearly leaves the band. It is sticky on purpose so that ATTACK (which
+	# zeroes the velocity) does not flip the demon back to WALK every other frame.
+	var melee_band := attack_distance + _MELEE_CONTACT_MARGIN
+	if not _in_melee_contact:
+		var post_move_xz := Vector2(global_transform.origin.x, global_transform.origin.z)
+		var horizontal_progress := (post_move_xz - pre_move_xz).length()
+		if attempted_xz.length() > 0.5 and horizontal_progress < 0.0005 and distance <= melee_band:
+			var to_player_xz := Vector2(
+				_player.global_transform.origin.x - pre_move_xz.x,
+				_player.global_transform.origin.z - pre_move_xz.y)
+			if to_player_xz.length() > 0.001 and attempted_xz.dot(to_player_xz.normalized()) > 0.0:
+				_in_melee_contact = true
+	elif distance > melee_band:
+		_in_melee_contact = false
 
 	if not use_gravity:
 		# Glue the demon to its spawn height so it never sinks through a floor
@@ -292,7 +331,11 @@ func _process_punch() -> void:
 	# within attack_distance at that exact moment, removes 1 heart.
 	$AudioStreamPlayer3D.play()
 	if is_instance_valid(_player) and _player.has_method("take_damage"):
-		if _horizontal_distance_to(_player) <= attack_distance:
+		# "Within range" includes the melee-contact latch: collision can keep the
+		# player's centre outside the plain attack_distance even while the bodies
+		# are physically touching (see _physics_process). Without this the demon
+		# would play the attack animation but never connect.
+		if _horizontal_distance_to(_player) <= attack_distance or _in_melee_contact:
 			_player.take_damage(1)
 
 # --- Damage & death -------------------------------------------------------------

@@ -79,5 +79,11 @@ func set_background(new_texture) -> void:
 	background.texture = new_texture
 
 # Находится ли в этой ячейке предмет.
+#
+# Читает РЕАЛЬНОЕ хранилище (_current/_blocked), а не setget-свойства current/blocked:
+# в Godot 3.x внутренний доступ к свойству БЕЗ "self." НЕ вызывает геттер, поэтому
+# "current" всегда оставался бы null (сеттер _set_current пишет в _current) и ячейка
+# всегда казалась бы пустой — из-за этого free_slot_exists() возвращал бы один и тот
+# же индекс для каждой мыши, и они складывались в одну ячейку.
 func is_empty() -> bool:
-	return not blocked and current == null
+	return not _blocked and _current == null
