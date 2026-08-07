@@ -18,3 +18,5 @@ data_*/
 # IDE
 .vs/
 .vscode/
+
+.roo
