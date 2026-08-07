@@ -22,9 +22,27 @@ var _transmitter_texture = load("res://assets/textures/ui/slot_icons/transmitter
 var _hand_1_texture = load("res://assets/textures/ui/slot_icons/slot_1.png")
 var _hand_2_texture = load("res://assets/textures/ui/slot_icons/slot_2.png")
 
-## Устанавливает предмет в ячейку
+## Устанавливает предмет в ячейку.
+# Мыши (FOOD) НЕ стакаются: каждый предмет должен занимать СВОЮ ячейку во втором ряду.
+# Вызывающий код обязан передавать индекс, полученный от free_slot_exists()
+# (гарантированно пустой); дополнительно страхуемся здесь, чтобы занятую ячейку
+# никогда не перезаписали молча.
 func set_pickup_in_slot(slot_indx: int, pickup_id: int) -> void:
-	slots[slot_indx].current = PickupData.get_by_id(pickup_id)
+	if slot_indx < 0 or slot_indx >= len(slots):
+		push_error("set_pickup_in_slot: индекс ячейки вне диапазона: " + str(slot_indx))
+		return
+	var target_slot: InventorySlot = slots[slot_indx]
+	# Страховка от занятой ячейки: сюда мы попадать не должны (free_slot_exists()
+	# возвращает только пустые ячейки), но если индекс всё же занят — отказываемся
+	# перезаписывать существующий предмет вместо того, чтобы молча его затереть.
+	if not target_slot.is_empty():
+		push_warning("set_pickup_in_slot: ячейка " + str(slot_indx) + " уже занята; перезапись отменена")
+		return
+	# Храним НЕЗАВИСИМУЮ копию: PickupData.get_by_id() возвращает общий объект-одиночку
+	# реестра, и без копирования все ячейки FOOD ссылались бы на один экземпляр, из-за
+	# чего предметы нельзя было бы отслеживать по отдельности. Одна мышь = одна ячейка =
+	# свой экземпляр.
+	target_slot.current = PickupData.make_instance(pickup_id)
 
 ## Клик по ячейке: съедобные (FOOD) предметы автоматически съедаются (исчезают из
 ## ячейки) и оповещают игрока (восстановление ХП + звук поедания).

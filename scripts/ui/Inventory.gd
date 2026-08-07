@@ -46,6 +46,11 @@ func _ready():
 	hide()
 	# Re-broadcast the grid's consumption signal up to the Player.
 	grid.connect("food_consumed", self, "emit_signal", ["food_consumed"])
+	# "В меню" button: return to the first level (test2.tscn). MainMenu._ready()
+	# runs on scene load and re-opens the start menu automatically.
+	var to_menu_btn = get_node_or_null("Button_ToMenu")
+	if to_menu_btn != null:
+		to_menu_btn.connect("pressed", self, "_on_to_menu_pressed")
 
 func _input(event):
 	if event is InputEventKey and event.pressed and not event.echo:
@@ -55,10 +60,16 @@ func _input(event):
 			and event.scancode != KEY_D
 			and event.scancode != KEY_E
 			and event.scancode != KEY_SPACE
-			and event.scancode != KEY_CONTROL):
+			and event.scancode != KEY_C):
 			if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
 				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 				hide()
 			else:
 				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 				show()
+
+# Returns to the first level. MainMenu._ready() runs on load, so the start menu
+# is shown again automatically.
+func _on_to_menu_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene("res://scenes/test2.tscn")

@@ -194,6 +194,11 @@ func _process(_delta: float) -> void:
 			_loader = null
 			_loading = false
 			if packed != null:
+				# Persist the destination level so the title screen can resume
+				# here after the tab is closed/reopened. target_scene is the
+				# exported res:// path string (see the export var up top).
+				if target_scene != "":
+					SaveSystem.save_level(target_scene)
 				get_tree().change_scene_to(packed)
 			else:
 				push_error("SceneTransitionArea: loaded resource from '%s' is not a PackedScene" % target_scene)

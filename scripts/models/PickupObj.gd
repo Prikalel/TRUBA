@@ -1,4 +1,8 @@
-extends Object
+# Extends Reference (not Object) so per-instance copies stored in inventory slots are
+# ref-counted and freed automatically when a slot is cleared. PickupData.get_by_id()
+# returns the shared registry singleton; slots must store independent copies of it
+# (see PickupData.make_instance) so each item occupies its OWN slot (mice do NOT stack).
+extends Reference
 class_name PickupObj
 
 var id: int = -1

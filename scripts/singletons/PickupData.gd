@@ -63,6 +63,18 @@ func get_by_id(id: int) -> PickupObj:
 		return null
 	return _pickups[indx]
 
+## Возвращает НЕЗАВИСИМУЮ копию предмета для записи в ячейку инвентаря.
+# get_by_id() возвращает один и тот же общий (разделяемый) объект-одиночку реестра;
+# если записать его напрямую в несколько ячеек, все они будут ссылаться на один
+# экземпляр, и предметы нельзя будет отслеживать по отдельности. Поэтому для хранения
+# в инвентаре всегда создаём свежую независимую копию — одна мышь = одна ячейка =
+# свой экземпляр (мыши НЕ стакаются).
+func make_instance(id: int) -> PickupObj:
+	var registry_obj = get_by_id(id)
+	if registry_obj == null:
+		return null
+	return PickupObj.new(registry_obj.id, registry_obj.pickup_class, registry_obj.icon, registry_obj.dispose_scene)
+
 ## Возвращает информацию о оружии по id предмета
 func weapon_by_id(id: int) -> WeaponObj:
 	var indx: int = -1

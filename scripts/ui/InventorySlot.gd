@@ -43,9 +43,17 @@ func _get_current():
 func _set_current(value) -> void:
 	if _blocked:
 		push_error("Attempt to set pickup in blocked slot!")
-	else:
-		_current = value
-		_update_foreground_with_item()
+		return
+	# Страховка от перезаписи: никогда молча не затираем уже занятую ячейку другим
+	# предметом (иначе предметы стакаются/теряются). Очистка (value == null) и запись в
+	# пустую ячейку всегда разрешены, поэтому съедание/сброс предмета продолжает работать.
+	# Это последний рубеж: вызывающий код должен брать индекс через free_slot_exists()
+	# (только пустые ячейки).
+	if value != null and _current != null:
+		push_warning("InventorySlot: ячейка уже занята, перезапись отменена")
+		return
+	_current = value
+	_update_foreground_with_item()
 
 func _update_background_if_blocked() -> void:
 	if _blocked:
