@@ -54,7 +54,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://imported_from_part1/scripts/P1_StaticBodyDirection.gd"
 }, {
-"base": "Spatial",
+"base": "HittableBase",
 "class": "PickupBase",
 "language": "GDScript",
 "path": "res://scripts/pickups/PickupBase.gd"
