@@ -420,7 +420,6 @@ shape = SubResource( 22 )
 transform = Transform( 1.653, 0, 0, 0, 1.653, 0, 0, 0, 1.653, -26.7549, 0.991827, -2.29922 )
 script = ExtResource( 11 )
 move_speed = 4.0
-attack_distance = 2.0
 rotation_speed = 12.0
 use_gravity = true
 

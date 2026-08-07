@@ -29,8 +29,6 @@ signal hit
 export var move_speed: float = 2.0
 # Horizontal distance at which the demon starts attacking.
 export var attack_distance: float = 1.6
-# Seconds between melee hits while attacking.
-export var attack_cooldown: float = 1.0
 # How often the nav path is recomputed.
 export var path_recalc_interval: float = 0.4
 # Smoothing speed for facing direction (higher = snappier).
@@ -120,6 +118,12 @@ const _WALK_SOUNDS := [
 	preload("res://assets/sounds/demon/walk/demon4.ogg"),
 	preload("res://assets/sounds/demon/walk/demon5.ogg"),
 ]
+# Standalone attack (punch) Animation resource that ships WITH a method-call
+# track. It is NOT imported into Demon.glb's AnimationPlayer, so it must be
+# registered at runtime for the attack animation to play. Its method-call track
+# is disabled when added (see _load_attack_animation) because its node path does
+# not resolve to this Demon KinematicBody; damage is dealt in _process_attack().
+const _ATTACK_ANIM_RES := preload("res://assets/anims/animsDemon_Punch1_with_method_call.tres")
 
 
 func _ready() -> void:
@@ -143,6 +147,10 @@ func _ready() -> void:
 	# Find the AnimationPlayer that ships inside the instanced model (the exact
 	# node name varies between imports, so search descendants by type).
 	_anim_player = _find_first_of_type(self, "AnimationPlayer") as AnimationPlayer
+	# The attack (punch) clip lives in a standalone .tres, NOT in Demon.glb, so
+	# register it into the player at runtime; otherwise _play(attack_anim) no-ops
+	# and the demon never plays the attack animation or connects a hit.
+	_load_attack_animation()
 	_ensure_loop(walk_anim)
 	_ensure_loop(attack_anim)
 
@@ -188,7 +196,11 @@ func _physics_process(delta: float) -> void:
 	# (scaled) capsule and the player's capsule physically keep the two origins
 	# farther apart than attack_distance, so without the contact latch the demon
 	# presses against the player and walks in place forever.
-	if distance <= attack_distance or _in_melee_contact:
+	var enter_range := attack_distance
+	var exit_range := attack_distance * _MELEE_CONTACT_MARGIN
+	var in_range := distance <= (exit_range if _state == State.ATTACK else enter_range)
+
+	if in_range or _in_melee_contact:
 		_set_state(State.ATTACK)
 	else:
 		_set_state(State.WALK)
@@ -292,13 +304,6 @@ func _process_attack(delta: float) -> void:
 	_velocity.z = 0.0
 	_face_toward(_player.global_transform.origin, delta)
 
-	# Cooldown-gated melee "hit". This only emits a signal (structure); it does
-	# NOT deduct any HP - that belongs to a future damage system.
-	_attack_timer -= delta
-	if _attack_timer <= 0.0:
-		_attack_timer = attack_cooldown
-		emit_signal("hit")
-
 
 # --- Navigation ----------------------------------------------------------------
 
@@ -335,7 +340,7 @@ func _process_punch() -> void:
 		# player's centre outside the plain attack_distance even while the bodies
 		# are physically touching (see _physics_process). Without this the demon
 		# would play the attack animation but never connect.
-		if _horizontal_distance_to(_player) <= attack_distance or _in_melee_contact:
+		if _horizontal_distance_to(_player) <= attack_distance * _MELEE_CONTACT_MARGIN or _in_melee_contact:
 			_player.take_damage(1)
 
 # --- Damage & death -------------------------------------------------------------
@@ -421,6 +426,32 @@ func _ensure_loop(anim_name: String) -> void:
 	if _anim_player == null or not _anim_player.has_animation(anim_name):
 		return
 	_anim_player.get_animation(anim_name).loop = true
+
+
+# Registers the standalone punch animation (a .tres, not part of Demon.glb) into
+# the AnimationPlayer so _play(attack_anim) works and the attack animation
+# plays. The .tres's method-call track originally points at NodePath(".."),
+# which resolves relative to the AnimationPlayer's root_node — a node nested
+# inside the model, NOT this Demon KinematicBody. Re-target each method track to
+# the actual Demon node so it calls _process_punch() here (the damage source)
+# when the punch connects.
+func _load_attack_animation() -> void:
+	if _anim_player == null:
+		return
+	if _anim_player.has_animation(attack_anim):
+		return
+	var punch := _ATTACK_ANIM_RES.duplicate() as Animation
+	if punch == null:
+		return
+	# Re-point method-call tracks from the model-internal node to this Demon.
+	var root_node := _anim_player.get_node_or_null(_anim_player.root_node)
+	if root_node != null:
+		var to_demon := root_node.get_path_to(self)
+		for i in range(punch.get_track_count()):
+			if punch.track_get_type(i) == Animation.TYPE_METHOD:
+				punch.track_set_path(i, to_demon)
+	punch.loop = true
+	_anim_player.add_animation(attack_anim, punch)
 
 
 # Smoothly rotates around the Y axis only (no tilting) so the demon faces the
