@@ -102,6 +102,12 @@ var _walk_sound_timer: float = 0.0
 # cannot get closer because collision keeps the two centres apart), it is treated
 # as "in range" until the player leaves the melee band. See _physics_process.
 var _in_melee_contact: bool = false
+# Hurt-flash: when a demon with HP > 1 takes a hit and survives, its materials
+# tint red for _HURT_DURATION seconds. _hurt_materials holds per-instance
+# DUPLICATED SpatialMaterials (so tinting one demon doesn't tint others that
+# share the Demon.glb materials) plus their original emission settings.
+var _hurt_timer: float = 0.0
+var _hurt_materials: Array = []
 
 # Distance (XZ) to consider a waypoint reached.
 const _WAYPOINT_REACH = 0.6
@@ -121,9 +127,12 @@ const _WALK_SOUNDS := [
 # Standalone attack (punch) Animation resource that ships WITH a method-call
 # track. It is NOT imported into Demon.glb's AnimationPlayer, so it must be
 # registered at runtime for the attack animation to play. Its method-call track
-# is disabled when added (see _load_attack_animation) because its node path does
-# not resolve to this Demon KinematicBody; damage is dealt in _process_attack().
+# is re-targeted to this Demon node in _load_attack_animation() so it calls
+# _process_punch() (the damage source) on the frames where the punch lands.
 const _ATTACK_ANIM_RES := preload("res://assets/anims/animsDemon_Punch1_with_method_call.tres")
+# Hurt-flash duration (seconds) and the red emission used to tint the demon.
+const _HURT_DURATION: float = 0.3
+const _HURT_COLOR: Color = Color(1.0, 0.0, 0.0)
 
 
 func _ready() -> void:
@@ -168,8 +177,17 @@ func _ready() -> void:
 	# Start walking toward the player.
 	_set_state(State.WALK)
 
+	# Snapshot per-instance materials so a hurt-flash can tint just this demon.
+	_init_hurt_materials()
+
 
 func _physics_process(delta: float) -> void:
+	# Hurt-flash countdown (runs even while dying so the tint always clears).
+	if _hurt_timer > 0.0:
+		_hurt_timer -= delta
+		if _hurt_timer <= 0.0:
+			_hurt_timer = 0.0
+			_clear_hurt()
 	if _dead:
 		# Corpse: hold the death pose and count down to despawn, then free the
 		# whole demon node (model + streams + capsule) from the scene.
@@ -340,8 +358,9 @@ func _process_punch() -> void:
 		# player's centre outside the plain attack_distance even while the bodies
 		# are physically touching (see _physics_process). Without this the demon
 		# would play the attack animation but never connect.
-		if _horizontal_distance_to(_player) <= attack_distance * _MELEE_CONTACT_MARGIN or _in_melee_contact:
-			_player.take_damage(1)
+		if _vertical_distance_to(_player) <= attack_distance:
+			if _horizontal_distance_to(_player) <= attack_distance * _MELEE_CONTACT_MARGIN or _in_melee_contact:
+				_player.take_damage(1)
 
 # --- Damage & death -------------------------------------------------------------
 
@@ -350,6 +369,9 @@ func _process_punch() -> void:
 func take_damage(amount: int = 1) -> void:
 	if _dead or amount <= 0:
 		return
+	# Surviving hit (HP was > 1, so this damage won't kill): flash red for 0.3s.
+	if _health > 1:
+		_flash_hurt()
 	_health = max(0, _health - amount)
 	if _health <= 0:
 		_die()
@@ -363,6 +385,9 @@ func _die() -> void:
 		return
 	_dead = true
 	_state = -1
+	# Stop any in-progress hurt flash so the corpse isn't left tinted red.
+	_hurt_timer = 0.0
+	_clear_hurt()
 	# Freeze: stop all horizontal movement immediately.
 	_velocity.x = 0.0
 	_velocity.z = 0.0
@@ -398,6 +423,62 @@ func _play_random_walk_sound() -> void:
 	var idx := randi() % _WALK_SOUNDS.size()
 	_walk_stream.stream = _WALK_SOUNDS[idx]
 	_walk_stream.play()
+
+
+# --- Hurt flash ----------------------------------------------------------------
+
+# Snapshots per-instance material overrides so a hurt-flash can tint just this
+# demon. The Demon model's materials are shared across all Demon instances (they
+# live inside Demon.glb), so each surface's active SpatialMaterial is duplicated
+# (shallow - textures stay shared) and assigned as a per-instance override.
+func _init_hurt_materials() -> void:
+	var meshes := []
+	_collect_meshes(self, meshes)
+	for mi in meshes:
+		# `meshes` is an untyped Array, so `mi` is Variant; type it explicitly
+		# before `:=`, otherwise inference fails on Variant property access.
+		var mesh_inst := mi as MeshInstance
+		if mesh_inst == null or mesh_inst.mesh == null:
+			continue
+		var mesh: Mesh = mesh_inst.mesh
+		for s in range(mesh.get_surface_count()):
+			var src := mesh_inst.get_active_material(s) as SpatialMaterial
+			if src == null:
+				continue
+			var dup := src.duplicate() as SpatialMaterial
+			if dup == null:
+				continue
+			mesh_inst.set_surface_material(s, dup)
+			_hurt_materials.append({
+				"mat": dup,
+				"emission_enabled": dup.emission_enabled,
+				"emission": dup.emission,
+				"emission_energy": dup.emission_energy,
+			})
+
+
+func _flash_hurt() -> void:
+	_hurt_timer = _HURT_DURATION
+	for entry in _hurt_materials:
+		var m := entry["mat"] as SpatialMaterial
+		m.emission_enabled = true
+		m.emission = _HURT_COLOR
+		m.emission_energy = 1.5
+
+
+func _clear_hurt() -> void:
+	for entry in _hurt_materials:
+		var m := entry["mat"] as SpatialMaterial
+		m.emission_enabled = entry["emission_enabled"]
+		m.emission = entry["emission"]
+		m.emission_energy = entry["emission_energy"]
+
+
+func _collect_meshes(node: Node, out: Array) -> void:
+	for c in node.get_children():
+		if c is MeshInstance:
+			out.append(c)
+		_collect_meshes(c, out)
 
 # --- Helpers -------------------------------------------------------------------
 
@@ -472,6 +553,11 @@ func _horizontal_distance_to(node: Spatial) -> float:
 	offset.y = 0.0
 	return offset.length()
 
+func _vertical_distance_to(node: Spatial) -> float:
+	var offset := node.global_transform.origin - global_transform.origin
+	offset.x = 0.0
+	offset.z = 0.0
+	return offset.length()
 
 # Depth-first search for the first descendant of `node` matching a class name.
 func _find_first_of_type(node: Node, type: String) -> Node:

@@ -648,7 +648,7 @@ material = SubResource( 21 )
 
 [node name="SewerTransitionArea" type="Area" parent="SEWER ENTER"]
 script = ExtResource( 20 )
-target_scene = "res://scenes/test2.tscn"
+target_scene = "res://scenes/new/new.tscn"
 
 [node name="CollisionShape" type="CollisionShape" parent="SEWER ENTER/SewerTransitionArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.808786, -1.53824, 0 )

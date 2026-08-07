@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://scenes/ui/inventory.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/levels_merge.tscn" type="PackedScene" id=2]
@@ -27,6 +27,13 @@
 [ext_resource path="res://scripts/Capsule.gd" type="Script" id=25]
 [ext_resource path="res://scripts/Player.gd" type="Script" id=26]
 [ext_resource path="res://scripts/InteractionCursor.gd" type="Script" id=27]
+[ext_resource path="res://scripts/Draggable.gd" type="Script" id=28]
+[ext_resource path="res://scenes/imported2/танцы с бубном/another.tres" type="Material" id=29]
+[ext_resource path="res://scenes/imported2/fbxes/metal_barrel_hr_3.glb" type="PackedScene" id=30]
+[ext_resource path="res://scenes/imported2/fbxes/old_mattress_mx_1.glb" type="PackedScene" id=31]
+[ext_resource path="res://assets/textures/new_mat.tres" type="Material" id=32]
+[ext_resource path="res://scripts/hitables/Box.gd" type="Script" id=33]
+[ext_resource path="res://scenes/imported2/fbxes/wooden_crate_1.glb" type="PackedScene" id=34]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.4
@@ -159,6 +166,44 @@ extents = Vector3( 1.43084, 0.804657, 1.30544 )
 [sub_resource type="CapsuleShape" id=51]
 radius = 0.4
 height = 2.14167
+
+[sub_resource type="BoxShape" id=58]
+extents = Vector3( 0.955864, 1, 0.893503 )
+
+[sub_resource type="CubeMesh" id=54]
+
+[sub_resource type="BoxShape" id=53]
+extents = Vector3( 3.82849, 1, 1.55731 )
+
+[sub_resource type="BoxShape" id=59]
+extents = Vector3( 0.960512, 1, 0.988924 )
+
+[sub_resource type="BoxShape" id=61]
+extents = Vector3( 0.990627, 1, 0.970695 )
+
+[sub_resource type="BoxShape" id=60]
+extents = Vector3( 0.987601, 1, 1.01329 )
+
+[sub_resource type="BoxShape" id=55]
+extents = Vector3( 0.4, 0.4, 0.4 )
+
+[sub_resource type="ArrayMesh" id=56]
+resource_name = "box_Cube"
+surfaces/0 = {
+"aabb": AABB( -1, -1, -1, 2.00001, 2.00001, 2 ),
+"array_data": PoolByteArray( 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 0, 127, 129, 63, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 127, 127, 0, 127, 0, 60, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 127, 0, 0, 127, 0, 60, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 127, 127, 0, 127, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 127, 0, 0, 127, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 0, 129, 127, 63, 0, 60, 0, 60, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 127, 129, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 127, 0, 0, 127, 0, 60, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 127, 0, 60, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 127, 0, 0, 127, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 127, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 0, 129, 127, 63, 0, 60, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 129, 0, 0, 127, 253, 59, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 127, 127, 0, 127, 0, 60, 0, 60, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 0, 127, 129, 63, 0, 60, 0, 60, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 0, 129, 127, 63, 0, 0, 0, 60, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 127, 127, 0, 127, 0, 0, 0, 60, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 129, 0, 0, 127, 27, 20, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 129, 0, 0, 127, 253, 59, 0, 60, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 127, 0, 60, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 0, 127, 129, 63, 0, 60, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 0, 129, 127, 63, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 127, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 129, 0, 0, 127, 27, 20, 0, 60 ),
+"array_index_data": PoolByteArray( 0, 0, 20, 0, 14, 0, 0, 0, 6, 0, 20, 0, 10, 0, 19, 0, 8, 0, 10, 0, 22, 0, 19, 0, 23, 0, 12, 0, 18, 0, 23, 0, 17, 0, 12, 0, 15, 0, 11, 0, 5, 0, 15, 0, 21, 0, 11, 0, 4, 0, 7, 0, 2, 0, 4, 0, 9, 0, 7, 0, 16, 0, 1, 0, 13, 0, 16, 0, 3, 0, 1, 0 ),
+"blend_shape_data": [  ],
+"format": 6389015,
+"index_count": 36,
+"material": ExtResource( 32 ),
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 24
+}
+
+[sub_resource type="BoxShape" id=57]
+extents = Vector3( 0.704783, 0.526138, 0.553096 )
 
 [node name="Test" type="Spatial"]
 
@@ -361,8 +406,43 @@ color = Color( 0.894118, 0.0666667, 0.0666667, 1 )
 [node name="Path" type="Path" parent="Rat2"]
 curve = SubResource( 10 )
 
+[node name="Rat3" type="Spatial" parent="."]
+transform = Transform( -0.5, 0, -0.866026, 0, 1, 0, 0.866026, 0, -0.5, -28.0315, 0.671833, -42.0928 )
+script = ExtResource( 4 )
+
+[node name="rat" type="Spatial" parent="Rat3"]
+
+[node name="Cube_rat_0" type="MeshInstance" parent="Rat3/rat"]
+transform = Transform( 1, 0, 0, 0, -3.57628e-07, 1, 0, -1, -3.57628e-07, 0, 0, 0 )
+mesh = SubResource( 16 )
+
+[node name="StaticBody" type="StaticBody" parent="Rat3/rat"]
+
+[node name="CollisionShape3D" type="CollisionShape" parent="Rat3/rat/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0934753, 0 )
+shape = SubResource( 52 )
+
+[node name="Spatial" type="Spatial" parent="Rat3/rat/StaticBody"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Particles" type="CPUParticles" parent="Rat3/rat/StaticBody/Spatial"]
+transform = Transform( -0.843888, 0.536519, 0, -0.536519, -0.843888, 0, 0, 0, 1, 0, 0.194895, 0 )
+amount = 5
+mesh = SubResource( 14 )
+flag_align_y = true
+direction = Vector3( 0, 5, 0 )
+spread = 48.68
+gravity = Vector3( 0, -7, 0 )
+initial_velocity = 2.71
+angular_velocity = 83.81
+scale_amount = 0.05
+color = Color( 0.894118, 0.0666667, 0.0666667, 1 )
+
+[node name="Path" type="Path" parent="Rat3"]
+curve = SubResource( 10 )
+
 [node name="pan" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.2617, 7.63759, 24.9454 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4426, 7.63759, 26.9664 )
 script = ExtResource( 6 )
 pickup_id = 0
 
@@ -402,6 +482,38 @@ transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -27.8218, 0.511562
 [node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_2/StaticBody"]
 shape = SubResource( 19 )
 
+[node name="metal_barrel_hr_4" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -58.397, 0.51156, -7.7852 )
+
+[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_4"]
+
+[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_4/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_5" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -58.412, 0.51156, -6.57405 )
+
+[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_5"]
+
+[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_5/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_6" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -58.397, 0.51156, -47.325 )
+
+[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_6"]
+
+[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_6/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_7" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -58.412, 0.51156, -46.1138 )
+
+[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_7"]
+
+[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_7/StaticBody"]
+shape = SubResource( 19 )
+
 [node name="SEWER ENTER" type="CSGMesh" parent="."]
 transform = Transform( -0.0702614, 0, 0.997529, 0, -1, 0, 0.997529, 0, 0.0702614, -34.5889, -4.11993, -3.77972 )
 mesh = SubResource( 20 )
@@ -420,8 +532,22 @@ shape = SubResource( 22 )
 transform = Transform( 1.653, 0, 0, 0, 1.653, 0, 0, 0, 1.653, -26.7549, 0.991827, -2.29922 )
 script = ExtResource( 11 )
 move_speed = 4.0
+attack_distance = null
+path_recalc_interval = null
 rotation_speed = 12.0
 use_gravity = true
+gravity = null
+max_fall_speed = null
+player_path = null
+nav_node_path = null
+walk_anim = null
+attack_anim = null
+model_yaw_offset_deg = null
+max_health = 2
+death_anim = null
+corpse_despawn_delay = null
+walk_sound_min_interval = null
+walk_sound_max_interval = null
 
 [node name="Model" parent="Demon" instance=ExtResource( 8 )]
 transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
@@ -440,6 +566,668 @@ unit_db = 20.0
 [node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon"]
 stream = ExtResource( 13 )
 unit_db = 35.315
+
+[node name="Demon4" type="KinematicBody" parent="."]
+transform = Transform( 1.653, 0, 0, 0, 1.653, 0, 0, 0, 1.653, -44.4612, 0.991827, -13.2865 )
+script = ExtResource( 11 )
+move_speed = 4.0
+attack_distance = null
+path_recalc_interval = null
+rotation_speed = 12.0
+use_gravity = true
+gravity = null
+max_fall_speed = null
+player_path = null
+nav_node_path = null
+walk_anim = null
+attack_anim = null
+model_yaw_offset_deg = null
+max_health = 2
+death_anim = null
+corpse_despawn_delay = null
+walk_sound_min_interval = null
+walk_sound_max_interval = null
+
+[node name="Model" parent="Demon4" instance=ExtResource( 8 )]
+transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Demon4"]
+transform = Transform( 0.629958, 0, 0, 0, -3.41603e-08, -0.781497, 0, 0.629958, -2.75363e-08, -0.00149536, 1.09018, 0.00106525 )
+shape = SubResource( 51 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Demon4"]
+stream = ExtResource( 12 )
+
+[node name="WalkStream" type="AudioStreamPlayer3D" parent="Demon4"]
+stream = ExtResource( 9 )
+unit_db = 20.0
+
+[node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon4"]
+stream = ExtResource( 13 )
+unit_db = 35.315
+
+[node name="Demon5" type="KinematicBody" parent="."]
+transform = Transform( 1.653, 0, 0, 0, 1.653, 0, 0, 0, 1.653, -41.403, 0.991827, -17.732 )
+script = ExtResource( 11 )
+move_speed = 4.0
+attack_distance = null
+path_recalc_interval = null
+rotation_speed = 12.0
+use_gravity = true
+gravity = null
+max_fall_speed = null
+player_path = null
+nav_node_path = null
+walk_anim = null
+attack_anim = null
+model_yaw_offset_deg = null
+max_health = 2
+death_anim = null
+corpse_despawn_delay = null
+walk_sound_min_interval = null
+walk_sound_max_interval = null
+
+[node name="Model" parent="Demon5" instance=ExtResource( 8 )]
+transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Demon5"]
+transform = Transform( 0.629958, 0, 0, 0, -3.41603e-08, -0.781497, 0, 0.629958, -2.75363e-08, -0.00149536, 1.09018, 0.00106525 )
+shape = SubResource( 51 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Demon5"]
+stream = ExtResource( 12 )
+
+[node name="WalkStream" type="AudioStreamPlayer3D" parent="Demon5"]
+stream = ExtResource( 9 )
+unit_db = 20.0
+
+[node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon5"]
+stream = ExtResource( 13 )
+unit_db = 35.315
+
+[node name="Demon6" type="KinematicBody" parent="."]
+transform = Transform( 1.653, 0, 0, 0, 1.653, 0, 0, 0, 1.653, -46.427, 0.991827, -20.2985 )
+script = ExtResource( 11 )
+move_speed = 4.0
+attack_distance = null
+path_recalc_interval = null
+rotation_speed = 12.0
+use_gravity = true
+gravity = null
+max_fall_speed = null
+player_path = null
+nav_node_path = null
+walk_anim = null
+attack_anim = null
+model_yaw_offset_deg = null
+max_health = 2
+death_anim = null
+corpse_despawn_delay = null
+walk_sound_min_interval = null
+walk_sound_max_interval = null
+
+[node name="Model" parent="Demon6" instance=ExtResource( 8 )]
+transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Demon6"]
+transform = Transform( 0.629958, 0, 0, 0, -3.41603e-08, -0.781497, 0, 0.629958, -2.75363e-08, -0.00149536, 1.09018, 0.00106525 )
+shape = SubResource( 51 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Demon6"]
+stream = ExtResource( 12 )
+
+[node name="WalkStream" type="AudioStreamPlayer3D" parent="Demon6"]
+stream = ExtResource( 9 )
+unit_db = 20.0
+
+[node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon6"]
+stream = ExtResource( 13 )
+unit_db = 35.315
+
+[node name="Demon7" type="KinematicBody" parent="."]
+transform = Transform( 1.653, 0, 0, 0, 1.653, 0, 0, 0, 1.653, -42.8933, 0.991827, -25.9566 )
+script = ExtResource( 11 )
+move_speed = 4.0
+attack_distance = null
+path_recalc_interval = null
+rotation_speed = 12.0
+use_gravity = true
+gravity = null
+max_fall_speed = null
+player_path = null
+nav_node_path = null
+walk_anim = null
+attack_anim = null
+model_yaw_offset_deg = null
+max_health = 2
+death_anim = null
+corpse_despawn_delay = null
+walk_sound_min_interval = null
+walk_sound_max_interval = null
+
+[node name="Model" parent="Demon7" instance=ExtResource( 8 )]
+transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Demon7"]
+transform = Transform( 0.629958, 0, 0, 0, -3.41603e-08, -0.781497, 0, 0.629958, -2.75363e-08, -0.00149536, 1.09018, 0.00106525 )
+shape = SubResource( 51 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Demon7"]
+stream = ExtResource( 12 )
+
+[node name="WalkStream" type="AudioStreamPlayer3D" parent="Demon7"]
+stream = ExtResource( 9 )
+unit_db = 20.0
+
+[node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon7"]
+stream = ExtResource( 13 )
+unit_db = 35.315
+
+[node name="Demon10" type="KinematicBody" parent="."]
+transform = Transform( -0.395528, 0, -1.60498, 0, 1.653, 0, 1.60498, 0, -0.395528, -3.95273, -5.30421, -10.8973 )
+script = ExtResource( 11 )
+move_speed = 4.0
+attack_distance = null
+path_recalc_interval = null
+rotation_speed = 12.0
+use_gravity = true
+gravity = null
+max_fall_speed = null
+player_path = null
+nav_node_path = null
+walk_anim = null
+attack_anim = null
+model_yaw_offset_deg = null
+max_health = 2
+death_anim = null
+corpse_despawn_delay = null
+walk_sound_min_interval = null
+walk_sound_max_interval = null
+
+[node name="Model" parent="Demon10" instance=ExtResource( 8 )]
+transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Demon10"]
+transform = Transform( 0.629958, 0, 0, 0, -3.41603e-08, -0.781497, 0, 0.629958, -2.75363e-08, -0.00149536, 1.09018, 0.00106525 )
+shape = SubResource( 51 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Demon10"]
+stream = ExtResource( 12 )
+
+[node name="WalkStream" type="AudioStreamPlayer3D" parent="Demon10"]
+stream = ExtResource( 9 )
+unit_db = 20.0
+
+[node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon10"]
+stream = ExtResource( 13 )
+unit_db = 35.315
+
+[node name="Demon11" type="KinematicBody" parent="."]
+transform = Transform( -0.395528, 0, -1.60498, 0, 1.653, 0, 1.60498, 0, -0.395528, -0.368098, -5.30421, -6.8642 )
+script = ExtResource( 11 )
+move_speed = 4.0
+attack_distance = null
+path_recalc_interval = null
+rotation_speed = 12.0
+use_gravity = true
+gravity = null
+max_fall_speed = null
+player_path = null
+nav_node_path = null
+walk_anim = null
+attack_anim = null
+model_yaw_offset_deg = null
+max_health = 2
+death_anim = null
+corpse_despawn_delay = null
+walk_sound_min_interval = null
+walk_sound_max_interval = null
+
+[node name="Model" parent="Demon11" instance=ExtResource( 8 )]
+transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Demon11"]
+transform = Transform( 0.629958, 0, 0, 0, -3.41603e-08, -0.781497, 0, 0.629958, -2.75363e-08, -0.00149536, 1.09018, 0.00106525 )
+shape = SubResource( 51 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Demon11"]
+stream = ExtResource( 12 )
+
+[node name="WalkStream" type="AudioStreamPlayer3D" parent="Demon11"]
+stream = ExtResource( 9 )
+unit_db = 20.0
+
+[node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon11"]
+stream = ExtResource( 13 )
+unit_db = 35.315
+
+[node name="Demon12" type="KinematicBody" parent="."]
+transform = Transform( -0.395528, 0, -1.60498, 0, 1.653, 0, 1.60498, 0, -0.395528, 3.32598, -5.30421, -11.1282 )
+script = ExtResource( 11 )
+move_speed = 4.0
+attack_distance = null
+path_recalc_interval = null
+rotation_speed = 12.0
+use_gravity = true
+gravity = null
+max_fall_speed = null
+player_path = null
+nav_node_path = null
+walk_anim = null
+attack_anim = null
+model_yaw_offset_deg = null
+max_health = 2
+death_anim = null
+corpse_despawn_delay = null
+walk_sound_min_interval = null
+walk_sound_max_interval = null
+
+[node name="Model" parent="Demon12" instance=ExtResource( 8 )]
+transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Demon12"]
+transform = Transform( 0.629958, 0, 0, 0, -3.41603e-08, -0.781497, 0, 0.629958, -2.75363e-08, -0.00149536, 1.09018, 0.00106525 )
+shape = SubResource( 51 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Demon12"]
+stream = ExtResource( 12 )
+
+[node name="WalkStream" type="AudioStreamPlayer3D" parent="Demon12"]
+stream = ExtResource( 9 )
+unit_db = 20.0
+
+[node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon12"]
+stream = ExtResource( 13 )
+unit_db = 35.315
+
+[node name="Demon13" type="KinematicBody" parent="."]
+transform = Transform( -0.395528, 0, -1.60498, 0, 1.653, 0, 1.60498, 0, -0.395528, 7.97416, -5.30421, -6.34327 )
+script = ExtResource( 11 )
+move_speed = 4.0
+attack_distance = null
+path_recalc_interval = null
+rotation_speed = 12.0
+use_gravity = true
+gravity = null
+max_fall_speed = null
+player_path = null
+nav_node_path = null
+walk_anim = null
+attack_anim = null
+model_yaw_offset_deg = null
+max_health = 2
+death_anim = null
+corpse_despawn_delay = null
+walk_sound_min_interval = null
+walk_sound_max_interval = null
+
+[node name="Model" parent="Demon13" instance=ExtResource( 8 )]
+transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Demon13"]
+transform = Transform( 0.629958, 0, 0, 0, -3.41603e-08, -0.781497, 0, 0.629958, -2.75363e-08, -0.00149536, 1.09018, 0.00106525 )
+shape = SubResource( 51 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Demon13"]
+stream = ExtResource( 12 )
+
+[node name="WalkStream" type="AudioStreamPlayer3D" parent="Demon13"]
+stream = ExtResource( 9 )
+unit_db = 20.0
+
+[node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon13"]
+stream = ExtResource( 13 )
+unit_db = 35.315
+
+[node name="Demon8" type="KinematicBody" parent="."]
+transform = Transform( 1.653, 0, 0, 0, 1.653, 0, 0, 0, 1.653, -15.1286, 0.991827, -15.6124 )
+script = ExtResource( 11 )
+move_speed = 4.0
+attack_distance = null
+path_recalc_interval = null
+rotation_speed = 12.0
+use_gravity = true
+gravity = null
+max_fall_speed = null
+player_path = null
+nav_node_path = null
+walk_anim = null
+attack_anim = null
+model_yaw_offset_deg = null
+max_health = 2
+death_anim = null
+corpse_despawn_delay = null
+walk_sound_min_interval = null
+walk_sound_max_interval = null
+
+[node name="Model" parent="Demon8" instance=ExtResource( 8 )]
+transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Demon8"]
+transform = Transform( 0.629958, 0, 0, 0, -3.41603e-08, -0.781497, 0, 0.629958, -2.75363e-08, -0.00149536, 1.09018, 0.00106525 )
+shape = SubResource( 51 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Demon8"]
+stream = ExtResource( 12 )
+
+[node name="WalkStream" type="AudioStreamPlayer3D" parent="Demon8"]
+stream = ExtResource( 9 )
+unit_db = 20.0
+
+[node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon8"]
+stream = ExtResource( 13 )
+unit_db = 35.315
+
+[node name="Demon9" type="KinematicBody" parent="."]
+transform = Transform( 1.653, 0, 0, 0, 1.653, 0, 0, 0, 1.653, -15.297, 0.991827, -22.8869 )
+script = ExtResource( 11 )
+move_speed = 4.0
+attack_distance = null
+path_recalc_interval = null
+rotation_speed = 12.0
+use_gravity = true
+gravity = null
+max_fall_speed = null
+player_path = null
+nav_node_path = null
+walk_anim = null
+attack_anim = null
+model_yaw_offset_deg = null
+max_health = 2
+death_anim = null
+corpse_despawn_delay = null
+walk_sound_min_interval = null
+walk_sound_max_interval = null
+
+[node name="Model" parent="Demon9" instance=ExtResource( 8 )]
+transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Demon9"]
+transform = Transform( 0.629958, 0, 0, 0, -3.41603e-08, -0.781497, 0, 0.629958, -2.75363e-08, -0.00149536, 1.09018, 0.00106525 )
+shape = SubResource( 51 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Demon9"]
+stream = ExtResource( 12 )
+
+[node name="WalkStream" type="AudioStreamPlayer3D" parent="Demon9"]
+stream = ExtResource( 9 )
+unit_db = 20.0
+
+[node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon9"]
+stream = ExtResource( 13 )
+unit_db = 35.315
+
+[node name="Demon2" type="KinematicBody" parent="."]
+transform = Transform( 1.653, 0, 0, 0, 1.653, 0, 0, 0, 1.653, -25.1293, 6.79725, 12.9528 )
+script = ExtResource( 11 )
+move_speed = 4.0
+attack_distance = null
+path_recalc_interval = null
+rotation_speed = 12.0
+use_gravity = true
+gravity = null
+max_fall_speed = null
+player_path = null
+nav_node_path = null
+walk_anim = null
+attack_anim = null
+model_yaw_offset_deg = null
+max_health = 2
+death_anim = null
+corpse_despawn_delay = null
+walk_sound_min_interval = null
+walk_sound_max_interval = null
+
+[node name="Model" parent="Demon2" instance=ExtResource( 8 )]
+transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Demon2"]
+transform = Transform( 0.629958, 0, 0, 0, -3.41603e-08, -0.781497, 0, 0.629958, -2.75363e-08, -0.00149536, 1.09018, 0.00106525 )
+shape = SubResource( 51 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Demon2"]
+stream = ExtResource( 12 )
+
+[node name="WalkStream" type="AudioStreamPlayer3D" parent="Demon2"]
+stream = ExtResource( 9 )
+unit_db = 20.0
+
+[node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon2"]
+stream = ExtResource( 13 )
+unit_db = 35.315
+
+[node name="Demon3" type="KinematicBody" parent="."]
+transform = Transform( 1.653, 0, 0, 0, 1.653, 0, 0, 0, 1.653, -25.1293, 0.859946, 12.9528 )
+script = ExtResource( 11 )
+move_speed = 4.0
+attack_distance = null
+path_recalc_interval = null
+rotation_speed = 12.0
+use_gravity = true
+gravity = null
+max_fall_speed = null
+player_path = null
+nav_node_path = null
+walk_anim = null
+attack_anim = null
+model_yaw_offset_deg = null
+max_health = 2
+death_anim = null
+corpse_despawn_delay = null
+walk_sound_min_interval = null
+walk_sound_max_interval = null
+
+[node name="Model" parent="Demon3" instance=ExtResource( 8 )]
+transform = Transform( 0.379, 0, 0, 0, 0.379, 0, 0, 0, 0.379, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Demon3"]
+transform = Transform( 0.629958, 0, 0, 0, -3.41603e-08, -0.781497, 0, 0.629958, -2.75363e-08, -0.00149536, 1.09018, 0.00106525 )
+shape = SubResource( 51 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Demon3"]
+stream = ExtResource( 12 )
+
+[node name="WalkStream" type="AudioStreamPlayer3D" parent="Demon3"]
+stream = ExtResource( 9 )
+unit_db = 20.0
+
+[node name="DeadStream" type="AudioStreamPlayer3D" parent="Demon3"]
+stream = ExtResource( 13 )
+unit_db = 35.315
+
+[node name="moveable" type="StaticBody" parent="."]
+transform = Transform( 0.43919, 0, 0, 0, 2.36247, 0, 0, 0, 1.45484, -31.2439, 8.4036, 28.1931 )
+script = ExtResource( 28 )
+
+[node name="CollisionShape3D" type="CollisionShape" parent="moveable"]
+shape = SubResource( 58 )
+
+[node name="CSGMesh" type="CSGMesh" parent="moveable"]
+mesh = SubResource( 54 )
+material = ExtResource( 29 )
+
+[node name="moveable2" type="StaticBody" parent="."]
+transform = Transform( -1.91976e-08, 0, -1.45484, 0, 2.36247, 0, 0.43919, 0, -6.35929e-08, -25.5253, 2.85125, 11.0498 )
+script = ExtResource( 28 )
+
+[node name="CollisionShape3D" type="CollisionShape" parent="moveable2"]
+transform = Transform( 1, 0, 2.84217e-14, 0, 1, 0, 0, 0, 1, -1.34601, 0, 0 )
+shape = SubResource( 53 )
+
+[node name="CSGMesh" type="CSGMesh" parent="moveable2"]
+transform = Transform( 3.76689, 0, -3.16215e-07, 0, 1, 0, -2.88178e-08, 0, 1.58303, -1.22224, 0, 0 )
+mesh = SubResource( 54 )
+material = ExtResource( 29 )
+
+[node name="moveable3" type="StaticBody" parent="."]
+transform = Transform( -1.91976e-08, 0, -1.45484, 0, 2.30642, 0, 1.12669, 0, -1.6314e-07, -25.5253, -3.71266, -35.3812 )
+script = ExtResource( 28 )
+
+[node name="CollisionShape3D" type="CollisionShape" parent="moveable3"]
+shape = SubResource( 59 )
+
+[node name="CSGMesh" type="CSGMesh" parent="moveable3"]
+mesh = SubResource( 54 )
+material = ExtResource( 29 )
+
+[node name="moveable5" type="StaticBody" parent="."]
+transform = Transform( 1.12669, 0, -9.95469e-08, 0, 1.84277, 0, -3.00515e-08, 0, 1.45484, -12.2152, -3.61276, -11.5274 )
+script = ExtResource( 28 )
+
+[node name="CollisionShape3D" type="CollisionShape" parent="moveable5"]
+shape = SubResource( 61 )
+
+[node name="CSGMesh" type="CSGMesh" parent="moveable5"]
+mesh = SubResource( 54 )
+material = ExtResource( 29 )
+
+[node name="moveable4" type="StaticBody" parent="."]
+transform = Transform( -1.91976e-08, 0, -1.45484, 0, 0.997006, 0, 1.12669, 0, -1.6314e-07, -13.693, -4.42942, -45.1049 )
+script = ExtResource( 28 )
+
+[node name="CollisionShape3D" type="CollisionShape" parent="moveable4"]
+transform = Transform( 1, 0, 1.42109e-14, 0, 1, 0, -2.66454e-15, 0, 1, 0, 0, 0 )
+shape = SubResource( 60 )
+
+[node name="CSGMesh" type="CSGMesh" parent="moveable4"]
+transform = Transform( 1, 0, 1.42109e-14, 0, 1, 0, -8.88178e-16, 0, 1, 0, 0, 0 )
+mesh = SubResource( 54 )
+material = ExtResource( 29 )
+
+[node name="metal_barrel_hr_3" parent="." instance=ExtResource( 30 )]
+transform = Transform( 1.47884, 0, 0, 0, 1.47884, 0, 0, 0, 1.47884, -41.3496, 6.24845, 32.442 )
+
+[node name="old_mattress_mx_1" parent="." instance=ExtResource( 31 )]
+transform = Transform( -0.0744473, 1.66157, -0.128459, -0.00889048, 0.128189, 1.66324, 1.66651, 0.0749107, 0.00313445, -42.1016, 6.99437, 25.7809 )
+
+[node name="box2" type="StaticBody" parent="."]
+transform = Transform( 1.97715, 0, -0.322707, 0, 2.00331, 0, 0.322707, 0, 1.97715, -27.4168, 7.19942, 24.3053 )
+script = ExtResource( 33 )
+draggable = false
+
+[node name="Broken" type="Spatial" parent="box2"]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape" parent="box2"]
+shape = SubResource( 55 )
+
+[node name="box" type="Spatial" parent="box2"]
+
+[node name="Cube" type="MeshInstance" parent="box2/box"]
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
+mesh = SubResource( 56 )
+
+[node name="box4" type="StaticBody" parent="."]
+transform = Transform( 1.97715, 0, -0.322707, 0, 2.00331, 0, 0.322707, 0, 1.97715, -27.4168, 8.93834, 24.3053 )
+script = ExtResource( 33 )
+draggable = false
+
+[node name="Broken" type="Spatial" parent="box4"]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape" parent="box4"]
+shape = SubResource( 55 )
+
+[node name="box" type="Spatial" parent="box4"]
+
+[node name="Cube" type="MeshInstance" parent="box4/box"]
+transform = Transform( 0.373752, 0, 0.142513, 0, 0.4, 0, -0.142513, 0, 0.373752, 0.0167732, -0.0672684, 0.102776 )
+mesh = SubResource( 56 )
+
+[node name="box3" type="StaticBody" parent="."]
+transform = Transform( 1.97715, 0, -0.322707, 0, 2.00331, 0, 0.322707, 0, 1.97715, -27.4168, 1.3654, 24.3053 )
+script = ExtResource( 33 )
+draggable = false
+
+[node name="Broken" type="Spatial" parent="box3"]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape" parent="box3"]
+shape = SubResource( 55 )
+
+[node name="box" type="Spatial" parent="box3"]
+
+[node name="Cube" type="MeshInstance" parent="box3/box"]
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
+mesh = SubResource( 56 )
+
+[node name="box5" type="StaticBody" parent="."]
+transform = Transform( 1.97715, 0, -0.322707, 0, 2.00331, 0, 0.322707, 0, 1.97715, -27.4168, 3.10431, 24.3053 )
+script = ExtResource( 33 )
+draggable = false
+
+[node name="Broken" type="Spatial" parent="box5"]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape" parent="box5"]
+shape = SubResource( 55 )
+
+[node name="box" type="Spatial" parent="box5"]
+
+[node name="Cube" type="MeshInstance" parent="box5/box"]
+transform = Transform( 0.373752, 0, 0.142513, 0, 0.4, 0, -0.142513, 0, 0.373752, 0.0167732, -0.0672684, 0.102776 )
+mesh = SubResource( 56 )
+
+[node name="box6" type="StaticBody" parent="."]
+transform = Transform( 1.97715, 0, -0.322707, 0, 2.00331, 0, 0.322707, 0, 1.97715, -11.8502, 1.3654, -3.70512 )
+script = ExtResource( 33 )
+draggable = false
+
+[node name="Broken" type="Spatial" parent="box6"]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape" parent="box6"]
+shape = SubResource( 55 )
+
+[node name="box" type="Spatial" parent="box6"]
+
+[node name="Cube" type="MeshInstance" parent="box6/box"]
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
+mesh = SubResource( 56 )
+
+[node name="box7" type="StaticBody" parent="."]
+transform = Transform( 1.97715, 0, -0.322707, 0, 2.00331, 0, 0.322707, 0, 1.97715, -11.8502, 3.10431, -3.70512 )
+script = ExtResource( 33 )
+draggable = false
+
+[node name="Broken" type="Spatial" parent="box7"]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape" parent="box7"]
+shape = SubResource( 55 )
+
+[node name="box" type="Spatial" parent="box7"]
+
+[node name="Cube" type="MeshInstance" parent="box7/box"]
+transform = Transform( 0.373752, 0, 0.142513, 0, 0.4, 0, -0.142513, 0, 0.373752, 0.0167732, -0.0672684, 0.102776 )
+mesh = SubResource( 56 )
+
+[node name="wooden_crate_1" parent="." instance=ExtResource( 34 )]
+transform = Transform( 1.83361, 0, -1.60622, 0, 2.43763, 0, 1.60622, 0, 1.83361, -21.5522, 0.471707, -20.6643 )
+
+[node name="StaticBody" type="StaticBody" parent="wooden_crate_1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="wooden_crate_1/StaticBody"]
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0.357479, 0 )
+shape = SubResource( 57 )
+
+[node name="wooden_crate_2" parent="." instance=ExtResource( 34 )]
+transform = Transform( 1.83361, 0, -1.60622, 0, 2.43763, 0, 1.60622, 0, 1.83361, -29.6382, -5.30419, -18.6848 )
+
+[node name="StaticBody" type="StaticBody" parent="wooden_crate_2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="wooden_crate_2/StaticBody"]
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0.357479, 0 )
+shape = SubResource( 57 )
+
+[node name="wooden_crate_3" parent="." instance=ExtResource( 34 )]
+transform = Transform( 1.83361, 0, -1.60622, 0, 2.43763, 0, 1.60622, 0, 1.83361, -52.0401, 0.295429, -23.0745 )
+
+[node name="StaticBody" type="StaticBody" parent="wooden_crate_3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="wooden_crate_3/StaticBody"]
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0.357479, 0 )
+shape = SubResource( 57 )
 
 [connection signal="body_entered" from="Player/Body_CollisionShape/DragArea" to="Player" method="new_item_in_interact_area"]
 [connection signal="body_exited" from="Player/Body_CollisionShape/DragArea" to="Player" method="item_exited_from_interact_area"]
