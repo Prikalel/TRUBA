@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://imported_from_part1/models/cilinder.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://imported_from_part1/models/Material_001.tres" type="Material" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://imported_from_part1/models/images/screemer.webp" type="Texture" id=11]
 [ext_resource path="res://imported_from_part1/music/sreemer.mp3" type="AudioStream" id=12]
 [ext_resource path="res://imported_from_part1/scripts/P1_ScreemerBox.gd" type="Script" id=13]
+[ext_resource path="res://assets/fonts/AlwaysAngryBB[RUSbyPenka220]-Italic.otf" type="DynamicFontData" id=14]
 [ext_resource path="res://imported_from_part1/models/images/ventilyatsiya.jpg" type="Texture" id=15]
 [ext_resource path="res://scripts/SceneTransitionArea.gd" type="Script" id=16]
 [ext_resource path="res://assets/sounds/horror_sound.tres" type="AudioStream" id=17]
@@ -53,6 +54,9 @@ fog_depth_end = 2.0
 
 [sub_resource type="BoxShape" id=8]
 extents = Vector3( 1.43084, 0.804657, 1.30544 )
+
+[sub_resource type="DynamicFont" id=9]
+font_data = ExtResource( 14 )
 
 [node name="Spatial" type="Spatial"]
 transform = Transform( -4.37114e-08, 1, 0, -0.476458, -2.08266e-08, 0, 0, 0, 1, 0, 0, 0 )
@@ -288,6 +292,55 @@ target_scene = "res://scenes/test3.tscn"
 [node name="CollisionShape" type="CollisionShape" parent="SewerTransitionArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.808786, -1.53824, 0 )
 shape = SubResource( 8 )
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform( 7.7761e-08, -4.71452, -1.59669e-07, -7.6076e-08, -2.06078e-07, 3.65282, -0.771374, 5.14054e-08, -7.07677e-08, 0.0185833, 0.217467, 0.0136147 )
+modulate = Color( 1, 0, 0, 1 )
+text = "двигайся вперёд
+при помощи
+клавиши W
+она на клавиатуре"
+font = SubResource( 9 )
+
+[node name="Label3D2" type="Label3D" parent="."]
+transform = Transform( 7.7761e-08, -4.71452, -1.59669e-07, -7.6076e-08, -2.06078e-07, 3.65282, -1.67839, 1.1185e-07, -1.53979e-07, 0.0185836, -7.88739, 0.0136147 )
+shaded = true
+modulate = Color( 0, 1, 0.552941, 1 )
+text = "упрись и 
+повернись при помощи 
+A или D
+(на клавиатуре это Ф или В)"
+font = SubResource( 9 )
+
+[node name="Label3D5" type="Label3D" parent="."]
+transform = Transform( 4.39636e-09, -4.71452, 2.48731e-16, 1.67839, -3.17928e-07, -5.69031e-09, -2.7112e-09, -2.03841e-13, 3.65282, 0.0185836, -7.36976, -12.7911 )
+shaded = true
+modulate = Color( 1, 0, 0, 1 )
+text = "ЗДЕСЬ НАЛЕВО
+НАЛЕВО ЭТО ТУДА
+<<<<=====
+НАЖМИ a (Ф)"
+font = SubResource( 9 )
+
+[node name="Label3D3" type="Label3D" parent="."]
+transform = Transform( 9.51775e-08, -2.96916, 8.63443e-15, -1.05703, -5.93439e-08, -1.97533e-07, 1.49441e-07, 1.94063e-13, -3.65282, 0.0185836, -7.17832, 7.35609 )
+shaded = true
+modulate = Color( 0, 1, 0.552941, 1 )
+text = "тупик
+повернись обратно
+при помощи S (Ы)
+на клавиатуре"
+font = SubResource( 9 )
+
+[node name="Label3D4" type="Label3D" parent="."]
+transform = Transform( 4.89732e-08, -2.96916, 1.59669e-07, 1.95645e-07, -1.29786e-07, -3.65282, 1.05703, -7.04421e-08, 3.57203e-07, 0.0185838, 0.21296, -12.1717 )
+shaded = true
+modulate = Color( 0, 1, 0.552941, 1 )
+text = "тупик
+повернись обратно
+при помощи S (Ы)
+на клавиатуре"
+font = SubResource( 9 )
 
 [connection signal="area_shape_entered" from="Screemer/StaticBody" to="Screemer" method="_on_StaticBody_area_shape_entered"]
 [connection signal="area_entered" from="Area" to="Area" method="_on_Area_area_entered"]

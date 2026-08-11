@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/textures/T_cursed_metal.jpg" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scripts/Draggable.gd" type="Script" id=9]
 [ext_resource path="res://scripts/HighlightOutline.gd" type="Script" id=10]
 [ext_resource path="res://assets/meshes/weapons/axe.glb" type="PackedScene" id=11]
+[ext_resource path="res://assets/fonts/AlwaysAngryBB[RUSbyPenka220]-Italic.otf" type="DynamicFontData" id=12]
 [ext_resource path="res://scenes/imported2/танцы с бубном/new_spatialmaterial_stylized.tres" type="Material" id=13]
 [ext_resource path="res://scenes/imported2/fbxes/old_mattress_mx_1.glb" type="PackedScene" id=14]
 [ext_resource path="res://scenes/imported2/fbxes/metal_barrel_hr_4_1.glb" type="PackedScene" id=15]
@@ -106,6 +107,9 @@ surfaces/0 = {
 
 [sub_resource type="BoxShape" id=20]
 extents = Vector3( 1.43084, 0.804657, 1.30544 )
+
+[sub_resource type="DynamicFont" id=22]
+font_data = ExtResource( 12 )
 
 [node name="Test" type="Spatial"]
 
@@ -575,3 +579,103 @@ stream = ExtResource( 26 )
 
 [node name="BAD ATTEMPT" type="AudioStreamPlayer3D" parent="SewerTransitionArea"]
 stream = ExtResource( 27 )
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform( -3.6525, 0, 3.39716, 0, 5.06815, 0, -0.0484315, 0, -1.34254, -16.4333, 3.24672, -12.2442 )
+modulate = Color( 1, 0, 0, 1 )
+text = "отодвинь ящик
+при помощи 
+зажатия Е (у)
+и двигайся держа   клавишу"
+font = SubResource( 22 )
+
+[node name="Label3D2" type="Label3D" parent="."]
+transform = Transform( 3.6518, 0, -3.34542, 0, 5.06815, 0, -0.0860797, 0, 1.46671, -16.4333, 3.24672, -15.7 )
+modulate = Color( 1, 0, 0, 1 )
+text = "отодвинь ящик
+при помощи 
+зажатия Е (у)
+"
+font = SubResource( 22 )
+
+[node name="Label3D5" type="Label3D" parent="."]
+transform = Transform( 1.63787, 0, -1.50046, 0, 2.27312, 0, -0.0860797, 0, 1.46671, -20.0391, 3.00614, -15.7763 )
+modulate = Color( 1, 0, 0, 1 )
+text = "вот
+      этот
+    /
+v"
+font = SubResource( 22 )
+
+[node name="Label3D11" type="Label3D" parent="."]
+transform = Transform( 1.22484, 0, -0.254754, 0, 2.27312, 0, -1.09078, 0, 2.08271, -32.9511, 4.20197, -26.9537 )
+modulate = Color( 1, 0, 0, 1 )
+text = "дверь откроет
+      только ключ
+    /
+v"
+font = SubResource( 22 )
+
+[node name="Label3D8" type="Label3D" parent="."]
+transform = Transform( -1.63787, 0, 1.50046, 0, 2.27312, 0, 0.0860798, 0, -1.46671, -8.68072, 2.76764, -12.1656 )
+modulate = Color( 1, 0, 0, 1 )
+text = "вот
+      ТОПОР
+    /
+v"
+font = SubResource( 22 )
+
+[node name="Label3D9" type="Label3D" parent="."]
+transform = Transform( -1.63787, 0, 1.50046, 0, 2.27312, 0, 0.0860798, 0, -1.46671, -9.48676, 3.00845, -12.1656 )
+modulate = Color( 1, 0, 0, 1 )
+text = "ВОЗЬМИ
+      ТОПОР
+    /
+v"
+font = SubResource( 22 )
+
+[node name="Label3D10" type="Label3D" parent="."]
+transform = Transform( 0.0860799, 0, -1.46671, 0, 2.27312, 0, 1.63787, 0, -1.50046, -7.20775, 3.51504, -13.3976 )
+modulate = Color( 1, 0, 0, 1 )
+text = "нА Е ВОЗЬМИ
+      ТОПОР
+
+
+ВОТ 
+ТУТ"
+font = SubResource( 22 )
+
+[node name="Label3D6" type="Label3D" parent="."]
+transform = Transform( -6.78309e-08, -2.27312, 1.47523e-09, -0.0860797, -9.93611e-08, 1.46671, -1.63787, 9.93611e-08, 1.50046, -19.4426, 0.965244, -14.1474 )
+modulate = Color( 1, 0, 0, 1 )
+text = "^
+  \\
+ вот
+  этот"
+font = SubResource( 22 )
+
+[node name="Label3D3" type="Label3D" parent="."]
+transform = Transform( 3.6518, 0, -3.34542, 0, 5.06815, 0, -0.0860797, 0, 1.46671, -11.4118, 1.96305, -15.7 )
+modulate = Color( 1, 0, 0, 1 )
+text = "отодвинь ящик
+при помощи 
+зажатия Е (у)
+"
+font = SubResource( 22 )
+
+[node name="Label3D7" type="Label3D" parent="."]
+transform = Transform( 2.49877, 0, -3.32354, 0, 5.06815, 0, 2.66443, 0, -1.51563, -23.5816, 2.86145, -18.8699 )
+modulate = Color( 1, 0, 0, 1 )
+text = "найди топор и сломай ящики
+подбери ключи из
+сломанных ящиков"
+font = SubResource( 22 )
+
+[node name="Label3D4" type="Label3D" parent="."]
+transform = Transform( -1.10908e-07, -3.60637, 5.84354e-08, -0.0860797, -2.21536e-07, 1.46671, -2.59853, 1.57639e-07, 2.38052, -12.8959, 0.975936, -13.8526 )
+modulate = Color( 1, 0, 0, 1 )
+text = "отодвинь ящик
+при помощи 
+зажатия Е (у)
+"
+font = SubResource( 22 )
