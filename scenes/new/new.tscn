@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://scenes/ui/inventory.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/levels_merge.tscn" type="PackedScene" id=2]
@@ -120,6 +120,15 @@ agent_max_slope = 60.27
 [sub_resource type="BoxShape" id=50]
 extents = Vector3( 4.63879, 0.728184, 2.73002 )
 
+[sub_resource type="BoxShape" id=70]
+extents = Vector3( 8.02782, 0.728184, 2.73002 )
+
+[sub_resource type="BoxShape" id=71]
+extents = Vector3( 8.02782, 0.728184, 2.73002 )
+
+[sub_resource type="BoxShape" id=72]
+extents = Vector3( 2.595, 0.728184, 2.73002 )
+
 [sub_resource type="ArrayMesh" id=16]
 resource_name = "rat_Cube_rat_0"
 surfaces/0 = {
@@ -169,13 +178,10 @@ extents = Vector3( 1.43084, 0.804657, 1.30544 )
 radius = 0.4
 height = 2.14167
 
-[sub_resource type="BoxShape" id=58]
-extents = Vector3( 0.955864, 1, 0.893503 )
-
-[sub_resource type="CubeMesh" id=54]
-
 [sub_resource type="BoxShape" id=53]
 extents = Vector3( 3.82849, 1, 1.55731 )
+
+[sub_resource type="CubeMesh" id=54]
 
 [sub_resource type="BoxShape" id=59]
 extents = Vector3( 0.960512, 1, 0.988924 )
@@ -226,6 +232,12 @@ extents = Vector3( 8.05355, 2.76132, 0.314955 )
 [sub_resource type="SpatialMaterial" id=67]
 albedo_texture = ExtResource( 35 )
 uv1_scale = Vector3( 9.646, 9.646, 9.646 )
+
+[sub_resource type="SpatialMaterial" id=68]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=69]
+albedo_color = Color( 1, 0, 0, 1 )
 
 [node name="Test" type="Spatial"]
 
@@ -349,7 +361,19 @@ shape = SubResource( 50 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/StaticBody4"]
 transform = Transform( -0.86314, 0.504965, 1.40027e-08, 0.504965, 0.86314, 3.75263e-09, -2.22106e-08, 8.19438e-09, -1, 1.48693, -3.98981, -21.9814 )
-shape = SubResource( 50 )
+shape = SubResource( 70 )
+
+[node name="StaticBody5" type="StaticBody" parent="Navigation/NavigationMeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/StaticBody5"]
+transform = Transform( -0.841162, 0.047117, 0.538727, 0.537884, -0.0301291, 0.842481, 0.0559265, 0.998435, 4.86283e-08, 0.378873, -6.09203, -19.577 )
+shape = SubResource( 71 )
+
+[node name="StaticBody6" type="StaticBody" parent="Navigation/NavigationMeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/StaticBody6"]
+transform = Transform( -0.0559265, -0.998435, -5.06089e-08, 0.0452398, -0.00253412, 0.998973, -0.99741, 0.055869, 0.0453107, -4.5689, -2.87468, -22.047 )
+shape = SubResource( 72 )
 
 [node name="levels_merge2" parent="Navigation/NavigationMeshInstance" instance=ExtResource( 2 )]
 transform = Transform( 2.308, 0, 0, 0, 2.308, 0, 0, 0, 2.308, -28.85, 7.68455, 22.9659 )
@@ -1251,17 +1275,6 @@ unit_db = 20.0
 stream = ExtResource( 13 )
 unit_db = 35.315
 
-[node name="moveable" type="StaticBody" parent="."]
-transform = Transform( 0.43919, 0, 0, 0, 2.36247, 0, 0, 0, 1.45484, -31.2439, 8.4036, 28.1931 )
-script = ExtResource( 28 )
-
-[node name="CollisionShape3D" type="CollisionShape" parent="moveable"]
-shape = SubResource( 58 )
-
-[node name="CSGMesh" type="CSGMesh" parent="moveable"]
-mesh = SubResource( 54 )
-material = ExtResource( 29 )
-
 [node name="moveable2" type="StaticBody" parent="."]
 transform = Transform( -1.91976e-08, 0, -1.45484, 0, 2.36247, 0, 0.43919, 0, -6.35929e-08, -25.5253, 2.85125, 11.0498 )
 script = ExtResource( 28 )
@@ -1485,7 +1498,7 @@ material = SubResource( 63 )
 [node name="Ball" type="CSGMesh" parent="button2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.148045 )
 mesh = SubResource( 64 )
-material = SubResource( 65 )
+material = SubResource( 68 )
 
 [node name="WALL" type="StaticBody" parent="button2"]
 transform = Transform( 0.497364, 0, 0, 0, 1, 0, 0, 0, 1, 15.2683, 6.18576, 41.1023 )
@@ -1495,6 +1508,34 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.67584, 0, -0.410053 )
 shape = SubResource( 66 )
 
 [node name="CSGBox" type="CSGBox" parent="button2/WALL"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.63568, 0, 0 )
+width = 15.605
+height = 5.8662
+depth = 0.315
+material = SubResource( 67 )
+
+[node name="button3" type="Spatial" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -36.3262, 8.9865, 33.1239 )
+script = ExtResource( 36 )
+
+[node name="CSGMesh" type="CSGMesh" parent="button3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.148045 )
+mesh = SubResource( 62 )
+material = SubResource( 63 )
+
+[node name="Ball" type="CSGMesh" parent="button3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.148045 )
+mesh = SubResource( 64 )
+material = SubResource( 69 )
+
+[node name="WALL" type="StaticBody" parent="button3"]
+transform = Transform( -3.45286e-08, 0, -1, 0, 1, 0, 0.643643, 0, -3.08555e-08, -6.91455, 0.243664, 2.77801 )
+
+[node name="CollisionShape" type="CollisionShape" parent="button3/WALL"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.67584, 0, -0.410053 )
+shape = SubResource( 66 )
+
+[node name="CSGBox" type="CSGBox" parent="button3/WALL"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.63568, 0, 0 )
 width = 15.605
 height = 5.8662

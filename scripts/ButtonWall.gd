@@ -11,11 +11,14 @@ extends Spatial
 # the `Ball` (proximity target) and the `WALL` (StaticBody to be removed).
 
 # Horizontal (XZ) distance in metres from the Ball at which the button fires.
-export(float) var trigger_distance := 2.0
+export(float) var trigger_distance := 3.0
 # Group that identifies the player body (Player.gd registers into "player").
 export(String) var player_group := "player"
 # Sound played once when the button is pressed.
 export(AudioStream) var sound_stream: AudioStream = preload("res://assets/sounds/off-button-on-table-lamp.mp3")
+# Colour the Ball's material switches to once the button has been pressed
+# (starts red — Color(1,0,0) — in scenes/new/new.tscn SubResource 65).
+export(Color) var active_color := Color(0.0, 1.0, 0.0, 1.0)
 
 onready var _ball: Spatial = $Ball
 onready var _wall: Node = $WALL
@@ -25,6 +28,9 @@ var _triggered := false
 
 func _ready() -> void:
 	set_physics_process(true)
+	# Diagnostics: confirms the script is alive and that both target nodes and
+	# the sound stream resolved. Watch the editor Output panel for this line.
+	print("[ButtonWall] ready ball=%s wall=%s stream=%s" % [_ball, _wall, sound_stream])
 
 
 func _physics_process(_delta: float) -> void:
@@ -59,19 +65,40 @@ func _trigger() -> void:
 	# tick could fire the sound/trigger again before the wall is gone.
 	_triggered = true
 	set_physics_process(false)
+	print("[ButtonWall] TRIGGERED -> playing sound + removing WALL")
 	_play_sound()
+	_set_ball_active()
 	if _wall != null:
 		_wall.queue_free()
 
 
+func _set_ball_active() -> void:
+	# Switch the Ball cap from red to the "pressed" colour. We mutate the
+	# existing SpatialMaterial's albedo (it is unique to this Ball — SubResource
+	# 65 in new.tscn is referenced only here) so the change is immediate and
+	# live, with material_override as a fallback for any other setup.
+	if _ball == null:
+		return
+	var mat = _ball.get("material")
+	if mat is SpatialMaterial:
+		mat.albedo_color = active_color
+		return
+	var green := SpatialMaterial.new()
+	green.albedo_color = active_color
+	_ball.set("material_override", green)
+
+
 func _play_sound() -> void:
 	if sound_stream == null:
+		push_warning("ButtonWall: sound_stream is null, skipping playback")
 		return
-	# Positional cue at the button so it fades with distance like the rest of
-	# the level's world audio. Self-cleaning once it finishes playing.
-	var s := AudioStreamPlayer3D.new()
+	# Non-positional player so the cue is ALWAYS audible regardless of where the
+	# camera/listener is. (AudioStreamPlayer3D attenuates with distance and can
+	# end up near-silent depending on the listener setup — which is why the cue
+	# wasn't heard before.) Self-cleaning once it finishes playing.
+	var s := AudioStreamPlayer.new()
 	s.stream = sound_stream
-	s.global_transform = _ball.global_transform
+	s.bus = "Master"
 	add_child(s)
 	s.connect("finished", s, "queue_free")
 	s.play()
