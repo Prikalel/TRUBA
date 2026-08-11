@@ -34,12 +34,16 @@
 
 # Ordered list of level scenes by number (index + 1 == level number). Single
 # source of truth for the level grid, the ⭐ indicator and the Continue label.
-const LEVELS := [
-	"res://scenes/test2.tscn",                               # 1 (title scene)
-	"res://imported_from_part1/scenes/part1_horror.tscn",    # 2
-	"res://scenes/test3.tscn",                               # 3
-	"res://scenes/test.tscn",                                # 4
-	"res://scenes/new/new.tscn",                             # 5
+# Editable in the Inspector on the MainMenu node (scenes/test2.tscn) - add /
+# remove / reorder levels there instead of editing code. Index + 1 == level
+# number, so ORDER MATTERS (the save system matches by path/index). Each entry
+# is a file picker (String, FILE) so you just browse for the .tscn.
+export(Array, String, FILE) var levels := [
+	"res://scenes/test2.tscn",                            # 1 (title scene)
+	"res://imported_from_part1/scenes/part1_horror.tscn", # 2
+	"res://scenes/test3.tscn",                            # 3
+	"res://scenes/test.tscn",                             # 4
+	"res://scenes/new/new.tscn",                          # 5
 ]
 # Resource path of level 1 — selecting it just dismisses the menu instead of
 # reloading the scene we are already in.
@@ -156,12 +160,12 @@ func _build_level_grid() -> void:
 	var level_font := _make_emoji_font(48)
 
 	var grid := GridContainer.new()
-	grid.columns = LEVELS.size()
+	grid.columns = levels.size()
 	grid.add_constant_override("hseparation", 22)
 	grid.add_constant_override("vseparation", 22)
 	column.add_child(grid)
 
-	for i in range(LEVELS.size()):
+	for i in range(levels.size()):
 		# One button per level. Its text is the level number as a keycap emoji,
 		# plus a star for the saved level — both drawn by the same NotoEmoji
 		# font, so they stay inside the button instead of overflowing the cell.
@@ -187,7 +191,7 @@ func _build_level_grid() -> void:
 
 # A numbered level was picked from the grid.
 func _on_level_selected(level_index: int) -> void:
-	var path: String = LEVELS[level_index]
+	var path: String = levels[level_index]
 	if path == LEVEL_TEST2:
 		# Level 1 is the scene we're already in — just dismiss the menu and play.
 		_begin_play()
@@ -240,14 +244,14 @@ func _begin_play() -> void:
 	get_tree().paused = false
 
 
-# Index (0-based) of the saved level inside LEVELS, or -1 if there is no save
+# Index (0-based) of the saved level inside `levels`, or -1 if there is no save
 # or the saved path isn't one of the known levels.
 func _saved_level_index() -> int:
 	if not SaveSystem.has_save():
 		return -1
 	var saved := SaveSystem.get_saved_level()
-	for i in range(LEVELS.size()):
-		if LEVELS[i] == saved:
+	for i in range(levels.size()):
+		if levels[i] == saved:
 			return i
 	return -1
 
@@ -320,6 +324,9 @@ func _add_vk_button() -> void:
 	vk_btn.name = "VKButton"
 	vk_btn.text = "💀"
 	vk_btn.rect_min_size = Vector2(64, 64)
+	# Match the rest of the menu (common_ui.tres textured button); the skull
+	# emoji font override below is kept, so the theme only sets the background.
+	vk_btn.theme = _button.theme
 	# Anchor to the bottom-right corner of the screen.
 	vk_btn.anchor_left = 1.0
 	vk_btn.anchor_right = 1.0
@@ -377,6 +384,8 @@ func _build_settings_panel() -> void:
 	back_btn.text = "Назад"
 	back_btn.rect_min_size = Vector2(260, 60)
 	back_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	# Match the rest of the menu (common_ui.tres textured button).
+	back_btn.theme = _button.theme
 	if _settings_font != null:
 		back_btn.set("custom_fonts/font", _settings_font)
 	back_btn.connect("pressed", self, "_on_back_pressed")
