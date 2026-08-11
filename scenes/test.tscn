@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/textures/T_cursed_metal.jpg" type="Texture" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://assets/meshes/weapons/SM_EdgeLock9TDefender_A1.glb" type="PackedScene" id=21]
 [ext_resource path="res://assets/prefabs/Demon.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scripts/DemonSpawner.gd" type="Script" id=23]
+[ext_resource path="res://assets/fonts/AlwaysAngryBB[RUSbyPenka220]-Italic.otf" type="DynamicFontData" id=24]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 10, 0.05, 10 )
@@ -113,6 +114,9 @@ albedo_texture = ExtResource( 19 )
 
 [sub_resource type="BoxShape" id=22]
 extents = Vector3( 1.43084, 0.804657, 1.30544 )
+
+[sub_resource type="DynamicFont" id=50]
+font_data = ExtResource( 24 )
 
 [node name="Test" type="Spatial"]
 
@@ -664,3 +668,93 @@ script = ExtResource( 23 )
 [node name="SPAWNPOINT2" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.4993, 0.436, 3.08275 )
 script = ExtResource( 23 )
+
+[node name="Label3D16" type="Label3D" parent="."]
+transform = Transform( -0.731721, 1.02343, 0.0735381, 0.735539, 1.01488, -0.139755, -0.074849, -0.0318183, -2.09229, 2.04019, 1.35489, -25.6976 )
+modulate = Color( 1, 0, 0, 1 )
+text = "<<<<====
+пистолет подними
+стрелять на ПКМ
+это правая кнопка мыши
+"
+font = SubResource( 50 )
+
+[node name="Label3D19" type="Label3D" parent="."]
+transform = Transform( -1.03474, 0.000426804, -0.214828, 0.00269967, 1.4413, -0.0468224, 0.106468, -0.0323845, -2.08669, -1.38481, 2.89618, -13.9682 )
+modulate = Color( 1, 0, 0, 1 )
+text = "МЫШЬ МОЖНО
+УБИТЬ И ПОДОБРАТЬ
+УБИТЬ МОЖНО ТОЛЬКО
+СКОВОРОДКОЙ
+"
+font = SubResource( 50 )
+
+[node name="Label3D17" type="Label3D" parent="."]
+transform = Transform( -0.731721, 1.02343, 0.0735381, 0.0230228, -0.039514, 2.09693, 0.738979, 1.01461, 0.00748743, 6.0906, 0.468959, -24.935 )
+modulate = Color( 1, 0, 0, 1 )
+text = "====>>>
+тебе туда"
+font = SubResource( 50 )
+
+[node name="Label3D18" type="Label3D" parent="."]
+transform = Transform( 0.00513214, 1.44111, 0.0572937, 0.0230228, -0.039514, 2.09693, 1.03994, -0.00623566, -0.0467049, -4.61027, 0.468959, -20.6326 )
+modulate = Color( 1, 0, 0, 1 )
+text = "====>>>
+тебе туда"
+font = SubResource( 50 )
+
+[node name="Label3D20" type="Label3D" parent="."]
+transform = Transform( 0.00513214, 1.44111, 0.0572937, 0.0230228, -0.039514, 2.09693, 1.03994, -0.00623566, -0.0467049, -6.29051, 0.468959, -12.8413 )
+modulate = Color( 1, 0, 0, 1 )
+text = "====>>>
+тебе туда"
+font = SubResource( 50 )
+
+[node name="Label3D21" type="Label3D" parent="."]
+transform = Transform( 0.00513214, 1.44111, 0.0572937, 0.0230228, -0.039514, 2.09693, 1.03994, -0.00623566, -0.0467049, 2.06421, 0.468959, -9.29019 )
+modulate = Color( 1, 0, 0, 1 )
+text = "====>>>
+тебе туда"
+font = SubResource( 50 )
+
+[node name="Label3D22" type="Label3D" parent="."]
+transform = Transform( 0.00513214, 1.44111, 0.0572937, 0.0230228, -0.039514, 2.09693, 1.03994, -0.00623566, -0.0467049, -0.154542, 0.468959, 3.25472 )
+modulate = Color( 1, 0, 0, 1 )
+text = "====>>>
+тебе туда"
+font = SubResource( 50 )
+
+[node name="Label3D23" type="Label3D" parent="."]
+transform = Transform( 0.00513214, 1.44111, 0.0572937, 0.0230228, -0.039514, 2.09693, 1.03994, -0.00623566, -0.0467049, 10.3855, 0.468959, 1.04252 )
+modulate = Color( 1, 0, 0, 1 )
+text = "====>>>
+тебе туда"
+font = SubResource( 50 )
+
+[node name="Label3D24" type="Label3D" parent="."]
+transform = Transform( 1.03994, -0.00623572, -0.0467049, 0.0230228, -0.039514, 2.09693, -0.00513218, -1.44111, -0.0572937, -3.68919, 0.468959, 14.4383 )
+modulate = Color( 1, 0, 0, 1 )
+text = "====>>>
+тебе туда"
+font = SubResource( 50 )
+
+[node name="Label3D25" type="Label3D" parent="."]
+transform = Transform( 0.00513232, 1.44111, 0.0572937, 0.0230228, -0.039514, 2.09693, 1.03994, -0.00623584, -0.0467049, 8.87976, 0.468959, 22.6605 )
+modulate = Color( 1, 0, 0, 1 )
+text = "====>>>
+тебе туда"
+font = SubResource( 50 )
+
+[node name="Label3D26" type="Label3D" parent="."]
+transform = Transform( 0.00513232, 1.44111, 0.0572937, 0.0230228, -0.039514, 2.09693, 1.03994, -0.00623584, -0.0467049, -3.21644, 0.468959, 29.9708 )
+modulate = Color( 1, 0, 0, 1 )
+text = "====>>>
+тебе СЮДА"
+font = SubResource( 50 )
+
+[node name="Label3D27" type="Label3D" parent="."]
+transform = Transform( -0.736579, -1.01524, 0.108372, -0.733041, 1.02274, 0.0233024, -0.0462497, -0.0411354, -2.09531, -2.44591, 1.78157, 30.4417 )
+modulate = Color( 1, 0, 0, 1 )
+text = "====>>>
+тебе СЮДА"
+font = SubResource( 50 )
