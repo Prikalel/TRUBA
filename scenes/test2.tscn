@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/textures/T_cursed_metal.jpg" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://scripts/hitables/Box.gd" type="Script" id=12]
 [ext_resource path="res://assets/textures/SERVER_ENTER.png" type="Texture" id=13]
 [ext_resource path="res://scripts/SceneTransitionArea.gd" type="Script" id=14]
+[ext_resource path="res://assets/fonts/AlwaysAngryBB[RUSbyPenka220]-Italic.otf" type="DynamicFontData" id=15]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1, 0.999475, 1 )
@@ -62,6 +63,9 @@ albedo_texture = ExtResource( 13 )
 
 [sub_resource type="BoxShape" id=11]
 extents = Vector3( 1.43084, 0.804657, 1.30544 )
+
+[sub_resource type="DynamicFont" id=13]
+font_data = ExtResource( 15 )
 
 [node name="Test" type="Spatial"]
 
@@ -250,7 +254,7 @@ text = "Начать"
 stream = ExtResource( 5 )
 
 [node name="RigidBody3D2" type="RigidBody" parent="."]
-transform = Transform( 0.660657, 0, -0.750688, 0, 1, 0, 0.750688, 0, 0.660657, 12.5336, -2.5415, -8.4696 )
+transform = Transform( 0.660657, 0, -0.750688, 0, 1, 0, 0.750688, 0, 0.660657, 12.0189, -2.5415, -8.65333 )
 script = ExtResource( 8 )
 pickup_id = 0
 
@@ -341,3 +345,72 @@ script = ExtResource( 14 )
 [node name="CollisionShape" type="CollisionShape" parent="SewerTransitionArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.808786, -1.53824, 0 )
 shape = SubResource( 11 )
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform( -2.07566, 0, 3.0618, 0, 5.06815, 0, -3.00578, 0, 1.9921, 8.92817, 1.19209e-07, 14.5165 )
+modulate = Color( 1, 0, 0, 1 )
+text = "НАЙДИ СКОВОРОДКУ
+ПОДБЕРИ НА Е 
+И СЛОМАЙ ЯЩИКИ"
+font = SubResource( 13 )
+
+[node name="Label3D2" type="Label3D" parent="."]
+transform = Transform( -0.0240548, 0, 1.40969, 0, 5.06815, 0, -3.65274, 0, 3.36985, 7.00506, 1.19209e-07, 7.72549 )
+modulate = Color( 1, 0, 0, 1 )
+text = "НАЙДИ СКОВОРОДКУ
+ПОДБЕРИ НА Е 
+И СЛОМАЙ ЯЩИКИ"
+font = SubResource( 13 )
+
+[node name="Label3D3" type="Label3D" parent="."]
+transform = Transform( -0.0240548, 0, 1.40969, 0, 5.06815, 0, -3.65274, 0, 3.36985, 7.00506, 1.19209e-07, 1.02419 )
+modulate = Color( 1, 0, 0, 1 )
+text = "НАЙДИ СКОВОРОДКУ
+ПОДБЕРИ НА Е 
+И СЛОМАЙ ЯЩИКИ"
+font = SubResource( 13 )
+
+[node name="Label3D4" type="Label3D" parent="."]
+transform = Transform( 0.0240551, 0, -1.40969, 0, 5.06815, 0, 3.65274, 0, -3.36985, 12.4853, 0.664352, 1.02419 )
+modulate = Color( 1, 0, 0, 1 )
+text = "НАЙДИ СКОВОРОДКУ
+ПОДБЕРИ НА Е 
+И СЛОМАЙ ЯЩИКИ"
+font = SubResource( 13 )
+
+[node name="Label3D7" type="Label3D" parent="."]
+transform = Transform( 0.0240551, 0, -1.40969, 0, 5.06815, 0, 3.65274, 0, -3.36985, 12.4853, -0.823643, -7.47191 )
+modulate = Color( 1, 0, 0, 1 )
+text = "здесь
+|
+v"
+font = SubResource( 13 )
+
+[node name="Label3D6" type="Label3D" parent="."]
+transform = Transform( 3.65274, 0, -3.36985, 0, 5.06815, 0, -0.0240553, 0, 1.40969, 9.92527, 0.664352, -9.26264 )
+modulate = Color( 1, 0, 0, 1 )
+text = "ВОТ ОНА ТУТ 
+В УГЛУ
+СПРАВА"
+font = SubResource( 13 )
+
+[node name="Label3D5" type="Label3D" parent="."]
+transform = Transform( 0.0240551, 0, -1.40969, 0, 5.06815, 0, 3.65274, 0, -3.36985, 12.4853, 0.664352, 7.72549 )
+modulate = Color( 1, 0, 0, 1 )
+text = "НАЙДИ СКОВОРОДКУ
+ПОДБЕРИ НА Е 
+И СЛОМАЙ ЯЩИКИ"
+font = SubResource( 13 )
+
+[node name="Label3D8" type="Label3D" parent="."]
+transform = Transform( 0.0192146, 0, -3.65274, 0, 5.06815, 0, 2.9177, 0, 0.0240552, 19.8438, 0.662353, 15.87 )
+modulate = Color( 1, 0, 0, 1 )
+text = "сломай ящики на 
+лкм
+сковородкой
+
+лкм это левая 
+кнопка мыши
+
+"
+font = SubResource( 13 )
