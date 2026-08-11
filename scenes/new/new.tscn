@@ -466,52 +466,246 @@ shape = SubResource( 11 )
 transform = Transform( -8.74228e-10, -0.02, 0, 0.02, -8.74228e-10, 0, 0, 0, 0.02, 0.0937743, 1.19209e-07, 0.128628 )
 script = ExtResource( 10 )
 
-[node name="metal_barrel_hr_1" parent="." instance=ExtResource( 18 )]
+[node name="Spatial" type="Spatial" parent="."]
+
+[node name="metal_barrel_hr_1" parent="Spatial" instance=ExtResource( 18 )]
 transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -29.0919, 0.511562, 29.1338 )
 
-[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_1"]
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_1"]
 
-[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_1/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_1/StaticBody"]
 shape = SubResource( 19 )
 
-[node name="metal_barrel_hr_2" parent="." instance=ExtResource( 18 )]
+[node name="metal_barrel_hr_2" parent="Spatial" instance=ExtResource( 18 )]
 transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -27.8218, 0.511562, 31.2746 )
 
-[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_2"]
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_2"]
 
-[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_2/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_2/StaticBody"]
 shape = SubResource( 19 )
 
-[node name="metal_barrel_hr_4" parent="." instance=ExtResource( 18 )]
+[node name="metal_barrel_hr_4" parent="Spatial" instance=ExtResource( 18 )]
 transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -58.397, 0.51156, -7.7852 )
 
-[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_4"]
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_4"]
 
-[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_4/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_4/StaticBody"]
 shape = SubResource( 19 )
 
-[node name="metal_barrel_hr_5" parent="." instance=ExtResource( 18 )]
+[node name="metal_barrel_hr_5" parent="Spatial" instance=ExtResource( 18 )]
 transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -58.412, 0.51156, -6.57405 )
 
-[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_5"]
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_5"]
 
-[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_5/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_5/StaticBody"]
 shape = SubResource( 19 )
 
-[node name="metal_barrel_hr_6" parent="." instance=ExtResource( 18 )]
+[node name="metal_barrel_hr_6" parent="Spatial" instance=ExtResource( 18 )]
 transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -58.397, 0.51156, -47.325 )
 
-[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_6"]
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_6"]
 
-[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_6/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_6/StaticBody"]
 shape = SubResource( 19 )
 
-[node name="metal_barrel_hr_7" parent="." instance=ExtResource( 18 )]
+[node name="metal_barrel_hr_7" parent="Spatial" instance=ExtResource( 18 )]
 transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -58.412, 0.51156, -46.1138 )
 
-[node name="StaticBody" type="StaticBody" parent="metal_barrel_hr_7"]
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_7"]
 
-[node name="CollisionShape" type="CollisionShape" parent="metal_barrel_hr_7/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_7/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_8" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4365, -5.37685, -48.6672 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_8"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_8/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_9" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4515, -5.37685, -47.456 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_9"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_9/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_10" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4365, -5.37685, -51.0192 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_10"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_10/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_11" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4515, -5.37685, -49.808 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_11"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_11/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_12" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4365, -5.37685, -53.3373 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_12"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_12/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_13" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4515, -5.37685, -52.1261 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_13"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_13/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_14" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4365, -3.63178, -48.8518 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_14"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_14/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_15" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4515, -3.63178, -47.6406 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_15"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_15/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_16" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4365, -3.63178, -51.2038 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_16"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_16/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_17" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4515, -3.63178, -49.9926 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_17"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_17/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_18" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4365, -3.63178, -53.5218 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_18"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_18/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_19" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4515, -3.63178, -52.3106 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_19"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_19/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_20" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4365, -1.88459, -48.5985 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_20"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_20/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_21" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4515, -1.88459, -47.3873 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_21"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_21/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_22" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4365, -1.88459, -50.9505 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_22"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_22/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_23" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4515, -1.88459, -49.7393 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_23"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_23/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_24" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4365, -1.88459, -53.2685 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_24"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_24/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_25" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.4515, -1.88459, -52.0573 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_25"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_25/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_26" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.2839, -0.21589, -48.5985 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_26"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_26/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_27" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.2989, -0.21589, -47.3873 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_27"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_27/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_28" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.2839, -0.21589, -50.9505 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_28"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_28/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_29" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.2989, -0.21589, -49.7393 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_29"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_29/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_30" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.2839, -0.21589, -53.2685 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_30"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_30/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="metal_barrel_hr_31" parent="Spatial" instance=ExtResource( 18 )]
+transform = Transform( 1.711, 0, 0, 0, 1.711, 0, 0, 0, 1.711, -28.2989, -0.21589, -52.0573 )
+
+[node name="StaticBody" type="StaticBody" parent="Spatial/metal_barrel_hr_31"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Spatial/metal_barrel_hr_31/StaticBody"]
 shape = SubResource( 19 )
 
 [node name="SEWER ENTER" type="CSGMesh" parent="."]
