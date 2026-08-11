@@ -2,23 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/T_box — text.jpg-6e6ae9c7b9255663f2ce131a4b54f410.s3tc.stex"
-path.etc2="res://.import/T_box — text.jpg-6e6ae9c7b9255663f2ce131a4b54f410.etc2.stex"
-path.etc="res://.import/T_box — text.jpg-6e6ae9c7b9255663f2ce131a4b54f410.etc.stex"
-path.pvrtc="res://.import/T_box — text.jpg-6e6ae9c7b9255663f2ce131a4b54f410.pvrtc.stex"
+path="res://.import/T_box — text.jpg-6e6ae9c7b9255663f2ce131a4b54f410.stex"
 metadata={
-"imported_formats": [ "bptc", "s3tc", "etc2", "etc", "pvrtc" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/textures/T_box — text.jpg"
-dest_files=[ "res://.import/T_box — text.jpg-6e6ae9c7b9255663f2ce131a4b54f410.s3tc.stex", "res://.import/T_box — text.jpg-6e6ae9c7b9255663f2ce131a4b54f410.etc2.stex", "res://.import/T_box — text.jpg-6e6ae9c7b9255663f2ce131a4b54f410.etc.stex", "res://.import/T_box — text.jpg-6e6ae9c7b9255663f2ce131a4b54f410.pvrtc.stex" ]
+dest_files=[ "res://.import/T_box — text.jpg-6e6ae9c7b9255663f2ce131a4b54f410.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=1
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0

@@ -885,7 +885,6 @@ transform = Transform( 21.4183, 0, 0, 0, 0.348406, 0, 0, 0, 21.4183, 1.0619, 3.8
 material = ExtResource( 37 )
 
 [node name="StaticBody" type="StaticBody" parent="CSGBox"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="CSGBox/StaticBody"]
 shape = SubResource( 73 )
