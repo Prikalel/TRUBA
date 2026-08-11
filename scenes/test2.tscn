@@ -208,6 +208,7 @@ material = SubResource( 12 )
 pause_mode = 2
 layer = 10
 script = ExtResource( 6 )
+levels = [ "res://scenes/test2.tscn", "res://imported_from_part1/scenes/part1_horror.tscn", "res://scenes/test3.tscn", "res://scenes/test.tscn", "res://scenes/new/new.tscn", "res://scenes/new_level/new_level.tscn" ]
 
 [node name="MenuControl" type="Control" parent="MainMenu"]
 anchor_right = 1.0

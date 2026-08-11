@@ -1,0 +1,172 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/new_level/new_Floor_Standard.material" type="Material" id=1]
+[ext_resource path="res://scenes/new_level/new_Wall_Standard.material" type="Material" id=2]
+[ext_resource path="res://scenes/new_level/Untitled.glb" type="PackedScene" id=3]
+
+[node name="Untitled" instance=ExtResource( 3 )]
+
+[node name="Floor_Object140_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="0"]
+material/0 = ExtResource( 1 )
+
+[node name="Floor_Object401_mesh" parent="World/geniousLevel120/Floor_0_00m_4" index="1"]
+material/0 = ExtResource( 1 )
+
+[node name="Floor_Object95_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="2"]
+material/0 = ExtResource( 1 )
+
+[node name="Wall100_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="3"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall107_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="4"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall114_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="5"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall121_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="6"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall148_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="7"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall155_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="8"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall165_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="9"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall171_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="10"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall177_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="11"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall184_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="12"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall191_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="13"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall198_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="14"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall205_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="15"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall212_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="16"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall218_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="17"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall224_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="18"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall230_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="19"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall237_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="20"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall244_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="21"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall263_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="22"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall269_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="23"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall275_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="24"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall281_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="25"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall287_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="26"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall293_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="27"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall299_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="28"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall305_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="29"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall315_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="30"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall335_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="31"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall342_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="32"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall349_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="33"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall359_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="34"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall364_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="35"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall370_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="36"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall376_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="37"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall407_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="38"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall414_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="39"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall421_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="40"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall428_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="41"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall435_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="42"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall440_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="43"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall446_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="44"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall452_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="45"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall459_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="46"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall469_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="47"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall474_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="48"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall480_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="49"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall486_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="50"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall493_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="51"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall498_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="52"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall504_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="53"]
+material/0 = ExtResource( 2 )
+
+[node name="Wall510_mesh_recycled" parent="World/geniousLevel120/Floor_0_00m_4" index="54"]
+material/0 = ExtResource( 2 )
