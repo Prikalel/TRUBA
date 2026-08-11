@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/textures/T_cursed_metal.jpg" type="Texture" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://scripts/SceneTransitionArea.gd" type="Script" id=25]
 [ext_resource path="res://assets/sounds/test3/unlock-door-sound.mp3" type="AudioStream" id=26]
 [ext_resource path="res://assets/sounds/test3/attempt_to_open_sound.mp3" type="AudioStream" id=27]
+[ext_resource path="res://assets/textures/T_box — text.jpg" type="Texture" id=28]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 10, 0.05, 10 )
@@ -104,6 +105,9 @@ surfaces/0 = {
 "skeleton_aabb": [  ],
 "vertex_count": 24
 }
+
+[sub_resource type="SpatialMaterial" id=23]
+albedo_texture = ExtResource( 28 )
 
 [sub_resource type="BoxShape" id=20]
 extents = Vector3( 1.43084, 0.804657, 1.30544 )
@@ -559,6 +563,7 @@ shape = SubResource( 12 )
 [node name="Cube" type="MeshInstance" parent="box4/box"]
 transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
 mesh = SubResource( 13 )
+material/0 = SubResource( 23 )
 
 [node name="door_hr_13" parent="." instance=ExtResource( 23 )]
 transform = Transform( -0.758658, 0, -0.65149, 0, 1, 0, 0.65149, 0, -0.758658, -33.9889, 1.36742, -25.7973 )
@@ -614,6 +619,102 @@ text = "дверь откроет
       только ключ
     /
 v"
+font = SubResource( 22 )
+
+[node name="Label3D12" type="Label3D" parent="."]
+transform = Transform( 1.22484, -1.51175, -6.09966e-08, 0, -9.93611e-08, 2.09824, -1.09078, -1.69755, -6.84937e-08, -32.7609, 1.36577, -25.897 )
+modulate = Color( 1, 0, 0, 1 )
+text = "ключ
+дверь
+откроет"
+font = SubResource( 22 )
+
+[node name="Label3D15" type="Label3D" parent="."]
+transform = Transform( -0.467166, -1.28809, -8.19469e-08, 0, -6.30171e-08, 2.09824, -0.929403, 0.647462, 4.11908e-08, -28.722, 1.36577, -21.9774 )
+modulate = Color( 1, 0, 0, 1 )
+text = "<<<<====
+КЛЮЧ
+В ЭТОМ
+ЯЩИКЕ"
+font = SubResource( 22 )
+
+[node name="Label3D16" type="Label3D" parent="."]
+transform = Transform( -0.449898, 0.72819, 1.5671, 0.735539, 1.01488, -0.139755, -0.581902, 0.719831, -1.38826, -29.8304, 2.34514, -21.4408 )
+modulate = Color( 1, 0, 0, 1 )
+text = "<<<<====
+КЛЮЧ
+в ЯЩИКЕ
+В ЭТОМ"
+font = SubResource( 22 )
+
+[node name="Label3D20" type="Label3D" parent="."]
+transform = Transform( 0.695097, -0.156163, -1.54436, 0.172893, 1.42159, 0.0121261, 0.75431, -0.181934, 1.42035, -27.7451, 2.15917, -23.2881 )
+modulate = Color( 1, 0, 0, 1 )
+text = "на е ключ
+подбери когда сломаешь ящик
+и к двери иди
+дверь там (слева)
+<<<<<<<<<<<<<<============="
+font = SubResource( 22 )
+
+[node name="Label3D17" type="Label3D" parent="."]
+transform = Transform( -0.494384, -0.681246, 1.55725, -0.732847, 1.02313, 0.0014589, -0.548229, -0.753333, -1.40626, -28.5563, 2.36638, -20.054 )
+modulate = Color( 1, 0, 0, 1 )
+text = "====>>>>
+вОТ ТУТ КЛЮЧ
+РАЗБЕЙ
+ЯЩИК ТОПОРОМ
+ЛЕВОЙ КНОПКОЙ МЫШИ"
+font = SubResource( 22 )
+
+[node name="Label3D18" type="Label3D" parent="."]
+transform = Transform( -0.697155, 0.00278522, 1.55725, 0.00379947, 1.44165, 0.00145898, -0.772008, 0.00457999, -1.40626, -29.4231, 3.67722, -21.0125 )
+modulate = Color( 1, 0, 0, 1 )
+text = "НЕТУ ТОПОРА???
+НУ ТОГДА
+ОБРАТНО ВЕРНИСЬ
+И ПОСМОТРИ ВНИМАТЕЛЬНЕЕ"
+font = SubResource( 22 )
+
+[node name="Label3D19" type="Label3D" parent="."]
+transform = Transform( -0.71321, 0.00278523, 1.52739, 0.00378345, 1.44165, 0.00161956, -0.757201, 0.00457999, -1.43864, -22.3347, 2.65755, -13.398 )
+modulate = Color( 1, 0, 0, 1 )
+text = "топор на начале уровня лежит
+топор на начале уровня лежит
+топор на начале уровня лежит
+топор на начале уровня лежит
+топор на начале уровня лежит
+топор на начале уровня лежит
+топор на начале уровня лежит
+топор на начале уровня лежит
+топор на начале уровня лежит
+топор на начале уровня лежит
+топор на начале уровня лежит
+топор на начале уровня лежит
+топор на начале уровня лежит
+топор на начале уровня лежит
+топор на начале уровня лежит
+"
+font = SubResource( 22 )
+
+[node name="Label3D13" type="Label3D" parent="."]
+transform = Transform( -1.122, -3.57135e-08, 1.53044, -8.90001e-10, 2.27312, 4.41284e-08, -1.1963, 3.18044e-08, -1.43539, -33.4417, 3.16103, -25.2538 )
+modulate = Color( 1, 0, 0, 1 )
+text = "ключ
+найди
+он в 
+ящиках
+сломай 
+их топором
+левой 
+кнопкой
+мыши"
+font = SubResource( 22 )
+
+[node name="Label3D14" type="Label3D" parent="."]
+transform = Transform( -10.1997, -3.24657e-07, 1.53044, -8.09065e-09, 20.664, 4.41284e-08, -10.8751, 2.89121e-07, -1.43539, -26.4506, 4.18564, -17.7997 )
+modulate = Color( 1, 0, 0, 1 )
+text = "КЛЮЧ"
 font = SubResource( 22 )
 
 [node name="Label3D8" type="Label3D" parent="."]
