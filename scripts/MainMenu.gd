@@ -150,8 +150,10 @@ func _build_level_grid() -> void:
 
 	var saved_idx := _saved_level_index()
 	var has_save := SaveSystem.has_save()
-	var number_font := _make_bookxel_font(52)
-	var star_font := _make_emoji_font(40)
+	# Both the level number (rendered as a keycap emoji) and the star use the
+	# same NotoEmoji font, so they live inside one button and never overflow the
+	# cell.
+	var level_font := _make_emoji_font(48)
 
 	var grid := GridContainer.new()
 	grid.columns = LEVELS.size()
@@ -160,28 +162,17 @@ func _build_level_grid() -> void:
 	column.add_child(grid)
 
 	for i in range(LEVELS.size()):
-		# Each grid cell is an HBox: the clickable number button + an optional ⭐.
-		var cell := HBoxContainer.new()
-		cell.add_constant_override("separation", 6)
+		# One button per level. Its text is the level number as a keycap emoji,
+		# plus a star for the saved level — both drawn by the same NotoEmoji
+		# font, so they stay inside the button instead of overflowing the cell.
 		var btn := Button.new()
 		btn.name = "Level%d" % (i + 1)
-		btn.text = str(i + 1)
-		btn.rect_min_size = Vector2(120, 120)
+		btn.text = _level_button_text(i, saved_idx, has_save)
+		btn.rect_min_size = Vector2(140, 130)
 		btn.theme = _button.theme
-		btn.set("custom_fonts/font", number_font)
+		btn.set("custom_fonts/font", level_font)
 		btn.connect("pressed", self, "_on_level_selected", [i])
-		cell.add_child(btn)
-		# ⭐ next to the number — only for the saved level and only when a save
-		# exists. Hidden Controls are skipped by HBoxContainer layout, so the
-		# other level buttons stay compact.
-		var star := Label.new()
-		star.name = "Star"
-		star.text = "⭐"
-		star.valign = Label.VALIGN_CENTER
-		star.set("custom_fonts/font", star_font)
-		star.visible = has_save and i == saved_idx
-		cell.add_child(star)
-		grid.add_child(cell)
+		grid.add_child(btn)
 
 	var back_btn := Button.new()
 	back_btn.name = "GridBackButton"
@@ -272,13 +263,35 @@ func _make_bookxel_font(size: int) -> DynamicFont:
 
 func _make_emoji_font(size: int) -> DynamicFont:
 	# NotoEmoji is the only bundled font that actually renders emoji glyphs
-	# (⭐, 💀) instead of empty "tofu" boxes.
+	# (star, skull) instead of empty "tofu" boxes.
 	var f := DynamicFont.new()
 	var data = load("res://assets/fonts/NotoEmoji-Regular.ttf")
 	if data is DynamicFontData:
 		f.font_data = data
 	f.size = size
 	return f
+
+
+# Text drawn on a level-select button: the level number as a keycap emoji, plus
+# a star for the saved level (only when a save exists). Both glyphs come from
+# the same NotoEmoji level_font, so they sit inside one button and never
+# overflow the cell.
+func _level_button_text(level_index: int, saved_idx: int, has_save: bool) -> String:
+	var text := _keycap(level_index + 1)
+	if has_save and level_index == saved_idx:
+		text += char(0x2B50) # U+2B50 star
+	return text
+
+
+# Map a single digit (0-9) to its keycap emoji: ASCII digit + U+FE0F
+# (VARIATION SELECTOR-16) + U+20E3 (COMBINING ENCLOSING KEYCAP). NotoEmoji is an
+# emoji-only font (a plain "1" renders as tofu), so the number MUST be sent as
+# this keycap sequence. Built from code points to keep the source ASCII-clean.
+# Out-of-range values fall back to a plain number string.
+func _keycap(digit: int) -> String:
+	if digit < 0 or digit > 9:
+		return str(digit)
+	return char(48 + digit) #char(48 + digit) + char(0xFE0F) + char(0x20E3)
 
 
 # --- Settings overlay ---------------------------------------------------------
