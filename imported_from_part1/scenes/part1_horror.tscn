@@ -60,9 +60,10 @@ transform = Transform( -4.37114e-08, 1, 0, -0.476458, -2.08266e-08, 0, 0, 0, 1, 
 [node name="SimpleCylinder" type="MeshInstance" parent="."]
 transform = Transform( 7.16173e-08, 2.05715, 0, -1, 1.64403e-07, 0, 0, 0, 1, 0, 0, 0 )
 cast_shadow = 2
+generate_lightmap = false
 lightmap_scale = 3
 mesh = ExtResource( 1 )
-software_skinning_transform_normals = false
+material/0 = ExtResource( 2 )
 
 [node name="SimpleCylinder2" type="MeshInstance" parent="."]
 transform = Transform( 2.7571e-08, 2.05715, 4.37101e-08, 0.00766191, 8.93501e-08, -0.999971, -0.999971, 7.44805e-08, -0.00766191, 1.31888e-06, -7.27691, 4.90188 )
@@ -70,6 +71,7 @@ cast_shadow = 2
 lightmap_scale = 3
 mesh = ExtResource( 1 )
 software_skinning_transform_normals = false
+material/0 = ExtResource( 2 )
 
 [node name="SimpleCylinder3" type="MeshInstance" parent="."]
 transform = Transform( 2.7571e-08, 2.05715, 4.37101e-08, 0.00766191, 8.93501e-08, -0.999971, -0.999971, 7.44805e-08, -0.00766191, 1.31759e-06, -7.24731, -4.89446 )
@@ -77,6 +79,7 @@ cast_shadow = 2
 lightmap_scale = 3
 mesh = ExtResource( 1 )
 software_skinning_transform_normals = false
+material/0 = ExtResource( 2 )
 
 [node name="cilinder-T" type="Spatial" parent="."]
 transform = Transform( 1.08224e-07, -2.05715, 0, 1, -7.69807e-08, 0, 0, 0, 1, -0.000133704, -4.91233, 0 )
@@ -176,6 +179,7 @@ cast_shadow = 2
 lightmap_scale = 3
 mesh = ExtResource( 1 )
 software_skinning_transform_normals = false
+material/0 = ExtResource( 2 )
 
 [node name="SimpleCylinder5" type="MeshInstance" parent="."]
 transform = Transform( 7.16173e-08, 2.05715, 0, -1, 1.64403e-07, 0, 0, 0, 1, 1.53108e-06, -12.1316, -12.1211 )
@@ -183,6 +187,7 @@ cast_shadow = 2
 lightmap_scale = 3
 mesh = ExtResource( 1 )
 software_skinning_transform_normals = false
+material/0 = ExtResource( 2 )
 
 [node name="SimpleCylinder6" type="MeshInstance" parent="."]
 transform = Transform( 7.16173e-08, 2.05715, 0, -1, 1.64403e-07, 0, 0, 0, 1, 1.75549e-06, -17.2655, -12.1211 )
@@ -190,6 +195,7 @@ cast_shadow = 2
 lightmap_scale = 3
 mesh = ExtResource( 1 )
 software_skinning_transform_normals = false
+material/0 = ExtResource( 2 )
 
 [node name="SimpleCylinder7" type="MeshInstance" parent="."]
 transform = Transform( 7.16173e-08, 2.05715, 0, -1, 1.64403e-07, 0, 0, 0, 1, 1.97952e-06, -22.3907, -12.1211 )
@@ -197,6 +203,7 @@ cast_shadow = 2
 lightmap_scale = 3
 mesh = ExtResource( 1 )
 software_skinning_transform_normals = false
+material/0 = ExtResource( 2 )
 
 [node name="CSGBox3" type="CSGBox" parent="."]
 transform = Transform( 7.54979e-08, 2.05715, 0, -1, 1.5531e-07, 0, 0, 0, 1, 9.47392e-07, 1.22174, -12.1145 )
