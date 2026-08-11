@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://themes/common_ui.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/ui/Inventory.gd" type="Script" id=2]
 [ext_resource path="res://scripts/ui/InventoryGrid.gd" type="Script" id=3]
 [ext_resource path="res://assets/fonts/bookxel-font-2x.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/fonts/noto-emoji.tres" type="DynamicFont" id=5]
 
 [sub_resource type="Theme" id=1]
 
@@ -103,6 +104,16 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 alignment = 1
 
+[node name="Button_LangToggle" type="Button" parent="HBoxContainer/VBoxContainer2"]
+margin_left = 154.0
+margin_right = 200.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 46, 46 )
+size_flags_horizontal = 4
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "🔣"
+
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2"]
 margin_top = 103.0
 margin_right = 354.0
@@ -113,17 +124,11 @@ custom_constants/shadow_offset_x = 2
 custom_constants/shadow_offset_y = 2
 custom_fonts/font = ExtResource( 4 )
 text = "WASD - перемещение
-WASD - movement
 Мышка - поворот камерой
-Mouse - rotate camera
 Е - поднять предмет/тащить
-E - pick up/interact/drag
 Пробел - прыжок, c - присесть
-Space - jump, c - crouch
 ЛКМ - удар ближний бой
-LMB - melee atack
-ПКМ - выстрел
-RMB - shoot"
+ПКМ - выстрел"
 align = 1
 valign = 1
 
