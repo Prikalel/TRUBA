@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/off-button-on-table-lamp.mp3-98e951c7b5704c104ba3686e310a8c3e.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/off-button-on-table-lamp.mp3"
+dest_files=[ "res://.import/off-button-on-table-lamp.mp3-98e951c7b5704c104ba3686e310a8c3e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
