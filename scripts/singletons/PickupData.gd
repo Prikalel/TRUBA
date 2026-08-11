@@ -7,14 +7,14 @@ extends Node
 # The (tiny) tables are embedded directly here so there is zero file I/O (synchronous
 # File reads on res:// are not reliable for non-resource text files in the HTML5 export).
 #
-# pickups columns: id | class | icon | world_scene
+# pickups columns: id | class | icon | world_scene | display_name (для UI-подсказки)
 const _PICKUP_ROWS := [
-	["0", "0", "res://assets/textures/ui/slot_icons/frying_pan.png", "scene_path"],
-	["1", "0", "res://assets/textures/T_axe_icon.png", "scene_path"],
-	["2", "4", "res://assets/textures/ui/slot_icons/key_icon.png", "scene_path"],
-	["3", "5", "res://assets/textures/ui/pistol_icon.png", "scene_path"],
+	["0", "0", "res://assets/textures/ui/slot_icons/frying_pan.png", "scene_path", "сковородка"],
+	["1", "0", "res://assets/textures/T_axe_icon.png", "scene_path", "топор"],
+	["2", "4", "res://assets/textures/ui/slot_icons/key_icon.png", "scene_path", "ключи"],
+	["3", "5", "res://assets/textures/ui/pistol_icon.png", "scene_path", "пистолет"],
 	# Dead rat looted off a killed Rat -> FOOD class -> second inventory row.
-	["4", "1", "res://assets/textures/ui/mouse_icon.png", "scene_path"],
+	["4", "1", "res://assets/textures/ui/mouse_icon.png", "scene_path", "мышь"],
 ]
 # weapons columns: id | hand_scene
 const _WEAPON_ROWS := [
@@ -33,9 +33,9 @@ func _ready():
 func _load_pickups() -> void:
 	_pickups = []
 	for row in _PICKUP_ROWS:
-		if row.size() == 4:
-			# id | класс | иконка | сцена для внешнего мира при выкидывании
-			var pickup: PickupObj = PickupObj.new(row[0], row[1], row[2], row[3])
+		if row.size() == 5:
+			# id | класс | иконка | сцена для внешнего мира при выкидывании | название для подсказки
+			var pickup: PickupObj = PickupObj.new(row[0], row[1], row[2], row[3], row[4])
 			_pickups.push_back(pickup)
 		else:
 			push_error("Incorrect number of columns in pickup row: " + str(row.size()))
@@ -73,7 +73,7 @@ func make_instance(id: int) -> PickupObj:
 	var registry_obj = get_by_id(id)
 	if registry_obj == null:
 		return null
-	return PickupObj.new(registry_obj.id, registry_obj.pickup_class, registry_obj.icon, registry_obj.dispose_scene)
+	return PickupObj.new(registry_obj.id, registry_obj.pickup_class, registry_obj.icon, registry_obj.dispose_scene, registry_obj.display_name)
 
 ## Возвращает информацию о оружии по id предмета
 func weapon_by_id(id: int) -> WeaponObj:

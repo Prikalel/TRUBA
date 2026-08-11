@@ -9,9 +9,15 @@ var id: int = -1
 var pickup_class: int = -1
 var icon: String = "<none>"
 var dispose_scene: String = "<none>"
+# Человеко-читаемое название предмета для UI-подсказки (PickupHint), например
+# "сковородка" / "топор". Берётся из новой 5-й колонки PickupData._PICKUP_ROWS.
+var display_name: String = "<unnamed>"
 
-func _init(id_param, pickup_class_param, icon_param, dispose_scene_param):
+# display_name_param имеет значение по умолчанию, чтобы старые вызовы с 4
+# аргументами не сломались; реальное имя всегда передаётся из PickupData.
+func _init(id_param, pickup_class_param, icon_param, dispose_scene_param, display_name_param = "<unnamed>"):
 	self.id = id_param
 	self.pickup_class = pickup_class_param
 	self.icon = icon_param
 	self.dispose_scene = dispose_scene_param
+	self.display_name = display_name_param

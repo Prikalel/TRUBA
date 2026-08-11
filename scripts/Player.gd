@@ -14,6 +14,10 @@ const HTARGET_WHILE_FALLING_DEACCEL = 3
 const PITCH_LIMIT = 70
 # Maximum reach (metres) of the RMB pistol hitscan ray cast from the camera.
 const HITSCAN_RANGE = 100.0
+# Bottom-left "hold E + move" hint shown while a drag-able prop is in range or is
+# being carried. Rendered by PickupHint.show_message (the same box as the pickup
+# hint, just without the icon).
+const DRAG_HINT_TEXT := "зажмите E и двигайтесь на WASD"
 
 # DOWNGRADE NOTE: Godot 3.x KinematicBody has no built-in velocity member and
 # move_and_slide() requires velocity as an argument, so it is stored here.
@@ -43,6 +47,13 @@ var inventory: Inventory
 # Center-screen interaction cursor for drag-able props (see InteractionCursor.gd).
 # Shown when a draggable is in range ("you can grab") or while it is carried.
 var interaction_cursor: Control = null
+# Bottom-left "press E to pick up <item>" hint (PickupHint.gd); built in _ready().
+var _pickup_hint: Control = null
+# First lootable pickup currently overlapping the DragArea, recorded by
+# _update_prompts and consumed by _update_pickup_hint. Kept here so the hint stays
+# in sync (and hides) even while the inventory/pause menu is open, without
+# re-scanning the area a second time every frame.
+var _pickup_in_range: PickupBase = null
 # Pre-placed pistol view-model; hidden until a firearm is picked up.
 var pistol_mesh: Spatial = null
 # Eat sound played when a FOOD item is consumed from the inventory; created in
@@ -130,6 +141,11 @@ func _ready():
 	_food_sound.name = "FoodSound"
 	_food_sound.stream = load("res://assets/sounds/player/food.mp3")
 	add_child(_food_sound)
+	# Bottom-left "нажмите E чтобы подобрать <предмет>" hint (PickupHint.gd). Built
+	# in code (like the hearts HUD) instead of hand-editing the Player scene file.
+	_pickup_hint = preload("res://scripts/PickupHint.gd").new()
+	_pickup_hint.name = "PickupHint"
+	add_child(_pickup_hint)
 
 # Reacts to weapon-in-hand changes. The Arm handles spawnable melee weapon scenes;
 # the Player handles pre-placed view-models such as the pistol, shown on pickup.
@@ -149,6 +165,7 @@ func _physics_process(delta):
 	# Runs every frame (even with the inventory open) so the cursor is removed the
 	# instant the menu appears instead of lingering on screen.
 	_update_cursor()
+	_update_pickup_hint()
 	process_movement(delta)
 	arm.shake(velocity)
 
@@ -282,8 +299,12 @@ func _update_prompts() -> void:
 			if is_instance_valid(owner):
 				owner.hide_text()
 		_prompted.clear()
+		# Nothing is lootable while something is being carried.
+		_pickup_in_range = null
 		return
 	var still_overlapping: Dictionary = {}
+	# Re-scanned every poll, so a pickup that left range stops driving the hint.
+	_pickup_in_range = null
 	for body in drag_area.get_overlapping_bodies():
 		var owner = _get_prompt_owner(body)
 		if owner == null:
@@ -292,11 +313,49 @@ func _update_prompts() -> void:
 		if not _prompted.has(owner):
 			owner.show_text(self)
 			_prompted[owner] = true
+		# Remember the first lootable pickup in range for the bottom-left hint.
+		# Draggable props also satisfy _get_prompt_owner but have no display name,
+		# so only true PickupBase instances feed the hint. Hidden pickups (e.g. ones
+		# not yet revealed) are skipped - an invisible item must NOT pop the hint.
+		# is_visible_in_tree() also covers a pickup whose ancestor was hidden.
+		if _pickup_in_range == null and owner is PickupBase and owner.can_be_picked_up() and owner.is_visible_in_tree():
+			_pickup_in_range = owner
 	for owner in _prompted.keys():
 		if not still_overlapping.has(owner):
 			if is_instance_valid(owner):
 				owner.hide_text()
 			_prompted.erase(owner)
+
+# Drives the bottom-left hint (PickupHint). Runs every physics frame (unlike
+# _update_prompts, which is skipped while the inventory/pause menu is open) so the
+# hint disappears the instant the menu opens and never lingers on screen.
+#
+# Two contents share the same box, in priority order:
+#   1. A lootable + visible pickup in range -> "нажмите E чтобы подобрать <имя>"
+#      (icon + name). Priority matches the E-press: pressing E grabs a pickup
+#      before starting a drag.
+#   2. A drag-able prop in range / being carried -> "зажмите E и двигайтесь на WASD".
+# _pickup_in_range is recorded by _update_prompts (it is null while dragging).
+func _update_pickup_hint() -> void:
+	if _pickup_hint == null:
+		return
+	# Hide while the inventory/pause menu is open.
+	if not _player_not_in_inventory():
+		_pickup_hint.hide_hint()
+		return
+	# 1) Pickup hint - only for a VISIBLE pickup (hidden ones must not show).
+	if _pickup_in_range != null and is_instance_valid(_pickup_in_range) and _pickup_in_range.is_visible_in_tree():
+		var pickup_obj = PickupData.get_by_id(_pickup_in_range.pickup_id)
+		_pickup_hint.show_hint(pickup_obj)
+		return
+	# 2) Drag hint: a drag-able prop is in range, OR one is currently carried.
+	# current_dragging_object is checked too because a carried object's collision
+	# is zeroed (see _disable_drag_collision), so _has_draggable_in_range() cannot
+	# see it while it is held.
+	if _has_draggable_in_range() or current_dragging_object != null:
+		_pickup_hint.show_message(DRAG_HINT_TEXT)
+		return
+	_pickup_hint.hide_hint()
 
 # Returns true when ANY body currently overlapping the DragArea is flagged as
 # drag-able (meta "draggable" == true). This is the "player is looking at
