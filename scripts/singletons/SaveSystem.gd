@@ -6,6 +6,11 @@
 #
 # Storage strategy (HTML5 export target):
 #   * Primary — browser localStorage (survives tab close/reopen).
+#   * Optional mirror — VK Storage via vkBridge, when the game runs inside VK
+#     (VK Mini Apps rules §2/3/8). Handled by app.js loaded from index.html;
+#     on save conflicts the VK-side copy is authoritative. When vkBridge is
+#     NOT available (direct URL open), every trubaVk* call below is a no-op
+#     and the flow is exactly the original localStorage-only behaviour.
 #   * Fallback — user://truba_save.json for desktop/editor runs.
 #
 # The JavaScript engine singleton only exists in HTML5 builds, so it is looked
@@ -16,9 +21,15 @@
 extends Node
 
 # localStorage key / fallback file name version. Bump if the save format changes.
+# Must stay in sync with STORAGE_KEY in app.js.
 const KEY := "truba_save_v1"
 # Desktop-only fallback file. Unused on the web (localStorage is used instead).
 const DESKTOP_FILE := "user://truba_save.json"
+# Sentinel returned by window.trubaVkGetSave() (app.js) while the VK Storage
+# fetch at page load is still in flight. JS null/undefined both arrive here as
+# null, so app.js uses a string sentinel to tell "not fetched yet" apart from
+# "fetched: no save on the VK side".
+const _VK_PENDING := "__TRUBA_VK_PENDING__"
 
 
 # --- Public API ---------------------------------------------------------------
@@ -29,7 +40,10 @@ func save_level(scene_resource_path: String) -> void:
 	var text := to_json(data)
 	if _is_web() and Engine.has_singleton("JavaScript"):
 		var js := Engine.get_singleton("JavaScript")
+		# Baseline write, exactly as before — works with or without vkBridge.
 		js.eval("localStorage.setItem('%s', '%s')" % [KEY, _js_escape(text)], true)
+		# Optional async mirror into VK Storage (no-op without vkBridge / app.js).
+		js.eval("typeof window.trubaVkPushSave === 'function' && window.trubaVkPushSave('%s')" % _js_escape(text), true)
 	else:
 		var f := File.new()
 		if f.open(DESKTOP_FILE, File.WRITE) == OK:
@@ -46,6 +60,13 @@ func get_saved_level() -> String:
 		# localStorage.getItem returns the stored string or JS null.
 		if typeof(raw) == TYPE_STRING:
 			text = raw
+		# Optional VK Storage override — VK wins on conflicts. app.js normally
+		# mirrors the VK copy into localStorage at page load already; re-reading
+		# the cache here covers the (theoretical) case of the game booting
+		# before that sync finished. PENDING => fall back to localStorage.
+		var vk_raw = js.eval("typeof window.trubaVkGetSave === 'function' ? window.trubaVkGetSave() : null", true)
+		if typeof(vk_raw) == TYPE_STRING and vk_raw != _VK_PENDING and vk_raw != "":
+			text = vk_raw
 	else:
 		var f := File.new()
 		if f.open(DESKTOP_FILE, File.READ) == OK:
@@ -70,6 +91,8 @@ func clear_save() -> void:
 	if _is_web() and Engine.has_singleton("JavaScript"):
 		var js := Engine.get_singleton("JavaScript")
 		js.eval("localStorage.removeItem('%s')" % KEY, true)
+		# Also wipe the VK-side copy when the integration is active.
+		js.eval("typeof window.trubaVkClearSave === 'function' && window.trubaVkClearSave()", true)
 	else:
 		var f := File.new()
 		if f.open(DESKTOP_FILE, File.WRITE) == OK:
